@@ -15,12 +15,36 @@
 <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
 
     <script>
-        // Render the PayPal button into #paypal-button-container
+      
+       
+
         paypal.Buttons({
             style: {
                 layout: 'horizontal'
-            }
-        }).render('#paypal-button-container');
+            },
+        // Set up the transaction
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '88.44'
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                // Show a success message to the buyer
+                alert('Transaction completed by ' + details.payer.name.given_name + '!');
+            });
+        }
+
+        //prueba rama dev
+}).render('#paypal-button-container');
+</script>
+
     </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
