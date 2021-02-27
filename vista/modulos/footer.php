@@ -15,9 +15,6 @@
 <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
 
     <script>
-      
-       
-
         paypal.Buttons({
             style: {
                 layout: 'horizontal'
