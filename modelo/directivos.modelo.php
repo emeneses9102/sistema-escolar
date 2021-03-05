@@ -43,7 +43,7 @@ class ModeloDirectivo{
     static public function mdlIngresarDirectivo($tabla,$datos){
         //validamos usuario
         $consultaID = Conexion::conectar()->prepare('SELECT * FROM usuario WHERE dni = ? OR usuario = ? ');
-        $consultaID->execute([$datos['nombre'], $datos['apellidos']]);
+        $consultaID->execute([$datos['dni'], $datos['usuario']]);
         $result= $consultaID->fetch(PDO::FETCH_OBJ);
         if($result > 0){
             return 'repet';

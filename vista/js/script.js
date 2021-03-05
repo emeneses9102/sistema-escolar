@@ -343,4 +343,69 @@ function listarProf(id){
         }
     });
 }
+/***********SCRIPT PARA IMAGEN DE VOUCHER********** */
+
+function abrir(id) {
+    var file = document.getElementById(id);
+    file.dispatchEvent(new MouseEvent('click', {
+        view: window,
+        bubbles: true,
+        cancelable: true
+    }));
+  }
+  
+  function contar(elem, idGlosa) {
+    var glosa = document.getElementById(idGlosa);
+    glosa.innerText = "0 imágenes";
+  
+    if(elem.files.length == 0) {
+        glosa.innerText = "0 imágenes";
+    } else {
+        glosa.innerText = elem.files.length + "";
+    }
+  }
+  /*
+ let fileArray = [];
+ let listaArchivos = $("#listaArchivos")[0];
+ 
+  function clearFile(ev,idGlosa){
+    const parent = ev.currentTarget.parentElement;
+
+    const index = parseInt(parent.id.split("_")[0]);
+    fileArray.splice(index, 1);
+
+    listaArchivos.removeChild(parent);
+
+    var glosa = document.getElementById(idGlosa);
+    glosa.innerText = fileArray.length+"";
+}
+function addFiles(ev, idGlosa){
+
+    const fileList = ev.currentTarget.files;
+    
+    for(let file of fileList){
+        fileArray.push(file);
+
+        const newFile = document.createElement("li");
+        const text = document.createTextNode(file.name);
+        
+        newFile.id = `file_${fileArray.length - 1}`;
+        newFile.appendChild(text);
+
+        const clearBtn = document.createElement("input");
+        clearBtn.style.marginLeft = "20px";
+        clearBtn.style.width = "20px";
+        clearBtn.type = "button";
+        clearBtn.value = "x";
+        clearBtn.onclick = ev => clearFile(ev,idGlosa);
+
+        newFile.appendChild(clearBtn);
+        listaArchivos.appendChild(newFile);
+    }
+    var glosa = document.getElementById(idGlosa);
+        glosa.innerText = fileArray.length+"";
+}*/
+function resetearFormPago(){
+$("#MailPagoPendiente")[0].reset();
+}
 

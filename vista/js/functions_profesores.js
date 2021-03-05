@@ -134,6 +134,7 @@ function closeModalProfesor(){
     $('#DatosProfesor').hide();
     $('#EditDatosProfesor').hide();
     $('#listProfesor').show();
+    $('#formProfesor').removeClass("was-validated");
     document.querySelector("#formProfesor").reset();
 }
 
@@ -242,7 +243,7 @@ $('.nuevaFoto').change(function(){
     {
         $(".nuevaFoto").val("");
         swal.fire({
-            type:"error",
+            icon:"error",
             title : "Error al subir la imagen",
             text: "La imagen debe estar en formato PNG o JPG",
             confirmButtonText: "Cerrar",
@@ -250,7 +251,7 @@ $('.nuevaFoto').change(function(){
     }else if(imagen['size'] > 2000000){
         $(".nuevaFoto").val("");
         swal.fire({
-            type:"error",
+            icon:"error",
             title : "Error al subir la imagen",
             text: "La imagen no debe pesar mas de 2MB",
             confirmButtonText: "Cerrar",

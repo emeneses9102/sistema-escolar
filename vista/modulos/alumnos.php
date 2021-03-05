@@ -67,7 +67,7 @@
 <div class="tab-pane" id="DatosAlumno">
   <div class="tile user-settings">
     <h4 class="line-head">Datos del Alumno</h4>
-    <form id="formAlumno" name="formAlumno"method="post" enctype="multipart/form-data" rol="form" >
+    <form id="formAlumno" name="formAlumno"method="post" enctype="multipart/form-data" rol="form"class="needs-validation" novalidate>
       
       <div class="form-group row mb-1">
         
@@ -85,7 +85,7 @@
         </div>
         <div class="col-md-3 text-center">
           <img src="vista/images/user_default.png" id="imgPerfil" alt="" class="img-thumbnail p-2 previsualizar" width="100px">
-          <input type="text" name="fotoActual" id="fotoActual" hidden>
+          <input type="text" name="fotoActual" id="fotoActual" hidden >
         </div>
       </div>
       <div class="form-group row">
@@ -107,7 +107,7 @@
             <div class="form-group col-md-6">
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mobile" aria-hidden="true"></i></span></div>
-                <input type="phone" class="form-control" name="celular" id="celular" placeholder="Celular">
+                <input type="phone" class="form-control" name="celular" id="celular" placeholder="Celular" required>
               </div>
             </div>
           </div>
@@ -117,11 +117,11 @@
       <div class="form-group row">
         <div class="col-md-3">
           <label for="">Datos:</label>
-          <input type="text" class="form-control" name="dni" id="dni" placeholder="DNI">
+          <input type="text" class="form-control" name="dni" id="dni" placeholder="DNI" required>
         </div>
         <div class="col-md-3">
           <label for="dateAlumno">Fecha de nacimiento:</label>
-          <input class="form-control" id="dateAlumno" type="date" name="dateAlumno" placeholder="Seleccionar fecha">
+          <input class="form-control" id="dateAlumno" type="date" name="dateAlumno" placeholder="Seleccionar fecha" required>
         </div>
         <div class="col-md-3">
           <label for="listEstado">Nacionalidad:</label>
@@ -138,11 +138,11 @@
         
         <div class="col-md-3">
           <label for="">Usuario:</label>
-          <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Usuario" >
+          <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Usuario" required>
         </div>
         <div class="col-md-3">
           <label for="">Contraseña:</label>
-          <input type="password" class="form-control" name="clave" id="clave" placeholder="Contraseña">
+          <input type="password" class="form-control" name="clave" id="clave" placeholder="Contraseña"required>
           <input type="password" class="form-control" name="claveActual" id="claveActual" hidden>
         </div>
         <div class="col-md-3">
@@ -170,6 +170,7 @@
       <div class="tile-title-w-btn line-head">
         <h4 class="">Datos del Apoderado</h4>
         <div class="btn-group">
+          <a class="btn btn-primary mr-1 text-white" data-toggle="modal" data-target="#BuscarApoderado"><i class="fas fa-search" aria-hidden="true"></i></a>
           <a class="btn btn-warning text-white"><i class="fa fa-plus" aria-hidden="true"></i></a>
         </div>
       </div>
@@ -177,10 +178,10 @@
       <div class="form-group row">
         <div class="col-md-12"><label for="">Nombres y apellidos del apoderado :</label></div>
         <div class="col-md-6">
-          <input type="text" class="form-control" name="nombre-ap" id="nombre-ap" placeholder="Nombres" value="">
+          <input type="text" class="form-control" name="nombre-ap" id="nombre-ap" placeholder="Nombres" value=""required>
         </div>
         <div class="col-md-6">
-          <input type="text" class="form-control" name="apellidos-ap" id="apellidos-ap" placeholder="Apellidos" value="">
+          <input type="text" class="form-control" name="apellidos-ap" id="apellidos-ap" placeholder="Apellidos" value=""required>
         </div>
       </div>
       <div class="form-group row">
@@ -195,7 +196,7 @@
             <div class="col-md-6">
               <label for="">Número de contacto:</label>
               <div class="input-group">
-                <input type="phone" class="form-control" name="telefono-ap" id="telefono-ap" placeholder="Número de contacto" value="">
+                <input type="phone" class="form-control" name="telefono-ap" id="telefono-ap" placeholder="Número de contacto"required  value="">
               </div>
             </div>
             <div class="col-md-6">
@@ -211,13 +212,13 @@
         <div class="col-md-4">
           <label for="">Tipo de relación:</label>
           <div class="input-group">
-            <input type="text" class="form-control" name="tipo-ap" id="tipo-ap" placeholder="Tipo" value="">
+            <input type="text" class="form-control" name="tipo-ap" id="tipo-ap" placeholder="Tipo" value=""required>
           </div>
         </div>
         <div class="col-md-4">
           <label for="">Documento de identidad:</label>
           <div class="input-group">
-            <input type="text" class="form-control" name="dni-ap" id="dni-ap" placeholder="Documento" value="">
+            <input type="text" class="form-control" name="dni-ap" id="dni-ap" placeholder="Documento" value=""required>
           </div>
         </div>
         <div class="col-md-4">
@@ -230,7 +231,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" onclick="closeModalAlumnos()" data-dismiss="modal">Cerrar</button>
-        <button type="submit" id="action" class="btn btn-primary btnGuardar">Guardar</button>
+        <button type="submit" id="action" class="btn btn-primary btnGuardar" >Guardar</button>
         
       </div>
 
@@ -420,5 +421,67 @@
         $editarAlumno->ctrEditarAlumnos();
       ?>
     </form>
+  </div>
+</div>
+<!--MODAL BUSCAR APODERADO-->
+<div class="modal fade" id="BuscarApoderado" tabindex="-1" aria-labelledby="BuscarApoderadoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="BuscarApoderadoLabel">Buscar Apoderado</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered  m-auto" id="BuscaApoderado">
+            <thead>
+              <tr>
+                <th>Acciones</th>
+                <th>DNI</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Relación</th>
+                <th>Teléfono</th>
+                <th hidden>direccion</th>
+                <th hidden>correo</th>
+                <th hidden>ocupacion</th>
+                
+              </tr>
+            </thead>
+            <tbody class="text-center">
+            <?php
+              $item = null;
+              $valor = null;
+              $apoderado = ControladorApoderado::ctrMostrarApoderado($item,$valor);
+              foreach($apoderado as $value){
+
+                    echo'<tr>
+                            
+                          <td><button class="btn btn-primary btn-sm mt-1" title="Agregar" name="'.$value["id_apoderado"].'" id="Bus_Aporado"><i class="fas fa-user-edit"></i></button>
+                          </td> 
+                          <td>'.$value["dni_apoderado"].'</td>
+                          <td>'.$value["nombres_apoderado"].'</td>
+                          <td>'.$value['apellidos_apoderado'].'</td>
+                          <td>'.$value['tipo_apoderado'].'</td>
+                          <td>'.$value['telefono_apoderado'].'</td>
+                          <td hidden>'.$value['direccion_apoderado'].'</td>
+                          <td hidden>'.$value['correo_apoderado'].'</td>
+                          <td hidden>'.$value['ocupacion_apoderado'].'</td>
+                        </tr>
+                    ';
+              }
+            ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        
+      </div>
+    </div>
   </div>
 </div>

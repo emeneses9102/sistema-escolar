@@ -49,10 +49,10 @@
           <li><a class="treeview-item pt-3 <?php echo ($_GET['ruta'] == "competencias") ? "active" : "" ?>" href="competencias"><i class="fas fa-book-open mr-1"></i></i>Competencias</a></li>
         </ul>
       </li>
-      <li class="treeview <?php echo ($_GET['ruta'] == "pagosPendientes" ||$_GET['ruta'] =="configuracionCobros" ||$_GET['ruta'] =="listaDeuda")?"is-expanded":"" ?>">
+      <li class="treeview <?php echo ($_GET['ruta'] == "registrarPago" ||$_GET['ruta'] =="configuracionCobros" ||$_GET['ruta'] =="listaDeuda")?"is-expanded":"" ?>">
           <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fas fa-money-check-alt"></i><span class="app-menu__label">Tesorería</span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu ml-2">
-              <li><a class="treeview-item pt-2 <?php echo ($_GET['ruta']=="pagosPendientes")?"active":"" ?>" href="pagosPendientes"><i class="fas fa-file-invoice-dollar mr-1"></i></i>Pagos pendientes - Alumnos</a></li>
+              <li><a class="treeview-item pt-2 <?php echo ($_GET['ruta']=="registrarPago")?"active":"" ?>" href="registrarPago"><i class="fas fa-file-invoice-dollar mr-1"></i></i>Registrar Pagos</a></li>
               <li><a class="treeview-item pt-2 <?php echo ($_GET['ruta']=="listaDeuda")?"active":"" ?>" href="listaDeuda"><i class="fas fa-file-invoice-dollar mr-1"></i></i>Pagos pendientes - Directivo</a></li>
               <li><a class="treeview-item pt-2 a_cobros<?php echo ($_GET['ruta']=="configuracionCobros")?"active":"" ?>" href="configuracionCobros"><i class="fas fa-school mr-1"></i>Configuración de cobros</a></li>
             </ul>

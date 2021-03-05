@@ -28,6 +28,7 @@ if(isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok")
 					$_GET['ruta'] == "correo" ||
 					$_GET['ruta'] == "configuracionCobros" ||
 					$_GET['ruta'] == "pagosPendientes" ||
+					$_GET['ruta'] == "registrarPago" ||
 					$_GET['ruta'] == "listaDeuda" ||
 					$_GET['ruta'] == "competencias"||
 					$_GET['ruta'] == "confInstitucion"){

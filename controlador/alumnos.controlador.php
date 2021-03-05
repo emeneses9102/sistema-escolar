@@ -45,6 +45,7 @@ class ControladorAlumnos{
         if(isset($_POST['usuario'])){
             
             if(preg_match('/^[a-zA-Z0-9\sñÑáéíóúÁÉÍÓÚ]+$/',$_POST['nombre']) &&
+            preg_match('/^[a-zA-Z0-9\sñÑáéíóúÁÉÍÓÚ]+$/',$_POST['apellidos'])&&
             preg_match('/^[a-zA-Z0-9]+$/',$_POST['usuario']) && 
             preg_match('/^[a-zA-Z0-9]+$/',$_POST['clave'])){
                 $ruta="";
@@ -122,10 +123,59 @@ class ControladorAlumnos{
                 }
 
                 $respuesta = ModeloAlumnos :: mdlIngresarAlumnos($tabla,$datos,$datos_apoderado);
-                var_dump($respuesta);
+                //var_dump($respuesta);
                 
 
-                
+                if($respuesta == "ok"){
+                    echo '<script>
+                    swal.fire({
+                        type:"success",
+                        title : "El usuario ha sido registrado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar",
+                        closeOnConfirm: false
+                    }).then((result)=>{
+                        if(result.value){
+                            window.location = "alumnos";
+                        }
+                    })
+    
+                    </script>';
+                }
+                else{
+                    if($respuesta == "repet"){
+                        echo '<script>
+                        swal.fire({
+                            type:"error",
+                            title : "El alumno ya existe",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false
+                        }).then((result)=>{
+                            if(result.value){
+                                window.location = "alumnos";
+                            }
+                        })
+        
+                        </script>';
+                    }else{
+                        echo '<script>
+                        swal.fire({
+                            type:"error",
+                            title : "El usuario no se registró",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false
+                        }).then((result)=>{
+                            if(result.value){
+                                window.location = "alumnos";
+                            }
+                        })
+        
+                        </script>';
+                    }
+                    
+                }
             }
             
             else{
@@ -322,5 +372,6 @@ class ControladorAlumnos{
             }
          }
      }
+
 
 }

@@ -72,5 +72,7 @@
     <script src="vista/js/functions_matricula.js"></script>
     <script src="vista/js/functions_listaDeuda.js"></script>
     <script src="vista/js/functions_deudores.js"></script>
+    <script src="vista/js/functions_apoderado.js"></script>
+    <script src="vista/js/functions_registrarPago.js"></script>
   </body>
 </html>
