@@ -37,3 +37,4 @@ require_once 'modelo/apoderado.modelo.php';
 require_once 'modelo/registrarPago.modelo.php';
 $plantilla = new ControladorPlantilla();
 $plantilla->ctrPlantilla();
+//comentario
