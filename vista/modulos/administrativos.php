@@ -65,7 +65,7 @@
 <div class="tab-pane" id="DatosAdm">
   <div class="tile user-settings">
     <h4 class="line-head">Datos del Administrativo</h4>
-    <form id="formAdm" name="formAdm"method="post" enctype="multipart/form-data" rol="form" >
+    <form id="formAdm" name="formAdm"method="post" enctype="multipart/form-data" rol="form" class="needs-validation" novalidate >
       
       <div class="form-group row mb-1">
         
@@ -105,7 +105,7 @@
             <div class="col-md-6">
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mobile" aria-hidden="true"></i></span></div>
-                <input type="phone" class="form-control" name="celular" id="celular" placeholder="Celular">
+                <input type="phone" class="form-control" name="celular" id="celular" placeholder="Celular" required>
               </div>
             </div>
           </div>
@@ -115,15 +115,15 @@
       <div class="form-group row">
         <div class="col-md-3">
           <label for="">Datos:</label>
-          <input type="text" class="form-control" name="dni" id="dni" placeholder="DNI">
+          <input type="text" class="form-control" name="dni" id="dni" placeholder="DNI" required>
         </div>
         <div class="col-md-3">
           <label for="listEstado">Fecha de nacimiento:</label>
-          <input class="form-control" id="date" type="date" name="date" placeholder="Seleccionar fecha">
+          <input class="form-control" id="date" type="date" name="date" placeholder="Seleccionar fecha" required>
         </div>
         <div class="col-md-3">
           <label for="listEstado">Nacionalidad:</label>
-          <input type="text" class="form-control" name="nacionalidad" id="nacionalidad" placeholder="Nacionalidad">
+          <input type="text" class="form-control" name="nacionalidad" id="nacionalidad" placeholder="Nacionalidad" >
         </div>
         <div class="col-md-3">
           <label for="listEstado">Correo:</label>
@@ -136,11 +136,11 @@
         
         <div class="col-md-3">
           <label for="">Usuario:</label>
-          <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Usuario">
+          <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Usuario" required>
         </div>
         <div class="col-md-3">
           <label for="">Contraseña:</label>
-          <input type="password" class="form-control" name="clave" id="clave" placeholder="Contraseña">
+          <input type="password" class="form-control" name="clave" id="clave" placeholder="Contraseña" required>
           <input type="password" class="form-control" name="claveActual" id="claveActual" hidden>
         </div>
         <div class="col-md-3">

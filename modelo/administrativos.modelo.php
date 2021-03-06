@@ -42,7 +42,7 @@ class ModeloAdm{
     static public function mdlIngresarAdm($tabla,$datos){
         //validamos usuario
         $consultaID = Conexion::conectar()->prepare('SELECT * FROM usuario WHERE dni = ? OR usuario = ? ');
-        $consultaID->execute([$datos['nombre'], $datos['apellidos']]);
+        $consultaID->execute([$datos['dni'], $datos['usaurio']]);
         $result= $consultaID->fetch(PDO::FETCH_OBJ);
         if($result > 0){
             return 'repet';

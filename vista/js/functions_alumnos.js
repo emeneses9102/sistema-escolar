@@ -1,3 +1,6 @@
+
+
+
 $('#tablealumnos').DataTable();
 
 var tableusuarios;
@@ -137,7 +140,10 @@ function closeModalAlumnos(){
     $('#DatosAlumno').hide();
     $('#EditDatosAlumno').hide();
     $('#listAlumno').show();
+    $('#formAlumno').removeClass("was-validated");
     document.querySelector("#formAlumno").reset();
+    
+
 }
 
 function openModalEditarAlumno()
@@ -275,3 +281,4 @@ $('.nuevaFoto').change(function(){
     }
 
 })
+

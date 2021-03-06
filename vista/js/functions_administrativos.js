@@ -134,6 +134,7 @@ function closeModalAdm(){
     $('#DatosAdm').hide();
     $('#EditDatosAdm').hide();
     $('#listAdm').show();
+    $('#formAdm').removeClass("was-validated");
     document.querySelector("#formAdm").reset();
 }
 

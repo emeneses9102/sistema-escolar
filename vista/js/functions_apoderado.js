@@ -1,9 +1,10 @@
-$('#matriculaAlumnos').DataTable();
+
+$('#BuscaApoderado').DataTable();
 
 var tableusuarios;
 
 document.addEventListener('DOMContentLoaded',function(){
-    tableusuarios = $('#matriculaAlumnos').DataTable({
+    tableusuarios = $('#BuscaApoderado').DataTable({
         "aProcessing": true,
         "aServerSide": true,
         "language": {
@@ -74,95 +75,27 @@ document.addEventListener('DOMContentLoaded',function(){
         }
     }*/
 });
-
-$('#matriculaAlumnos').on('click', '#Mat_Alumno', function(e) {
+$('#BuscaApoderado').on('click', '#Bus_Aporado', function(e) {
 	let id=$(this).attr("name");
     var valores = new Array();
     i=0;
-    $(".matID_Alumno").remove();
+    $(".buscID_Apoderado").remove();
     $(this).parents("tr").find("td").each(function(){
        valores[i] =$(this).html();
         i++;
     });
-    $("#matricula_nombre").val(valores[2]);
-    $("#matricula_apellidos").val(valores[3]); 
-    $("#matricula_codAlumno").val(valores[1]);
-    var apoderado = (valores[5]=="-")?"Sin apoderado":valores[5];
-    $("#matricula_apoderado").val(apoderado);
-    $("#matricula_nombre").removeClass("is-invalid");
+    $("#dni-ap").val(valores[1]);
+    $("#nombre-ap").val(valores[2]);
+    $("#apellidos-ap").val(valores[3]);
+    $("#tipo-ap").val(valores[4]);
+    $("#telefono-ap").val(valores[5]);
+    $("#telefono-ap").val(valores[6]);
+    $("#correo-ap").val(valores[7]);
+    $("#ocupacion-ap").val(valores[8]);
 
-    $("#form-matricula").append('<input value="'+id+'" class="matID_Alumno" hidden>');
-    $("#mBuscarAlumno").modal('hide');
+
+
+    $("#formAlumno").append('<input value="'+id+'" class="buscID_Apoderado" hidden>');
+    $("#BuscarApoderado").modal('hide');
          
 });
-$("#btnRegistrarMat").click(function (e) { 
-    e.preventDefault();
-    
-    if($("#nivel").val() ==""){
-        $("#nivel").addClass("is-invalid");
-        return
-    }
-    if($("#grado").val() ==""){
-        $("#grado").addClass("is-invalid");
-        return
-    }
-    if($("#seccion").val() ==""){
-        $("#seccion").addClass("is-invalid");
-        
-    }
-    if($("#matricula_nombre").val()==""){
-        $("#matricula_nombre").addClass("is-invalid");
-        return
-    }
-
-    var matCod_Alumno=$("#matricula_codAlumno").val();
-    var matID_Alumno=$(".matID_Alumno").val();
-    var matidSeccion = seccion.options[seccion.selectedIndex].value;
-    var matidNivel = nivel.options[nivel.selectedIndex].value;
-    alert(matCod_Alumno+" "+matID_Alumno+" "+matidSeccion);
-    $.ajax({
-        url	    : 'ajax/matricula.ajax.php',
-        type    : 'POST',
-        data    : {matCod_Alumno : matCod_Alumno,
-                    matID_Alumno:matID_Alumno,
-                    matidSeccion:matidSeccion,
-                    matidNivel:matidNivel},
-        success: function(data){
-            if(data == "ok"){
-                swal.fire({
-                    icon:"success",
-                    title : "Alumno matriculado",
-                    showConfirmButton: true,
-                    confirmButtonText: "Cerrar",
-                })
-                $("#frmMatricula")[0].reset();
-            }
-            else{
-                swal.fire({
-                    icon:"error",
-                    title : "El alumno no fue matriculado",
-                    showConfirmButton: true,
-                    confirmButtonText: "Cerrar",
-                })
-                $("#frmMatricula")[0].reset();
-            }
-        }
-    })
-    
-
-    
-});
-
-function inicioMatricula(){
-    $('#DatosAlumno').hide();
-}
-inicioMatricula();
-function mostrarformAlu(){
-    $('#DatosAlumno').show();
-    $('#matriculainfo').hide();
-}
-function closeAlumMatri(){
-    $('#DatosAlumno').hide();
-    $('#matriculainfo').show();
-}
-

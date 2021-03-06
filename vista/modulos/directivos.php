@@ -65,7 +65,7 @@
 <div class="tab-pane" id="DatosDirectivo">
   <div class="tile user-settings">
     <h4 class="line-head">Datos del Directivo</h4>
-    <form id="formDirectivo" name="formDirectivo"method="post" enctype="multipart/form-data" rol="form" >
+    <form id="formDirectivo" name="formDirectivo"method="post" enctype="multipart/form-data" rol="form" class="needs-validation" novalidate >
       
       <div class="form-group row mb-1">
         
@@ -105,7 +105,7 @@
             <div class="col-md-6">
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mobile" aria-hidden="true"></i></span></div>
-                <input type="phone" class="form-control" name="celular" id="celular" placeholder="Celular">
+                <input type="phone" class="form-control" name="celular" id="celular" placeholder="Celular" required>
               </div>
             </div>
           </div>
@@ -115,11 +115,11 @@
       <div class="form-group row">
         <div class="col-md-3">
           <label for="">Datos:</label>
-          <input type="text" class="form-control" name="dni" id="dni" placeholder="DNI">
+          <input type="text" class="form-control" name="dni" id="dni" placeholder="DNI" required>
         </div>
         <div class="col-md-3">
           <label for="listEstado">Fecha de nacimiento:</label>
-          <input class="form-control" id="date" type="date" name="date" placeholder="Seleccionar fecha">
+          <input class="form-control" id="date" type="date" name="date" placeholder="Seleccionar fecha" required>
         </div>
         <div class="col-md-3">
           <label for="listEstado">Nacionalidad:</label>
@@ -136,11 +136,11 @@
         
         <div class="col-md-3">
           <label for="">Usuario:</label>
-          <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Usuario">
+          <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Usuario" required>
         </div>
         <div class="col-md-3">
           <label for="">Contraseña:</label>
-          <input type="password" class="form-control" name="clave" id="clave" placeholder="Contraseña">
+          <input type="password" class="form-control" name="clave" id="clave" placeholder="Contraseña" required> 
           <input type="password" class="form-control" name="claveActual" id="claveActual" hidden>
         </div>
         <div class="col-md-3">
@@ -190,11 +190,11 @@
         
         <div class="col-md-3">
         <label for="">Nombres:</label>
-          <input type="text" class="form-control" name="editNombre" id="editNombre" placeholder="Nombres">
+          <input type="text" class="form-control" name="editNombre" id="editNombre" placeholder="Nombres" >
         </div>
         <div class="col-md-3">
           <label for="">Apellidos:</label>
-          <input type="text" class="form-control" name="editApellidos" id="editApellidos" placeholder="Apellidos">
+          <input type="text" class="form-control" name="editApellidos" id="editApellidos" placeholder="Apellidos" >
         </div>
         <div class="col-md-3 pt-4">
           <input class="form-control-file nuevaFoto" id="editNuevaFoto" name="editNuevaFoto" type="file" aria-describedby="fileHelp">
@@ -224,7 +224,7 @@
             <div class="col-md-6">
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-mobile" aria-hidden="true"></i></span></div>
-                <input type="phone" class="form-control" name="editCelular" id="editCelular" placeholder="Celular">
+                <input type="phone" class="form-control" name="editCelular" id="editCelular" placeholder="Celular" >
               </div>
             </div>
           </div>
@@ -234,7 +234,7 @@
       <div class="form-group row">
         <div class="col-md-3">
           <label for="">Datos:</label>
-          <input type="text" class="form-control" name="editDni" id="editDni" placeholder="DNI">
+          <input type="text" class="form-control" name="editDni" id="editDni" placeholder="DNI" >
         </div>
         <div class="col-md-3">
           <label for="listEstado">Fecha de nacimiento:</label>
@@ -255,11 +255,11 @@
         
         <div class="col-md-3">
           <label for="">Usuario:</label>
-          <input type="text" class="form-control" name="editUsuario" id="editUsuario" placeholder="Usuario" readonly>
+          <input type="text" class="form-control" name="editUsuario" id="editUsuario" placeholder="Usuario" readonly >
         </div>
         <div class="col-md-3">
           <label for="">Contraseña:</label>
-          <input type="password" class="form-control" name="editClave" id="editClave" placeholder="Contraseña">
+          <input type="password" class="form-control" name="editClave" id="editClave" placeholder="Contraseña" >
           <input type="password" class="form-control" name="editClaveActual" id="editClaveActual" hidden>
         </div>
         <div class="col-md-3">

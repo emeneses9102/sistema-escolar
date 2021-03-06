@@ -134,6 +134,7 @@ function closeModalDirectivo(){
     $('#DatosDirectivo').hide();
     $('#EditDatosDirectivo').hide();
     $('#listDirectivo').show();
+    $('#formDirectivo').removeClass("was-validated");
     document.querySelector("#formDirectivo").reset();
 }
 

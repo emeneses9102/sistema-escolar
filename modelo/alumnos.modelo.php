@@ -17,11 +17,8 @@ class ModeloAlumnos{
             ON a.id_apoderado = ap.id_apoderado
             WHERE u.$item =:$item AND u.estado !=0");
             $stmt -> bindParam(":".$item,$valor , PDO::PARAM_STR);
-        
             $stmt -> execute();
-           
             return $stmt->fetch();
-            
         }
         else
         {//usamos esta consulta para listar todos los usuarios
@@ -39,35 +36,36 @@ class ModeloAlumnos{
             return $stmt->fetchAll();
             
         }
-        
-        
     }
    
-    
+
     static public function mdlIngresarAlumnos($tabla,$datos,$datos_apoderado){
         //validamos si el usuario se repite
-        $consultaID = Conexion::conectar()->prepare('SELECT * FROM usuario WHERE nombres = ? AND apellidos = ? ');
-        $consultaID->execute([$datos['nombre'], $datos['apellidos']]);
+        $consultaID = Conexion::conectar()->prepare('SELECT * FROM usuario WHERE dni = ? or usuario=?');
+        $consultaID->execute([$datos['dni'],$datos['usuario']]);
         $result= $consultaID->fetch(PDO::FETCH_OBJ);
         
         if($result > 0){
             return 'repet';
-        }
+        }else{
         //realizamor el insert del usuario
         
         $stmt = Conexion::conectar()->prepare ("INSERT INTO $tabla(nombres,apellidos,direccion,correo,telefono_fijo,celular,dni,fecha_nacimiento,nacionalidad,usuario,clave,rol,estado,foto) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
         $respuesta = $stmt->execute([$datos['nombre'],$datos['apellidos'],$datos['direccion'],$datos['correo'],$datos['telefono'],$datos['celular'],$datos['dni'],$datos['fecha_nacimiento'],$datos['nacionalidad'],$datos['usuario'],$datos['clave'],$datos['listRol'],$datos['listEstado'],$datos['foto']]);
-        //print_r($stmt->errorInfo());
+        print_r($stmt->errorInfo());
 
         //hacemos la consulta para obtener el id
         $consultaID = Conexion::conectar()->prepare('SELECT * FROM usuario WHERE usuario = ?');
         $consultaID->execute([$datos['usuario']]);
         $resultConsulta= $consultaID->fetch(PDO::FETCH_OBJ);
 
+        //Validamos dni apoderado que no se repita
+        $query = Conexion::conectar()->prepare('SELECT * FROM apoderado WHERE dni_apoderado = ?');
+        $query->execute([$datos_apoderado['dni-ap']]);
+        $sql= $query->fetch(PDO::FETCH_OBJ);
         
-
         //realizamos el insert a la tabla apoderado
-        if($datos_apoderado != 'empty'){
+        if(!($sql > 0)){
             $query = Conexion::conectar()->prepare ("INSERT INTO apoderado(ocupacion_apoderado,tipo_apoderado, nombres_apoderado,apellidos_apoderado, dni_apoderado, correo_apoderado, telefono_apoderado, direccion_apoderado) VALUES (?,?,?,?,?,?,?,?)");
             $respuesta2= $query->execute([$datos_apoderado['ocupacion-ap'],$datos_apoderado['tipo-ap'],$datos_apoderado['nombre-ap'],$datos_apoderado['apellidos-ap'],$datos_apoderado['dni-ap'],$datos_apoderado['correo-ap'],$datos_apoderado['telefono-ap'],$datos_apoderado['direccion-ap']]);
 
@@ -90,11 +88,11 @@ class ModeloAlumnos{
                 return "error";
             }
         }else{
-            //realizamos el insert a la tabla alumno
+            //realizamos el insert a la tabla alumno relacionando al apoderado existente
             $cod =(strlen($resultConsulta->usuario_id)>1)?"N0-0":"N0-00";
             $cod_matricula=$cod.$resultConsulta->usuario_id;
-            $stmt2 = Conexion::conectar()->prepare ("INSERT INTO alumno(id_usuario,cod_matricula) VALUES (?,?)");
-            $respuesta2 = $stmt2->execute([$resultConsulta->usuario_id,$cod_matricula]);
+            $stmt2 = Conexion::conectar()->prepare ("INSERT INTO alumno(id_apoderado,id_usuario,cod_matricula) VALUES (?,?,?)");
+            $respuesta2 = $stmt2->execute([$sql->id_apoderado,$resultConsulta->usuario_id,$cod_matricula]);
             if($respuesta == true && $respuesta2 == true)
             {
                 return "ok";
@@ -103,15 +101,9 @@ class ModeloAlumnos{
                 return "error";
             }
         }
-        if($respuesta == true )
-        {
-            return "ok";
-        }
-        else{
-            return "error";
-        }
         $respuesta->close();
         $respuesta =null;
+    }
     }
 
     static public function mdlEditarAlumnos($tabla,$datos,$datos_apoderado){
@@ -225,5 +217,4 @@ class ModeloAlumnos{
         $respuesta->close();
         $respuesta =null;
     }
-
 }

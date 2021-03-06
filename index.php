@@ -14,6 +14,9 @@ require_once 'controlador/institucion.controlador.php';
 require_once 'controlador/listaDeuda.controlador.php';
 require_once 'controlador/matricula.controlador.php';
 require_once 'controlador/pagoPendiente.controlador.php';
+require_once 'controlador/apoderado.controlador.php';
+require_once 'controlador/MailPagoPendiente.controlador.php';
+require_once 'controlador/registrarPago.controlador.php';
 
 require_once 'modelo/alumnos.modelo.php';
 require_once 'modelo/profesores.modelo.php';
@@ -30,5 +33,8 @@ require_once 'modelo/institucion.modelo.php';
 require_once 'modelo/listaDeuda.modelo.php';
 require_once 'modelo/matricula.modelo.php';
 require_once 'modelo/pagoPendiente.modelo.php';
+require_once 'modelo/apoderado.modelo.php';
+require_once 'modelo/registrarPago.modelo.php';
 $plantilla = new ControladorPlantilla();
 $plantilla->ctrPlantilla();
+//comentario pruebna
