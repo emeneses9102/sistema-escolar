@@ -95,9 +95,9 @@ $('#listDeudores').on('click', '#editPago', function(e) {
        valores[i] =$(this).html();
         i++;
     });
-    $("#nombreAlumno").text(valores[0]+" "+valores[1]);
+    $("#nombreAlumno").text(valores[1]+" "+valores[2]);
     $("#apoderadoAlum").text(valores[3]); 
-    $("#detalle_").text(valores[4]+", "+valores[5]+", "+valores[6]);
+    $("#detalle_").text(valores[6]);
      let id_deuda=$(this).attr("name"); 
 
 
@@ -119,7 +119,7 @@ $('#listDeudores').on('click', '#editPago', function(e) {
                 "<td>"+item.fecha_vencimiento+"</td>",
                 "<td>"+item.monto+"</td>",
                 "<td style='width: 100px;'><input value="+item.montoCobrar+" class='form-control text-right' id='monto"+item.idAlumno_cobros+"'></td>",
-                "<td><button type='button' class='btn btn-warning btn-sm px-1 mr-2' onclick='EditarPago("+item.idAlumno_cobros+")' title='Editar Pago'><i class='fas fa-edit'></i></button><button type='button' class='btn btn-danger btn-sm px-1 ' onclick='exonerarCobro("+item.idAlumno_cobros+")' title='Exonerar Pago'><i class='fas fa-trash'></i></button></td>",
+                "<td><button type='button' class='btn btn-warning btn-sm px-1 mr-2' onclick='EditarPago("+item.idAlumno_cobros+")' title='Editar Pago'><i class='fas fa-edit'></i></button><button type='button' class='btn btn-danger btn-sm px-1 mr-2' onclick='exonerarCobro("+item.idAlumno_cobros+")' title='Exonerar Pago'><i class='fas fa-trash'></i></button><button type='button' class='btn btn-info btn-sm px-1 ' onclick='detallesPago("+item.idAlumno_cobros+")' title='Ver detalles'><i class='fas fa-eye'></i></button></td>",
                 ]
                 ).draw(false);
                 
@@ -127,7 +127,37 @@ $('#listDeudores').on('click', '#editPago', function(e) {
             
         
         }
-    }); 
+    });
+//Pagos realizados
+    $.ajax({
+        url	    : 'ajax/listaDeuda.ajax.php',
+        type    : 'POST',
+        data    : {id_deudaPago:id_deuda},
+        dataType:   "json",
+        success: function(data){
+            var tabla = $("#tablaDeudoresPagados").DataTable();
+            tabla.clear().draw();
+            for(let item of data){
+                
+                
+                tabla.row.add(
+                    [
+                "<td>"+item.codigo+"</td>",
+                "<td>"+item.detalle+"</td>",           
+                "<td>"+item.fecha_pago+"</td>",
+                "<td>"+item.tipo_pago+"</td>",
+                "<td>"+item.monto_pagado+"</td>",
+                "<td><button type='button' class='btn btn-info btn-sm px-1 ' onclick='detallesPago("+item.idAlumno_cobros+")' title='Ver detalles'><i class='fas fa-lightbulb mx-1'></i></button></td>",
+                ]
+                ).draw(false);
+                
+            }
+            
+        
+        }
+    });
+    
+    
 });
 
 function EditarPago(idCobro_){

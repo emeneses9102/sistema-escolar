@@ -22,6 +22,8 @@ var idPago_alumno="";
     e.preventDefault();
 });
 
+
+
 //Pagos pendientes
 function mostrarModal(idAlumnoxPago){
     $("#idPago").val(idAlumnoxPago);
@@ -33,11 +35,31 @@ function mostrarModal(idAlumnoxPago){
         dataType:   "json",
         success: function(data){
             $("#detalle").val(data.detalle);
-            $("#montoPagar").val(data.montoCobrar)
+            $("#montoPagar").val(data.montoCobrar);
+            
+            $("#inputprueba").val(data.montoCobrar);
+
+            $("#inputprueba1").val(data.idAlumno_cobros)
+        /*
+        $("#inputprueba2").val(idprueba);*/
         
         }
-    }); 
+    }); /*
+        var idprueba="";
+        var detalleprueba="";
+        var  montoPagarprueba="";
+    
+        idprueba = $('#idPago').val();
+        detalleprueba = $('#detalle').val();
+        montoPagarprueba= $('#montoPagar').val();
+
+        */
+
+        //console.log(''+$("#inputprueba1").val());
+    
 }
+
+
 
 function culqi() {
     if (Culqi.token) { // ¡Objeto Token creado exitosamente!
@@ -92,3 +114,8 @@ function culqi() {
         alert(Culqi.error.user_message);
     }
   };
+
+  /////////////////////
+
+
+

@@ -26,6 +26,12 @@ class ModeloGradosySecciones{
     }
     
     static public function mdlMostrarGrados($tabla,$datos){
+        if($datos=="all"){
+            $stmt = Conexion::conectar()->prepare("SELECT * from $tabla INNER JOIN niveles ON $tabla.idNiveles = niveles.idNiveles ");
+            $stmt -> execute([$datos]);
+            $respuesta = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $respuesta;
+        }
         $stmt = Conexion::conectar()->prepare("SELECT * from $tabla INNER JOIN niveles ON $tabla.idNiveles = niveles.idNiveles WHERE $tabla.idNiveles = ?");
         $stmt -> execute([$datos]);
         $respuesta = $stmt->fetchAll(PDO::FETCH_ASSOC);
