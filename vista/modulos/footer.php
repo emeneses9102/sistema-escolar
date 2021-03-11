@@ -12,6 +12,11 @@
     <!-- Data table plugin-->
    
 <!-- INTEGRACION CULQI-->
+  <script src="https://www.paypal.com/sdk/js?client-id=AfFTd20YT9pdzMOXq4JAeUj310OSiYwQDF3V0-JDjKVAQ_K0Z5YC-ADXZ-SiaDEHrI5ex589PtlOD9ue"></script>
+<!--<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>-->
+
+    <!--<script>
+
 <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
 
     <script>
@@ -24,7 +29,7 @@
             return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: '88.44'
+                        value: '500'
                     }
                 }]
             });
@@ -33,6 +38,8 @@
         // Finalize the transaction
         onApprove: function(data, actions) {
             return actions.order.capture().then(function(details) {
+                console.log(details);
+                console.log("hola");
                 // Show a success message to the buyer
                 alert('Transaction completed by ' + details.payer.name.given_name + '!');
             });
@@ -40,7 +47,7 @@
 
         //prueba rama devsdsfdvdfv
 }).render('#paypal-button-container');
-</script>
+</script>-->
 
     </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
@@ -55,6 +62,8 @@
 <script src="https://checkout.culqi.com/js/v3"></script>
 
 </body>
+<script src="vista/js/function_paypal.js"></script>
+    <script src="vista/js/function_apoderado.js"></script>
     <script src="vista/js/functions_culqui.js"></script>
     <script src="vista/js/script.js"></script>
     <script src="vista/js/functions_usuarios.js"></script>
@@ -69,7 +78,7 @@
     <script src="vista/js/functions_matricula.js"></script>
     <script src="vista/js/functions_listaDeuda.js"></script>
     <script src="vista/js/functions_deudores.js"></script>
-    <script src="vista/js/functions_apoderado.js"></script>
-    <script src="vista/js/functions_registrarPago.js"></script>
+    
+    
   </body>
 </html>
