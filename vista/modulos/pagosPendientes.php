@@ -87,11 +87,11 @@
                 
                 foreach($cobrosAlumR as $value){
                   echo'<tr>
-                        <th>'.$value["codigo"].'</th>
-                        <th>'.$value['detalle'].'</th>
-                        <th>'.$value['fecha_vencimiento'].'</th>
-                        <th>'.$value['monto'].'</th>
-                        <th>'.$value['montoCobrar'].'</th>
+                        <td>'.$value["codigo"].'</td>
+                        <td>'.$value['detalle'].'</td>
+                        <td>'.$value['fecha_vencimiento'].'</td>
+                        <td>'.$value['monto'].'</td>
+                        <td>'.$value['montoCobrar'].'</td>
                       </tr>';
                 }
               ?>
@@ -115,9 +115,8 @@
         </button>
       </div>
       <div class="modal-body row">
-      <!--obteniendo valores--->
-      <input type="text" id="inputprueba" >
-       <input type="text" id="inputprueba1" >
+      
+       
 
         <input type="text" id="idPago" hidden value="">
         <input type="text" id="detalle" hidden value="">
@@ -128,11 +127,11 @@
         <div class="col-md mt-3 d-flex justify-content-center">
             <button class="btn btn-lg button_pagos" id="btn-culqi"><img src="vista/images/Culqui.png" alt="" width="100%" class="img-fluid"></button>
         </div>
-        <div id="pruebapaypal">
-        <div class="col-md mt-3 d-flex justify-content-center mt-4" id="paypalpago">
+        
+        <div class="col-md mt-3 d-flex justify-content-center mt-4">
           <div id="paypal-button-container"></div>
         </div>
-        </div>
+        
       </div>
       
       <div class="modal-footer">
@@ -171,19 +170,22 @@
             <label class="control-label" for="">Grado y sección</label>
             <input type="text" class="form-control" name="grado_seccion">
           </div>
+            <input type="text" class="form-control" id="idImagen" name="codigoPago" hidden>
+            <input type="text" class="form-control" id="dniCodigoPago" name="dniCodigoPago" hidden value="<?php echo $_SESSION['dni']?>">
+            <input type="text" class="form-control" id="montopago1" name="montopago1" hidden >
           <div class="form-group">
             <label class="control-label" for="">Notas</label></br>
             <textarea  class="form-control" type="text" rows="5" name="notas"></textarea></br>
           </div>
           
           
+          
           <div class="form-group">
           <label class="control-label"for="">Suba la foto de su voucher:</label>
           <div class="form-group">
             <button class="btn btn-primary" type="button" onclick="abrir('files')">Escoger archivos</button>
-            <input onchange="addFiles(event,'glosaArchivos')" type="file" class=" d-none"  name='archivo1[]' multiple id="files">
-            <span id="glosaArchivos">Ningun archivo seleccionado</span><i style="font-size:14px;"class="fas fa-images ml-2"></i>
-            <ul class="text-center mt-2"  id = "listaArchivos" style="list-style:none;"></ul>
+            <input onchange="contar(this,'glosaArchivos')" type="file" class=" d-none"  name='archivo1'  id="files">
+            <span id="glosaArchivos">Ningun archivo seleccionado</span><i style="font-size:14px;" class="fas fa-images ml-2"></i>
           </div>
           </div>
         </div>
@@ -195,8 +197,9 @@
       </div>
       
       <?php
-            $enviarMail = new ControladorMailPagoPendiente();
-            $enviarMail->ctrEnviarMail();
+          $valor = $_SESSION['usuario_id'];
+          $enviarMail = new ControladorMailPagoPendiente();
+          $enviarMail->ctrEnviarMail($valor);
           ?>
     </form> 
       

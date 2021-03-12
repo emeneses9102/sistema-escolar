@@ -1,15 +1,13 @@
 
+
+
 var detalle= "";
 var montoPagar="";
 var idPago_alumno="";
 
-  $('#btn-culqi').on('click', function(e) {
+$('#btn-culqi').on('click', function(e) {
     idPago_alumno = $('#idPago').val();
     detalle = $('#detalle').val();
-    montoPagar = $('#montoPagar').val()*100;
-    
-    
-
     //configurar los valores
     Culqi.publicKey = 'sk_test_jCASaWOjVIo8epqz';
     Culqi.settings({
@@ -23,52 +21,37 @@ var idPago_alumno="";
 });
 
 
-
+ var montito2="";
+var montito="";
+   var idalumno1="";
+   var montito1="";
 //Pagos pendientes
 function mostrarModal(idAlumnoxPago){
     $("#idPago").val(idAlumnoxPago);
-   
     $.ajax({
         url	    : 'ajax/pagosPendientes.ajax.php',
         type    : 'POST',
         data    : {idAlumnoxPago:idAlumnoxPago},
         dataType:   "json",
         success: function(data){
+            montito2=data.montoCobrar;
+            montito=montito2/3.69;
+            idalumno1=data.idAlumno_cobros;
+            console.log(montito+'hola');
+            montito1=montito.toFixed(2);
+            console.log("hola"+montito+"-"+montito1);
             $("#detalle").val(data.detalle);
             $("#montoPagar").val(data.montoCobrar);
-            
-            $("#inputprueba").val(data.montoCobrar);
-
-            $("#inputprueba1").val(data.idAlumno_cobros);
-            $("#idImagen").val(data.idAlumno_cobros)
-
+            $("#idImagen").val(data.idAlumno_cobros);
             $("#montopago1").val(data.montoCobrar)
-        /*
-        $("#inputprueba2").val(idprueba);*/
-        
         }
-    }); /*
-        var idprueba="";
-        var detalleprueba="";
-        var  montoPagarprueba="";
-    
-        idprueba = $('#idPago').val();
-        detalleprueba = $('#detalle').val();
-        montoPagarprueba= $('#montoPagar').val();
-
-        */
-
-        //console.log(''+$("#inputprueba1").val());
-    
+    });
 }
-
-
 
 function culqi() {
     if (Culqi.token) { // ¡Objeto Token creado exitosamente!
         var token = Culqi.token.id;
         var email = Culqi.token.email;
-        
         //alert('Se ha creado un token:' + token);
        $.ajax({
            url: "extensiones/procesarPago.php",
@@ -80,15 +63,10 @@ function culqi() {
                email:email
            },
        }).done(function (resp){
-            var tipoPago_alumno = "Culqui";
-            var montoPago_alumno= montoPagar;
-
             $.ajax({
                 url	    : 'ajax/pagosPendientes.ajax.php',
                 type    : 'POST',
-                data    : {idPago_alumno:idPago_alumno,
-                            tipoPago_alumno:tipoPago_alumno,
-                            montoPago_alumno:montoPago_alumno},
+                data    : {idPago_alumno:idPago_alumno,tipo:'Culqui',monto:montoPagar},
                 success: function(data){
                     if(data=="ok"){
                         swal.fire({
@@ -98,8 +76,6 @@ function culqi() {
                             confirmButtonText: "Cerrar",
                         })
                             window.location = "pagosPendientes";
-                        
-                        
                     }else{
                         swal.fire({
                             icon:"error",
@@ -122,8 +98,11 @@ function culqi() {
     }
   };
 
+
+
   /////////////////////
-paypal.Buttons({
+
+  paypal.Buttons({
     env:'sandbox',//production para que funcione en pago real
       style: {
           layout: 'horizontal'

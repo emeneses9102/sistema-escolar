@@ -1,75 +1,63 @@
 <?php
 
 class ControladorMailPagoPendiente{
-    static public function ctrEnviarMail(){
+    static public function ctrEnviarMail($valor){
+
+        if(isset($_FILES['archivo1'])){
+            $archivo = $_FILES['archivo1']; 
+            $nombre_archivo = $archivo['name'];
+            $archivo1=$archivo['tmp_name'];
+            $tipo = $archivo['type'];
+            
+        };
         
-       if(isset($_POST['alumno'])){
-        $sDe="edgarmc11@hotmail.com";
-        $sAsunto="VOUCHER DE PAGO";
-        $sPara="edgarmc9102@gmail.com";
-        $sTexto="Los datos introducidos en el formulario son:\n\n";
+        $asunto="VOUCHER DE PAGO";
+
+        $mensaje = "LOS DATOS DEL ALUMNO SON:\n";
 
 
-        $bHayFicheros = 0;
-        $sCabeceraTexto = "";
-        $sAdjuntos = "";
-        $sTexto1 = "";
-        $sTexto .= "LOS DATOS DEL ALUMNO SON:\n";
+        if(isset($_POST['dniCodigoPago'])){
+            $dniCodigoPago=$_POST['dniCodigoPago']; 
+        };
+
+        if(isset($_POST['codigoPago'])){
+            $codigoPago=$_POST['codigoPago']; 
+        };
+        $fecha=date("dmYHi");
+        $numeroramdon=rand(0,9);
+
+        $fecha=date("Y-m-d");
+        $tipago='Depósito';
     
-        if ($sDe)$sCabeceras = "From:".$sDe."\n";
-        else $sCabeceras = "";
-        $sCabeceras .= "MIME-version: 1.0\n";
-    
-        foreach ($_POST as $sNombre => $sValor){
-        $sTexto1 = $sTexto1."\n".$sNombre." = ".$sValor; }
-        $sTexto .= $sTexto1;
-    
+        if(isset($_POST['montopago1'])){
+            $montopago=$_POST['montopago1']; 
+        };
+
+        if(isset($_POST['alumno'])){
+
         
 
-        foreach($_FILES["archivo1"]['tmp_name'] as $key => $tmp_name)
-        {  
-            
-            $filename = $_FILES["archivo1"]["name"][$key]; //Obtenemos el nombre original del archivo
-            $source = $_FILES["archivo1"]["tmp_name"][$key]; //Obtenemos un nombre temporal del archivo
-            $tipo1 = $_FILES["archivo1"]["type"][$key];
-            $size1 = $_FILES["archivo1"]["size"][$key];
+        if(empty($nombre_archivo)){
+            echo '<script>
+            swal.fire({
+                type:"error",
+                title : "Cargue una imagen '.$nombre_archivo.'",
+                showConfirmButton: true,
+                confirmButtonText: "Cerrar",
+                closeOnConfirm: false
+            }).then((result)=>{
+                if(result.value){
+                    window.location = "pagosPendientes";
+                }
+            })
 
-        array_push ( $array , $valor1 );
-                
-            
-                    if ($bHayFicheros == 0){
-                        $bHayFicheros = 1;
-                        $sCabeceras .= "Content-type: multipart/mixed;";
-                        $sCabeceras .= "boundary=\"--_Separador-de-mensajes_--\"\n";
-    
-                        $sCabeceraTexto = "----_Separador-de-mensajes_--\n";
-                        $sCabeceraTexto .= "Content-type: text/plain;charset=iso-8859-1\n";
-                        $sCabeceraTexto .= "Content-transfer-encoding: 7BIT\n";
-    
-                        $sTexto = $sCabeceraTexto.$sTexto;
-                    }
-                    if ($size1 > 0){
-                        $sAdjuntos .= "\n\n----_Separador-de-mensajes_--\n";
-                        $sAdjuntos .= "Content-type: ".$tipo1.";name=\"".$filename."\"\n";;
-                        $sAdjuntos .= "Content-Transfer-Encoding: BASE64\n";
-                        $sAdjuntos .= "Content-disposition: attachment;filename=\"".$filename."\"\n\n";
-    
-                        $oFichero = fopen($source, 'r');
-                        $sContenido = fread($oFichero, filesize($source));
-                        $sAdjuntos .= chunk_split(base64_encode($sContenido));
-                        fclose($oFichero);
-                    }
-            
-    
-        }
-        foreach($_FILES["archivo1"]['tmp_name'] as $key => $tmp_name){
-            $filename2 = $_FILES["archivo1"]["name"][$key];
-            $tipo2 = $_FILES["archivo1"]["type"][$key];
-            if(empty($filename2)){
+            </script>';
+        }else{
+            if(!($tipo == "image/jpg" || $tipo == "image/jpeg" || $tipo == "image/png" || $tipo == "application/pdf")){
                 echo '<script>
                 swal.fire({
                     type:"error",
-                    title : "Cargue una imagen ",
+                    title : "Cargar en formato png, jpeg o jpg",
                     showConfirmButton: true,
                     confirmButtonText: "Cerrar",
                     closeOnConfirm: false
@@ -78,49 +66,121 @@ class ControladorMailPagoPendiente{
                         window.location = "pagosPendientes";
                     }
                 })
-    
-                </script>';
-            }else{
-                if(!($tipo2 == "image/jpg" || $tipo2 == "image/jpeg" || $tipo2 == "image/png" || $tipo2 == "application/pdf")){
-                    echo '<script>
-                    swal.fire({
-                        type:"error",
-                        title : "Cargar en formato png, jpeg o jpg",
-                        showConfirmButton: true,
-                        confirmButtonText: "Cerrar",
-                        closeOnConfirm: false
-                    }).then((result)=>{
-                        if(result.value){
-                            window.location = "pagosPendientes";
-                        }
-                    })
-    
-                    </script>';
-                }else {
-                    if ($bHayFicheros){
-                        $sTexto .= $sAdjuntos."\n\n----_Separador-de-mensajes_----\n";
-                        if(mail($sPara, $sAsunto, $sTexto, $sCabeceras)){
-                            echo '<script>
-                                swal.fire({
-                                    type:"success",
-                                    title : "Voucher enviado exitosamente!",
-                                    showConfirmButton: true,
-                                    confirmButtonText: "Cerrar",
-                                    closeOnConfirm: false
-                                }).then((result)=>{
-                                    if(result.value){
-                                        window.location = "pagosPendientes";
-                                    }
-                                })
 
-                                </script>';
-                        }
-                        else{
-                            echo '<script>
-                            swal.fire({
-                                type:"error",
-                                title : "error al enviar :(",
-                                showConfirmButton: true,
+                </script>';
+            }else {
+    
+       /******************************** */
+       $porciones = explode("/",$tipo);
+       $extension=$porciones[1];
+
+       $directorio='./upload/pagos/2021/2021-03';//Declaramos un  variable con la ruta donde guardaremos los archivos
+       
+       //Validamos si la ruta de destino existe, en caso de no existir la creamos
+       if(!file_exists($directorio)){
+           mkdir($directorio, 0777) or die("No se puede crear el directorio de extracci&oacute;n");	
+       }
+
+       $dir=opendir($directorio); //Abrimos el directorio de destino
+       $target_path = $directorio.'/'.$dniCodigoPago.$fecha.'-'.$numeroramdon.'.'.$extension; //Indicamos la ruta de destino, así como el nombre del archivo
+       
+       if(move_uploaded_file($archivo1, $target_path)) {
+
+       $to = 'taly2598@gmail.com';
+
+        //remitente del correo
+        $from = 'masterps3098@gmail.com';
+        $fromName='VOUCHER DE PAGO';
+
+        //Asunto del email
+        $asunto="VOUCHER DE PAGO";
+
+        //Ruta del archivo adjunto
+        $file = $target_path;
+
+        //Contenido del Email
+        $htmlContent = '<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/></head><body><p>'.$mensaje.'</p></body>';
+
+        //Encabezado para información del remitente
+        $headers = "From: ".$fromName." <".$from.">";
+
+        //Limite Email
+        $semi_rand = md5(time()); 
+        $mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
+
+        //Encabezados para archivo adjunto 
+        $headers .= "\nMIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\""; 
+
+        //límite multiparte
+        $message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" .
+        "Content-Transfer-Encoding: 7bit\n\n" . $htmlContent . "\n\n"; 
+
+        
+
+        //preparación de archivo
+        if(!empty($file) > 0){
+            if(is_file($file)){
+                $message .= "--{$mime_boundary}\n";
+                $fp =    @fopen($file,"rb");
+                $data =  @fread($fp,filesize($file));
+
+                @fclose($fp);
+                $data = chunk_split(base64_encode($data));
+                $message .= "Content-Type: application/octet-stream; name=\"".basename($file)."\"\n" . 
+                "Content-Description: ".basename($files[$i])."\n" .
+                "Content-Disposition: attachment;\n" . " filename=\"".basename($file)."\"; size=".filesize($file).";\n" . 
+                "Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
+            }
+        }
+        $message .= "--{$mime_boundary}--";
+        $returnpath = "-f" . $from;
+
+        //Enviar EMail
+        if(mail($to, $asunto, $message, $headers, $returnpath)){
+
+            	
+
+                $respuesta = ModelosubirImagen::MdlSubirImagen($target_path,$fecha, $tipago, $montopago,$valor,$codigoPago);
+                if ($respuesta == "ok"){
+
+
+                echo '<script>
+                                    swal.fire({
+                                        type:"success",
+                                        title : "Voucher enviado exitosamente!",
+                                        showConfirmButton: true,
+                                        confirmButtonText: "Cerrar",
+                                        closeOnConfirm: false
+                                    }).then((result)=>{
+                                        if(result.value){
+                                            window.location = "pagosPendientes";
+                                        }
+                                    })
+
+                                    </script>';
+                                }else{
+                                    echo '<script>
+                                        swal.fire({
+                                            type:"error",
+                                            title : "error al guardar imagen en bd",
+                                            showConfirmButton: true,
+                                            confirmButtonText: "Cerrar",
+                                            closeOnConfirm: false
+                                        }).then((result)=>{
+                                            if(result.value){
+                                                window.location = "pagosPendientes";
+                                            }
+                                        })
+    
+                                        </script>';
+                                }
+                            
+        }else{
+            echo '<script>
+                    swal.fire({
+                    type:"error",
+                                title : "error al enviar",
+                     showConfirmButton: true,
                                 confirmButtonText: "Cerrar",
                                 closeOnConfirm: false
                             }).then((result)=>{
@@ -130,20 +190,37 @@ class ControladorMailPagoPendiente{
                             })
             
                             </script>';
-                        }
-                    }
-                    
-                }
-    
-            }
-    
         }
-       }else{
-            return;
-       }
-       
+
+    } else {	
+        echo '<script>
+                swal.fire({
+                    type:"error",
+                    title : "error al almacenar imagen '.$nombre_archivo.'",
+                    showConfirmButton: true,
+                    confirmButtonText: "Cerrar",
+                    closeOnConfirm: false
+                }).then((result)=>{
+                    if(result.value){
+                        window.location = "pagosPendientes";
+                    }
+                })
+
+                </script>';
     }
 
+
+            }
+        }
+        }else{
+            return;
+       }
+       /******************************** */
+
+        
+        
+    }
+    
 
 }
 
