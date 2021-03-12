@@ -131,6 +131,7 @@
             <div class="container mt-4">
             <div class="row ">
                 <div class="col-md-4">
+                <input type="text" id="id_deuda" hidden>
                 <p>
                     <label for="" class="h6">Alumno:</label>
                     <label for="" id="nombreAlumno"></label>
@@ -202,4 +203,43 @@
             
         </div>
     </div>
+</div>
+
+<!--Modal ver detalles del pago-->
+<div class="modal fade" id="modalDetallePago" tabindex="-1" aria-labelledby="detallePago" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detallePago">Detalle del pago</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>       
+      </div>
+      <div class="modal-body">
+          <div class="row">
+              <div class="col-md-6">
+              <h6>Detalle del pago:</h6>
+              <p class="pl-1" id="detalleDelPago"></p>
+              </div>
+              <div class="col-md-6">
+                <h6>Fecha del pago:</h6>
+                <p class="pl-1" id="fechaDelPago">10/05/2020</p>
+              </div>
+              <div class="col-md-6">
+                <h6>Monto:</h6>
+                <p class="pl-1" id="montoDelPago">S/ 250.00</p>
+              </div>
+              <div class="col-md-6">
+                <h6>Medio:</h6>
+                <p class="pl-1" id="medioDelPago">Paypal</p>
+              </div>
+              <div class="col-md-12">
+                <h6>Comprobante:</h6>
+                <img src="vista/images/voucher.jpg" alt="" id="imagenDelPago" class="img-fluid">
+              </div>
+          </div>
+      </div>
+      
+    </div>
+  </div>
 </div>

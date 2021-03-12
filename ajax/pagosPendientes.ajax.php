@@ -14,7 +14,9 @@ class ajaxPagoPendientes{
         $tabla="alumno_cobros";
         $item = "idAlumno_cobros";
         $valor = $this->idPago_alumno;
-        $respuesta = ModeloPagoPendiente::mdlRealizarPago($item,$valor,$tabla);
+        $tipo = $this->tipoPago_alumno;
+        $monto = $this->montoPago_alumno;
+        $respuesta = ModeloPagoPendiente::mdlRealizarPago($item,$valor,$tabla,$tipo,$monto);
         echo $respuesta;
     
     }
@@ -30,5 +32,7 @@ if(isset($_POST["idPago_alumno"]))
 {
     $listar = new ajaxPagoPendientes();
     $listar->idPago_alumno = $_POST["idPago_alumno"];
+    $listar->tipoPago_alumno = $_POST["tipoPago_alumno"];
+    $listar->montoPago_alumno = $_POST["montoPago_alumno"];
     $listar->ajaxRealizarPago();
 }

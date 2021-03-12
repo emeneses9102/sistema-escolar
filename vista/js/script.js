@@ -343,7 +343,9 @@ function listarProf(id){
         }
     });
 }
+
 /***********SCRIPT PARA IMAGEN DE VOUCHER********** */
+
 
 function abrir(id) {
     var file = document.getElementById(id);
@@ -364,6 +366,7 @@ function abrir(id) {
         glosa.innerText = elem.files.length + "";
     }
   }
+
   /*
  let fileArray = [];
  let listaArchivos = $("#listaArchivos")[0];
@@ -378,14 +381,17 @@ function abrir(id) {
 
     var glosa = document.getElementById(idGlosa);
     glosa.innerText = fileArray.length+"";
+    if(fileArray.length == 0){
+        $("#files").val('');
 }
-function addFiles(ev, idGlosa){
+}
+function addFiles(ev,idGlosa){
 
     const fileList = ev.currentTarget.files;
     
     for(let file of fileList){
         fileArray.push(file);
-
+        console.log(file.name+"");
         const newFile = document.createElement("li");
         const text = document.createTextNode(file.name);
         

@@ -39,7 +39,10 @@ function mostrarModal(idAlumnoxPago){
             
             $("#inputprueba").val(data.montoCobrar);
 
-            $("#inputprueba1").val(data.idAlumno_cobros)
+            $("#inputprueba1").val(data.idAlumno_cobros);
+            $("#idImagen").val(data.idAlumno_cobros)
+
+            $("#montopago1").val(data.montoCobrar)
         /*
         $("#inputprueba2").val(idprueba);*/
         
@@ -77,11 +80,15 @@ function culqi() {
                email:email
            },
        }).done(function (resp){
-            
+            var tipoPago_alumno = "Culqui";
+            var montoPago_alumno= montoPagar;
+
             $.ajax({
                 url	    : 'ajax/pagosPendientes.ajax.php',
                 type    : 'POST',
-                data    : {idPago_alumno:idPago_alumno},
+                data    : {idPago_alumno:idPago_alumno,
+                            tipoPago_alumno:tipoPago_alumno,
+                            montoPago_alumno:montoPago_alumno},
                 success: function(data){
                     if(data=="ok"){
                         swal.fire({
@@ -116,6 +123,57 @@ function culqi() {
   };
 
   /////////////////////
-
+paypal.Buttons({
+    env:'sandbox',//production para que funcione en pago real
+      style: {
+          layout: 'horizontal'
+      },
+  // Set up the transaction
+  // Add your client ID and secret
+  createOrder: function(data, actions) {
+      return actions.order.create({
+          purchase_units: [{
+              amount: {
+                  value:montito1+''
+              }
+          }]
+      });
+  },
+  // Finalize the transaction
+  onApprove: function(data, actions) {
+      return actions.order.capture().then(function(details) {
+          // Show a success message to the buyer
+          $.ajax({
+              url	    : 'ajax/pagosPendientes.ajax.php',
+              type    : 'POST',
+              data    : {idPago_alumno:idalumno1,tipo:'Paypal',monto:montito2},
+              success: function(data){
+                  if(data=="ok"){
+                    
+                      swal.fire({
+                          icon:"success",
+                          title : 'Pago realizado ' + details.payer.name.given_name + '!',
+                          //title : "Pago realizado",
+                          showConfirmButton: true,
+                          confirmButtonText: "Cerrar",
+                      })
+                          window.location = "pagosPendientes";
+                      
+                      
+                  }else{
+                    
+                      swal.fire({
+                          icon:"error",
+                          title : "Eror al realizar el pago",
+                          showConfirmButton: true,
+                          confirmButtonText: "Cerrar",
+                      })
+                  }
+              }
+          }); 
+      });
+  }
+  //prueba rama devsdsfdvdfv
+}).render('#paypal-button-container');
 
 

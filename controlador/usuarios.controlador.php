@@ -25,6 +25,7 @@ class ControladorUsuarios{
                         $_SESSION['nombre']= $respuesta['nombres'];
                         $_SESSION['apellidos']= $respuesta['apellidos'];
                         $_SESSION['usuario']= $respuesta['usuario'];
+                        $_SESSION['dni']= $respuesta['dni'];
                         $_SESSION['rol']=$respuesta['rol'];
                         $_SESSION['nombre_rol']=$respuesta['nombre_rol'];
                         $_SESSION['foto']= $respuesta['foto'];

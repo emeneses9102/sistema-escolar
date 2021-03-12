@@ -100,7 +100,7 @@ $('#listDeudores').on('click', '#editPago', function(e) {
     $("#detalle_").text(valores[6]);
      let id_deuda=$(this).attr("name"); 
 
-
+    $("#id_deuda").val(id_deuda);
      $.ajax({
         url	    : 'ajax/listaDeuda.ajax.php',
         type    : 'POST',
@@ -159,7 +159,33 @@ $('#listDeudores').on('click', '#editPago', function(e) {
     
     
 });
+function detallesPago(i){
+    id_deuda = $("#id_deuda").val();
+    $("#modalDetallePago").modal("show");
+    $.ajax({
+        url	    : 'ajax/listaDeuda.ajax.php',
+        type    : 'POST',
+        data    : {id_deudaPago:id_deuda},
+        dataType:   "json",
+        success: function(data){
+            
+            for(let item of data){
+                if(item.idAlumno_cobros == i){
+                    $('#detalleDelPago').text(item.detalle);
+                    $('#fechaDelPago').text(item.fecha_pago);
+                    $('#montoDelPago').text(item.monto_pagado);
+                    $('#medioDelPago').text(item.tipo_pago);
+                    
+                }
 
+                
+                
+            }
+            
+        
+        }
+    });
+}
 function EditarPago(idCobro_){
     var idCobro_ = idCobro_;
 
