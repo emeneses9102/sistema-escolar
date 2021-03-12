@@ -12,10 +12,14 @@
     <!-- Data table plugin-->
    
 <!-- INTEGRACION CULQI-->
-<script src="https://www.paypal.com/sdk/js?client-id=AfFTd20YT9pdzMOXq4JAeUj310OSiYwQDF3V0-JDjKVAQ_K0Z5YC-ADXZ-SiaDEHrI5ex589PtlOD9ue"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AfFTd20YT9pdzMOXq4JAeUj310OSiYwQDF3V0-JDjKVAQ_K0Z5YC-ADXZ-SiaDEHrI5ex589PtlOD9ue"></script>
 <!--<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>-->
 
     <!--<script>
+
+<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
+
+    <script>
         paypal.Buttons({
             style: {
                 layout: 'horizontal'
