@@ -35,5 +35,6 @@ require_once 'modelo/matricula.modelo.php';
 require_once 'modelo/pagoPendiente.modelo.php';
 require_once 'modelo/apoderado.modelo.php';
 require_once 'modelo/registrarPago.modelo.php';
+require_once 'modelo/imagen.modelo.php';
 $plantilla = new ControladorPlantilla();
 $plantilla->ctrPlantilla();

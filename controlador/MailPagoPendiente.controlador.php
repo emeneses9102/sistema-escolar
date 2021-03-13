@@ -74,7 +74,7 @@ class ControladorMailPagoPendiente{
        $porciones = explode("/",$tipo);
        $extension=$porciones[1];
 
-       $directorio='./upload/pagos/2021/2021-03';//Declaramos un  variable con la ruta donde guardaremos los archivos
+       $directorio='./colegio/upload/2021/2021-03';//Declaramos un  variable con la ruta donde guardaremos los archivos
        
        //Validamos si la ruta de destino existe, en caso de no existir la creamos
        if(!file_exists($directorio)){
