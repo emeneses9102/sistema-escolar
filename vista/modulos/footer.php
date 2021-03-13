@@ -63,7 +63,7 @@
 
 </body>
 <script src="vista/js/function_paypal.js"></script>
-    <script src="vista/js/function_apoderado.js"></script>
+    <script src="vista/js/functions_apoderado.js"></script>
     <script src="vista/js/functions_culqui.js"></script>
     <script src="vista/js/script.js"></script>
     <script src="vista/js/functions_usuarios.js"></script>
