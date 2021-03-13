@@ -63,7 +63,7 @@ class ModeloPagoPendiente{
          static public function mdlRealizarPago($item,$valor,$tabla,$tipo,$monto){
             date_default_timezone_set('America/Lima');
             $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET estado = 2, tipo_pago =?, monto_pagado = ?,fecha_pago =? WHERE $item = $valor ");
-            $respuesta = $stmt ->execute([$tipo,$monto*0.01,date("Y/m/d")]);
+            $respuesta = $stmt ->execute([$tipo,$monto,date("Y/m/d")]);
             //print_r($stmt->errorInfo());
             if($respuesta == true){
                 return "ok";

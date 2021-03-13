@@ -21,8 +21,11 @@ var idPago_alumno="";
     Culqi.open();
     e.preventDefault();
 });
-
-
+var montito2="";
+var montito="";
+var idalumno1="";
+var montito1="";
+var dolar=3.69;
 
 //Pagos pendientes
 function mostrarModal(idAlumnoxPago){
@@ -34,12 +37,14 @@ function mostrarModal(idAlumnoxPago){
         data    : {idAlumnoxPago:idAlumnoxPago},
         dataType:   "json",
         success: function(data){
+            montito2=data.montoCobrar;
+            montito=montito2/dolar;
+            idalumno1=data.idAlumno_cobros;
+            console.log(montito+'hola');
+            montito1=montito.toFixed(2);
+            console.log("hola"+montito+"-"+montito1);
             $("#detalle").val(data.detalle);
             $("#montoPagar").val(data.montoCobrar);
-            
-            $("#inputprueba").val(data.montoCobrar);
-
-            $("#inputprueba1").val(data.idAlumno_cobros);
             $("#idImagen").val(data.idAlumno_cobros)
 
             $("#montopago1").val(data.montoCobrar)
@@ -81,7 +86,7 @@ function culqi() {
            },
        }).done(function (resp){
             var tipoPago_alumno = "Culqui";
-            var montoPago_alumno= montoPagar;
+            var montoPago_alumno= montoPagar*0.01;
 
             $.ajax({
                 url	    : 'ajax/pagosPendientes.ajax.php',
@@ -146,7 +151,7 @@ paypal.Buttons({
           $.ajax({
               url	    : 'ajax/pagosPendientes.ajax.php',
               type    : 'POST',
-              data    : {idPago_alumno:idalumno1,tipo:'Paypal',monto:montito2},
+              data    : {idPago_alumno:idalumno1,tipoPago_alumno:'Paypal',montoPago_alumno:montito2},
               success: function(data){
                   if(data=="ok"){
                     
