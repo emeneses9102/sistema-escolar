@@ -26,13 +26,14 @@ class ControladorMailPagoPendiente{
         $fecha=date("dmYHi");
         $numeroramdon=rand(0,9);
 
+       
+        
+
+
         $fecha=date("Y-m-d");
         $tipago='Depósito';
     
-        if(isset($_POST['montopago1'])){
-            $montopago=$_POST['montopago1']; 
-        };
-
+        
         if(isset($_POST['alumno'])){
 
         
@@ -74,12 +75,21 @@ class ControladorMailPagoPendiente{
        $porciones = explode("/",$tipo);
        $extension=$porciones[1];
 
-       $directorio='./colegio/upload/2021/2021-03';//Declaramos un  variable con la ruta donde guardaremos los archivos
+       //$directorio='./colegio/upload/2021/2021-03';//Declaramos un  variable con la ruta donde guardaremos los archivos
        
        //Validamos si la ruta de destino existe, en caso de no existir la creamos
-       if(!file_exists($directorio)){
+
+            $fecha0=date("Y");
+            $fecha1=date("Y-m");
+            $directorio = './colegio/upload/'.$fecha0.'/'.$fecha1;
+            
+            if (!file_exists($directorio)) {
+                mkdir($directorio, 0777, true);
+                echo "<script>alert('Se creó una carpeta para alojar los comprobantes');</script>";
+            }
+       /*if(!file_exists($directorio)){
            mkdir($directorio, 0777) or die("No se puede crear el directorio de extracci&oacute;n");	
-       }
+       }*/
 
        $dir=opendir($directorio); //Abrimos el directorio de destino
        $target_path = $directorio.'/'.$dniCodigoPago.$fecha.'-'.$numeroramdon.'.'.$extension; //Indicamos la ruta de destino, así como el nombre del archivo
@@ -140,7 +150,7 @@ class ControladorMailPagoPendiente{
 
             	
 
-                $respuesta = ModelosubirImagen::MdlSubirImagen($target_path,$fecha, $tipago, $montopago,$valor,$codigoPago);
+                $respuesta = ModelosubirImagen::MdlSubirImagen($target_path,$fecha, $tipago, $valor,$codigoPago);
                 if ($respuesta == "ok"){
 
 
@@ -176,10 +186,12 @@ class ControladorMailPagoPendiente{
                                 }
                             
         }else{
+
+            
             echo '<script>
                     swal.fire({
                     type:"error",
-                                title : "error al enviar",
+                                title : "error al enviar '.$directorio.'",
                      showConfirmButton: true,
                                 confirmButtonText: "Cerrar",
                                 closeOnConfirm: false

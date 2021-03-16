@@ -235,7 +235,56 @@
               </div>
               <div class="col-md-12">
                 <h6>Comprobante:</h6>
-                <img src="vista/images/voucher.jpg" alt="" id="imagenDelPago" class="img-fluid">
+                <img src="" alt="" id="imagenDelPago" class="img-fluid">
+              </div>
+          </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!--Modal ver detalles del pago boton ojo -->
+<div class="modal fade" id="modalDetallePagoOjo" tabindex="-1" aria-labelledby="detallePago" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detallePago">Detalle del pago1</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>       
+      </div>
+      <div class="modal-body">
+          <div class="row">
+              <div class="col-md-6">
+              <h6>Detalle del pago:</h6>
+              <p class="pl-1" id="detalleDelPago1"></p>
+              </div>
+              <div class="col-md-6">
+                <h6>Fecha del pago:</h6>
+                <p class="pl-1" id="fechaDelPago1">10/05/2020</p>
+              </div>
+              <div class="col-md-6">
+                <h6>Monto:</h6>
+                <p class="pl-1" id="montoDelPago1">S/ 250.00</p>
+              </div>
+              <div class="col-md-6">
+                <h6>Medio:</h6>
+                <p class="pl-1" id="medioDelPago1">Paypal</p>
+              </div>
+              <div class="col-md-12">
+                <h6>Comprobante:</h6>
+                <img src="" alt="" id="imagenDelPago1" class="img-fluid">
+              </div>
+
+              <input type="text" id="validarpagoname" name="validarpagoname" hidden>
+              <div class="col-md-12">
+                <h6>Ingrese Monto</h6>
+                <input type="text" id="montovalidarpago" name="montovalidarpago" required>
+              </div>
+              <div class="col-md-12 mt-2">
+              <button type="submit" id="validarpago" class="btn btn-primary" onclick="validarCobro();">Validar Pago 
+                </button> 
               </div>
           </div>
       </div>

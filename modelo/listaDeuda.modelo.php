@@ -70,10 +70,35 @@ class ModeloListaDeuda{
         
         
     }
+    static public function mdlMostrarPagosDeudoresojo($tabla,$item,$valor){
+        
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla AS ac
+        INNER JOIN cobros AS c
+        ON ac.idCobro = c.idCobros
+        INNER JOIN alumno AS a
+        ON ac.idAlumno = a.idAlumno
+        WHERE $item = $valor AND ac.estado = 1");
+        $stmt -> execute();
+   
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+}
 
     static public function mdlActualizarCobro($id,$monto,$tabla){
         $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET montoCobrar = $monto WHERE idAlumno_cobros = ?");
          $respuesta = $stmt -> execute([$id]);
+        
+         if($respuesta == true){
+             return "ok";
+         }else{
+             return "error";
+         }
+         $respuesta->close();
+        $respuesta =null;
+    }
+    static public function mdlValidarPago($montopagado,$id,$tabla){
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET estado = 2, monto_pagado = ? WHERE idAlumno_cobros = ?");
+         $respuesta = $stmt -> execute([$montopagado, $id]);
         
          if($respuesta == true){
              return "ok";
@@ -127,9 +152,6 @@ class ModeloListaDeuda{
             $stmt -> execute();
             //print_r($stmt->errorInfo());
             return $stmt->fetchAll();
-            
-        
-        
         
     }
 }

@@ -22,6 +22,14 @@ class ajaxListaDeuda{
         //var_dump($respuesta);
         echo json_encode($respuesta);
     }
+    public function ajaxListarDeudaUsuarioPagosojo(){
+        $valor = $this->id_deudaPago1;
+        $tabla = "alumno_cobros";
+        $item="id_usuario";
+        $respuesta = ModeloListaDeuda::mdlMostrarPagosDeudoresojo($tabla,$item,$valor);
+        //var_dump($respuesta);
+        echo json_encode($respuesta);
+    }
 
     public function ajaxActualizarCobro(){
         $idCobro = $this->idCobro_;
@@ -35,6 +43,15 @@ class ajaxListaDeuda{
         $id_Cobro = $this->id_cobro;
         $tabla="alumno_cobros";
         $respuesta = ModeloListaDeuda::mdlExonerarCobro($id_Cobro,$tabla);
+        //var_dump($respuesta);
+        echo $respuesta;
+    }
+
+    public function ajaxValidarPago(){
+        $idv = $this->idAlumno_cobros;
+        $montopagado = $this->monto_pagado;
+        $tabla="alumno_cobros";
+        $respuesta = ModeloListaDeuda::mdlValidarPago($montopagado,$idv,$tabla);
         //var_dump($respuesta);
         echo $respuesta;
     }
@@ -84,10 +101,15 @@ if(isset($_POST["id_deuda"]))
 }
 if(isset($_POST["id_deudaPago"]))
 {
-    
     $editar = new ajaxListaDeuda();
     $editar->id_deudaPago = $_POST["id_deudaPago"];
     $editar->ajaxListarDeudaUsuarioPagos();
+}
+if(isset($_POST["id_deudaPago1"]))
+{
+    $editar = new ajaxListaDeuda();
+    $editar->id_deudaPago1 = $_POST["id_deudaPago1"];
+    $editar->ajaxListarDeudaUsuarioPagosojo();
 }
 
 if(isset($_POST["idCobro_"]))
@@ -132,4 +154,13 @@ if(isset($_POST["apellidoD"]))
     $editar = new ajaxListaDeuda();
     $editar->apellidoD = $_POST["apellidoD"];
     $editar->ajaxBuscarxApellido();
+}
+
+if(isset ($_POST["idAlumno_cobros"]) && isset ($_POST["monto_pagado"]))
+{ 
+    $validarpago = new ajaxListaDeuda();
+    $validarpago->idAlumno_cobros = $_POST["idAlumno_cobros"];
+    $validarpago->monto_pagado = $_POST["monto_pagado"];
+    $validarpago->ajaxValidarPago();
+    
 }

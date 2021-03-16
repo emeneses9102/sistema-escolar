@@ -119,7 +119,7 @@ $('#listDeudores').on('click', '#editPago', function(e) {
                 "<td>"+item.fecha_vencimiento+"</td>",
                 "<td>"+item.monto+"</td>",
                 "<td style='width: 100px;'><input value="+item.montoCobrar+" class='form-control text-right' id='monto"+item.idAlumno_cobros+"'></td>",
-                "<td><button type='button' class='btn btn-warning btn-sm px-1 mr-2' onclick='EditarPago("+item.idAlumno_cobros+")' title='Editar Pago'><i class='fas fa-edit'></i></button><button type='button' class='btn btn-danger btn-sm px-1 mr-2' onclick='exonerarCobro("+item.idAlumno_cobros+")' title='Exonerar Pago'><i class='fas fa-trash'></i></button><button type='button' class='btn btn-info btn-sm px-1 ' onclick='detallesPago("+item.idAlumno_cobros+")' title='Ver detalles'><i class='fas fa-eye'></i></button></td>",
+                "<td><button type='button' class='btn btn-warning btn-sm px-1 mr-2' onclick='EditarPago("+item.idAlumno_cobros+")' title='Editar Pago'><i class='fas fa-edit'></i></button><button type='button' class='btn btn-danger btn-sm px-1 mr-2' onclick='exonerarCobro("+item.idAlumno_cobros+")' title='Exonerar Pago'><i class='fas fa-trash'></i></button><button type='button' class='btn btn-info btn-sm px-1 ' onclick='detallesPagoOjo("+item.idAlumno_cobros+")' title='Ver detalles'><i class='fas fa-eye'></i></button></td>",
                 ]
                 ).draw(false);
                 
@@ -159,6 +159,7 @@ $('#listDeudores').on('click', '#editPago', function(e) {
     
     
 });
+
 function detallesPago(i){
     id_deuda = $("#id_deuda").val();
     $("#modalDetallePago").modal("show");
@@ -175,11 +176,36 @@ function detallesPago(i){
                     $('#fechaDelPago').text(item.fecha_pago);
                     $('#montoDelPago').text(item.monto_pagado);
                     $('#medioDelPago').text(item.tipo_pago);
+                    $("#imagenDelPago").attr("src",item.comprobanteURL);
+                    $('#validarpagoname').val(item.idAlumno_cobros);
                     
                 }
-
-                
-                
+            }
+            
+        
+        }
+    });
+}
+function detallesPagoOjo(i){
+    id_deuda = $("#id_deuda").val();
+    $("#modalDetallePagoOjo").modal("show");
+    $.ajax({
+        url	    : 'ajax/listaDeuda.ajax.php',
+        type    : 'POST',
+        data    : {id_deudaPago1:id_deuda},
+        dataType:   "json",
+        success: function(data){
+            
+            for(let item of data){
+                if(item.idAlumno_cobros == i){
+                    $('#detalleDelPago1').text(item.detalle);
+                    $('#fechaDelPago1').text(item.fecha_pago);
+                    $('#montoDelPago1').text(item.monto_pagado);
+                    $('#medioDelPago1').text(item.tipo_pago);
+                    $("#imagenDelPago1").attr("src",item.comprobanteURL);
+                    $('#validarpagoname').val(item.idAlumno_cobros);
+                    
+                }
             }
             
         
@@ -217,6 +243,7 @@ function EditarPago(idCobro_){
         }
     }); 
 }
+
 function exonerarCobro(id_cobro){
     var id_cobro = id_cobro;
     $.ajax({
@@ -239,6 +266,37 @@ function exonerarCobro(id_cobro){
                 swal.fire({
                     icon:"error",
                     title : "El cobro no ha sido exonerado",
+                    showConfirmButton: true,
+                    confirmButtonText: "Cerrar",
+                })
+                
+            }
+        }
+    }); 
+}
+function validarCobro(){
+    var id_validaralumno = $("#validarpagoname").val();
+    var validarpago = $("#montovalidarpago").val();
+    $.ajax({
+        url	    : 'ajax/listaDeuda.ajax.php',
+        type    : 'POST',
+        data    : {idAlumno_cobros:id_validaralumno, monto_pagado:validarpago},
+        success: function(data){
+            alert(data);
+            if(data == "ok"){
+                swal.fire({
+                    icon:"success",
+                    title : "Pago validado",
+                    showConfirmButton: true,
+                    confirmButtonText: "Cerrar",
+                })
+                window.location = "listaDeuda";
+                
+            }
+            else{
+                swal.fire({
+                    icon:"error",
+                    title : "El pago no se ha validado",
                     showConfirmButton: true,
                     confirmButtonText: "Cerrar",
                 })

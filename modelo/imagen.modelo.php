@@ -1,7 +1,7 @@
 <?php
 require_once "conexion.php";
 class ModelosubirImagen{
-    static public function MdlSubirImagen($item, $fecha, $tipago, $montopago, $valor,$cobros){
+    static public function MdlSubirImagen($item, $fecha, $tipago, $valor,$cobros){
 
         $imagen = Conexion::conectar()->prepare("SELECT * FROM usuario as u 
             INNER JOIN alumno a
@@ -11,8 +11,8 @@ class ModelosubirImagen{
             $imagen -> execute([$valor]);
             $resultConsulta= $imagen->fetch(PDO::FETCH_OBJ);
 
-        $stmt = Conexion::conectar()->prepare (" UPDATE alumno_cobros SET comprobanteURL = ?, fecha_pago=?, tipo_pago=?, monto_pagado=? WHERE  idAlumno = ?  AND idCobro = ?") ; 
-        $respuesta = $stmt->execute([$item, $fecha, $tipago, $montopago, $resultConsulta->idAlumno, $cobros]);
+        $stmt = Conexion::conectar()->prepare (" UPDATE alumno_cobros SET comprobanteURL = ?, fecha_pago=?, tipo_pago=? WHERE  idAlumno = ?  AND idCobro = ?") ; 
+        $respuesta = $stmt->execute([$item, $fecha, $tipago, $resultConsulta->idAlumno, $cobros]);
 
         if($respuesta == true)
             {
