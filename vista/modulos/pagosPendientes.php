@@ -122,10 +122,18 @@
         <input type="text" id="detalle" hidden value="">
         <input type="text" id="montoPagar" hidden value="">
         <div class="col-md mt-3 d-flex justify-content-center">
-            <button class="btn btn-lg button_pagos  text-muted"data-toggle="modal" data-target="#modalEnvioCuenta" onclick="abc()" ><i style="font-size:40px;"class="far fa-credit-card"></i></button>
+          <div class="row">
+            <button class="btn btn-lg button_pagos col-12 text-muted" data-toggle="modal" data-target="#modalEnvioCuenta" onclick="abc()" ><i style="font-size:40px;"class="fas fa-university"></i></button>
+            <p class="text-center col-12 h6">Pago por depósito</p>
+          </div>
         </div>
         <div class="col-md mt-3 d-flex justify-content-center">
-            <button class="btn btn-lg button_pagos" id="btn-culqi"><img src="vista/images/Culqui.png" alt="" width="100%" class="img-fluid"></button>
+          <div class="row">
+            <button class="btn btn-lg button_pagos col-12" id="btn-culqi"><img src="vista/images/Visa-MasterCard.png" alt="" width="100%" style="max-width:90%;" class="img-fluid"></button>
+            <p class="text-center col-12 h6">Pago con tarjeta</p>
+          </div>
+            
+            
         </div>
         
         <div class="col-md mt-3 d-flex justify-content-center mt-4">

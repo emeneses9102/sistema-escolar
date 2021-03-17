@@ -13,8 +13,19 @@ class ControladorMailPagoPendiente{
         
         $asunto="VOUCHER DE PAGO";
 
-        $mensaje = "LOS DATOS DEL ALUMNO SON:\n";
+        $mensaje = "LOS DATOS DEL ALUMNO SON:\n\n";
 
+        if(isset($_POST['codigo_alu'])){
+            $CodigoAlu=$_POST['codigo_alu'];
+        }
+
+        if(isset($_POST['grado_seccion'])){
+            $gradoseccion=$_POST['grado_seccion'];
+        }
+
+        if(isset($_POST['notas'])){
+            $notas=$_POST['notas'];
+        }
 
         if(isset($_POST['dniCodigoPago'])){
             $dniCodigoPago=$_POST['dniCodigoPago'];
@@ -24,6 +35,8 @@ class ControladorMailPagoPendiente{
             $codigoPago=$_POST['codigoPago']; 
         }
 
+
+
         $fecha=date("dmYHi");
         $numeroramdon=rand(0,9);
 
@@ -31,9 +44,15 @@ class ControladorMailPagoPendiente{
         $tipago='Depósito';
     
         
-        if(isset($_POST['alumno'])){
 
+        if(isset($_POST['alumno'])){
         
+        $alumnoa=$_POST['alumno'];
+
+        $mensaje .="Alumno : ".$alumnoa."\n";
+        $mensaje .="Código alumno : ".$CodigoAlu."\n";
+        $mensaje .="Grado y Sección : ".$gradoseccion."\n";
+        $mensaje .="Notas : ".$notas."\n";
 
         if(empty($nombre_archivo)){
             echo '<script>
