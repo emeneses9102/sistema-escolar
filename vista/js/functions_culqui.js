@@ -45,9 +45,7 @@ function mostrarModal(idAlumnoxPago){
             console.log("hola"+montito+"-"+montito1);
             $("#detalle").val(data.detalle);
             $("#montoPagar").val(data.montoCobrar);
-            $("#idImagen").val(data.idAlumno_cobros)
-
-            $("#montopago1").val(data.montoCobrar)
+            $("#idImagen").val(data.idAlumno_cobros);
         /*
         $("#inputprueba2").val(idprueba);*/
         

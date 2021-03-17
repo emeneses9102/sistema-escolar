@@ -6,10 +6,10 @@ class ModeloPagoPendiente{
         static public function mdlCobrosxAlumno($tabla,$item,$valor){
             if($item != null)
                 {
-                    $stmt = Conexion::conectar()->prepare("SELECT c.codigo,c.detalle,ac.montoCobrar,c.fecha_vencimiento,c.monto,ac.idAlumno_cobros  FROM cobros AS c 
+                    $stmt = Conexion::conectar()->prepare("SELECT c.codigo,c.detalle,ac.montoCobrar,c.fecha_vencimiento,c.monto,ac.idAlumno_cobros,ac.estado  FROM cobros AS c 
                     INNER JOIN alumno_cobros AS ac ON c.idCobros=ac.idCobro 
                     INNER JOIN alumno al ON ac.idAlumno=al.idAlumno 
-                    INNER JOIN usuario us ON al.id_usuario=us.usuario_id WHERE us.$item =:$item AND ac.estado=1");
+                    INNER JOIN usuario us ON al.id_usuario=us.usuario_id WHERE us.$item =:$item AND ac.estado!=2");//mostramos los "sin cancelar" y los pagos por confirmar
                     $stmt -> bindParam(":".$item,$valor , PDO::PARAM_INT); 
                     $stmt -> execute();
                     return $stmt->fetchAll();

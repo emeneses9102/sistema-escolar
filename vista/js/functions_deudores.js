@@ -177,7 +177,6 @@ function detallesPago(i){
                     $('#montoDelPago').text(item.monto_pagado);
                     $('#medioDelPago').text(item.tipo_pago);
                     $("#imagenDelPago").attr("src",item.comprobanteURL);
-                    $('#validarpagoname').val(item.idAlumno_cobros);
                     
                 }
             }
@@ -282,7 +281,6 @@ function validarCobro(){
         type    : 'POST',
         data    : {idAlumno_cobros:id_validaralumno, monto_pagado:validarpago},
         success: function(data){
-            alert(data);
             if(data == "ok"){
                 swal.fire({
                     icon:"success",
@@ -297,6 +295,36 @@ function validarCobro(){
                 swal.fire({
                     icon:"error",
                     title : "El pago no se ha validado",
+                    showConfirmButton: true,
+                    confirmButtonText: "Cerrar",
+                })
+                
+            }
+        }
+    }); 
+}
+
+function validarCobro2(){
+    var id_validaralumno = $("#validarpagoname").val();
+    $.ajax({
+        url	    : 'ajax/listaDeuda.ajax.php',
+        type    : 'POST',
+        data    : {idAlumno_cobros2:id_validaralumno},
+        success: function(data){
+            if(data == "ok"){
+                swal.fire({
+                    icon:"success",
+                    title : "Pago rechazado",
+                    showConfirmButton: true,
+                    confirmButtonText: "Cerrar",
+                })
+                window.location = "listaDeuda";
+                
+            }
+            else{
+                swal.fire({
+                    icon:"error",
+                    title : "Error",
                     showConfirmButton: true,
                     confirmButtonText: "Cerrar",
                 })

@@ -9,7 +9,7 @@ class ModeloListaDeuda{
             ON ac.idCobro = c.idCobros
             INNER JOIN alumno AS a
             ON ac.idAlumno = a.idAlumno
-            WHERE $item = $valor AND ac.estado = 1");
+            WHERE ac.estado = '3' OR ac.estado = '1' AND $item = $valor");
             $stmt -> execute();
        
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -62,14 +62,8 @@ class ModeloListaDeuda{
             $stmt -> execute();
        
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-           
-            
-            
-        
-       
-        
-        
     }
+
     static public function mdlMostrarPagosDeudoresojo($tabla,$item,$valor){
         
         $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla AS ac
@@ -77,7 +71,7 @@ class ModeloListaDeuda{
         ON ac.idCobro = c.idCobros
         INNER JOIN alumno AS a
         ON ac.idAlumno = a.idAlumno
-        WHERE $item = $valor AND ac.estado = 1");
+        WHERE $item = $valor AND ac.estado = 1 OR ac.estado = 3 ");
         $stmt -> execute();
    
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -99,6 +93,19 @@ class ModeloListaDeuda{
     static public function mdlValidarPago($montopagado,$id,$tabla){
         $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET estado = 2, monto_pagado = ? WHERE idAlumno_cobros = ?");
          $respuesta = $stmt -> execute([$montopagado, $id]);
+        
+         if($respuesta == true){
+             return "ok";
+         }else{
+             return "error";
+         }
+         $respuesta->close();
+        $respuesta =null;
+    }
+
+    static public function mdlRechazarPago($id,$tabla){
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET estado = 1 WHERE idAlumno_cobros = ?");
+         $respuesta = $stmt -> execute([$id]);
         
          if($respuesta == true){
              return "ok";

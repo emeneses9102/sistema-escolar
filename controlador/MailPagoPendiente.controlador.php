@@ -1,7 +1,7 @@
 <?php
 
 class ControladorMailPagoPendiente{
-    static public function ctrEnviarMail($valor){
+    static public function ctrEnviarMail(){
 
         if(isset($_FILES['archivo1'])){
             $archivo = $_FILES['archivo1']; 
@@ -9,7 +9,7 @@ class ControladorMailPagoPendiente{
             $archivo1=$archivo['tmp_name'];
             $tipo = $archivo['type'];
             
-        };
+        }
         
         $asunto="VOUCHER DE PAGO";
 
@@ -17,20 +17,17 @@ class ControladorMailPagoPendiente{
 
 
         if(isset($_POST['dniCodigoPago'])){
-            $dniCodigoPago=$_POST['dniCodigoPago']; 
-        };
+            $dniCodigoPago=$_POST['dniCodigoPago'];
+        }
 
         if(isset($_POST['codigoPago'])){
             $codigoPago=$_POST['codigoPago']; 
-        };
+        }
+
         $fecha=date("dmYHi");
         $numeroramdon=rand(0,9);
 
-       
-        
-
-
-        $fecha=date("Y-m-d");
+        $fechaActual=date("Y-m-d");
         $tipago='Depósito';
     
         
@@ -42,7 +39,7 @@ class ControladorMailPagoPendiente{
             echo '<script>
             swal.fire({
                 type:"error",
-                title : "Cargue una imagen '.$nombre_archivo.'",
+                title : "Cargue una imagen",
                 showConfirmButton: true,
                 confirmButtonText: "Cerrar",
                 closeOnConfirm: false
@@ -96,10 +93,10 @@ class ControladorMailPagoPendiente{
        
        if(move_uploaded_file($archivo1, $target_path)) {
 
-       $to = 'taly2598@gmail.com';
+       $to = 'jhobyll.2012@gmail.com';
 
         //remitente del correo
-        $from = 'masterps3098@gmail.com';
+        $from = 'jhobyllstephany.2012@gmail.com';
         $fromName='VOUCHER DE PAGO';
 
         //Asunto del email
@@ -145,35 +142,55 @@ class ControladorMailPagoPendiente{
         $message .= "--{$mime_boundary}--";
         $returnpath = "-f" . $from;
 
-        //Enviar EMail
         if(mail($to, $asunto, $message, $headers, $returnpath)){
+   
 
-            	
+        $respuesta = ModelosubirImagen::MdlSubirImagen($target_path, $fechaActual, $tipago, $codigoPago);
 
-                $respuesta = ModelosubirImagen::MdlSubirImagen($target_path,$fecha, $tipago, $valor,$codigoPago);
                 if ($respuesta == "ok"){
 
+                    
+            echo '<script>
+            swal.fire({
+                type:"success",
+                title : "Voucher enviado exitosamente!",
+                showConfirmButton: true,
+                confirmButtonText: "Cerrar",
+                closeOnConfirm: false
+            }).then((result)=>{
+                if(result.value){
+                    window.location = "pagosPendientes";
+                }
+            })
 
-                echo '<script>
-                                    swal.fire({
-                                        type:"success",
-                                        title : "Voucher enviado exitosamente!",
-                                        showConfirmButton: true,
-                                        confirmButtonText: "Cerrar",
-                                        closeOnConfirm: false
-                                    }).then((result)=>{
-                                        if(result.value){
-                                            window.location = "pagosPendientes";
-                                        }
-                                    })
+            </script>';   
+            
+                }else{
+                    echo '<script>
+                        swal.fire({
+                            type:"error",
+                            title : "error al guardar imagen en bd - '.$estado.' - '.$target_path.' - '.$fechaActual.' - '.$tipago.' - '.$codigoPago.'",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false
+                        }).then((result)=>{
+                            if(result.value){
+                                window.location = "pagosPendientes";
+                            }
+                        })
 
-                                    </script>';
-                                }else{
-                                    echo '<script>
-                                        swal.fire({
-                                            type:"error",
-                                            title : "error al guardar imagen en bd",
-                                            showConfirmButton: true,
+                        </script>';
+                }
+
+                  
+                    }else{
+            
+                        
+                        echo '<script>
+                                swal.fire({
+                                type:"error",
+                                            title : "error al enviar",
+                                 showConfirmButton: true,
                                             confirmButtonText: "Cerrar",
                                             closeOnConfirm: false
                                         }).then((result)=>{
@@ -181,34 +198,19 @@ class ControladorMailPagoPendiente{
                                                 window.location = "pagosPendientes";
                                             }
                                         })
-    
+                        
                                         </script>';
-                                }
-                            
-        }else{
+                    }
 
-            
-            echo '<script>
-                    swal.fire({
-                    type:"error",
-                                title : "error al enviar '.$directorio.'",
-                     showConfirmButton: true,
-                                confirmButtonText: "Cerrar",
-                                closeOnConfirm: false
-                            }).then((result)=>{
-                                if(result.value){
-                                    window.location = "pagosPendientes";
-                                }
-                            })
-            
-                            </script>';
-        }
+                                
+        //Enviar EMail
+        
 
     } else {	
         echo '<script>
                 swal.fire({
                     type:"error",
-                    title : "error al almacenar imagen '.$nombre_archivo.'",
+                    title : "error al almacenar imagen",
                     showConfirmButton: true,
                     confirmButtonText: "Cerrar",
                     closeOnConfirm: false

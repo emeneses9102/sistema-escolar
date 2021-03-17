@@ -37,7 +37,7 @@
 
                               
                                 foreach($cobrosAlum as $value){
-                                  
+                                  $alerta = ($value["estado"] == "3")?"<i class='fa fa-info-circle ml-2' aria-hidden='true' title='Enviado a revisión' style='color:#de4747; font-size: 1.6em;'></i>":"";
 
                                     echo'<tr>
                                       
@@ -47,7 +47,7 @@
                                         <td>'.$value['monto'].'</td>
                                         <td>s/. 7.00</td>
                                         <td>'.$value['montoCobrar'].'</td>
-                                        <td><button type="button"   class="btn btn-primary btn-sm px-1 btnPago" onclick="mostrarModal('.$value['idAlumno_cobros'].')"data-toggle="modal" data-target="#pagoModal"><i class="fas fa-shopping-cart pr-1"></i> Cancelar</button></td>
+                                        <td><button type="button"   class="btn btn-primary btn-sm px-1 btnPago" onclick="mostrarModal('.$value['idAlumno_cobros'].')"data-toggle="modal" data-target="#pagoModal"><i class="fas fa-shopping-cart pr-1"></i> Cancelar</button><div class="" style="display:inline-block; vertical-align: middle;">'.$alerta.'</div></td>
                                         </tr>';
                                 }
                             ?>
@@ -171,8 +171,7 @@
             <input type="text" class="form-control" name="grado_seccion">
           </div>
             <input type="text" class="form-control" id="idImagen" name="codigoPago" hidden>
-            <input type="text" class="form-control" id="dniCodigoPago" name="dniCodigoPago" hidden value="<?php echo $_SESSION['dni']?>">
-            <input type="text" class="form-control" id="montopago1" name="montopago1" hidden >
+            <input type="text" class="form-control" id="dniCodigoPago" name="dniCodigoPago" value="<?php echo $_SESSION['dni']?>" hidden>
           <div class="form-group">
             <label class="control-label" for="">Notas</label></br>
             <textarea  class="form-control" type="text" rows="5" name="notas"></textarea></br>
@@ -193,13 +192,12 @@
       </div>
      
       <div class="modal-footer d-flex justify-content-center">
-          <button type="submit" class="btn btn-primary" >Enviar</button>
+          <button type="submit" class="btn btn-primary">Enviar</button>
       </div>
       
       <?php
-          $valor = $_SESSION['usuario_id'];
           $enviarMail = new ControladorMailPagoPendiente();
-          $enviarMail->ctrEnviarMail($valor);
+          $enviarMail->ctrEnviarMail();
           ?>
     </form> 
       

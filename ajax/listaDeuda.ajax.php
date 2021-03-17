@@ -56,6 +56,14 @@ class ajaxListaDeuda{
         echo $respuesta;
     }
 
+    public function ajaxRechazarPago(){
+        $idv = $this->idAlumno_cobros2;
+        $tabla="alumno_cobros";
+        $respuesta = ModeloListaDeuda::mdlRechazarPago($idv,$tabla);
+        //var_dump($respuesta);
+        echo $respuesta;
+    }
+
     public function ajaxBuscarxNiveles(){
         $valor = $this->idNivelD;
         $item="n.idNiveles";
@@ -162,5 +170,13 @@ if(isset ($_POST["idAlumno_cobros"]) && isset ($_POST["monto_pagado"]))
     $validarpago->idAlumno_cobros = $_POST["idAlumno_cobros"];
     $validarpago->monto_pagado = $_POST["monto_pagado"];
     $validarpago->ajaxValidarPago();
+    
+}
+
+if(isset ($_POST["idAlumno_cobros2"]))
+{ 
+    $validarpago = new ajaxListaDeuda();
+    $validarpago->idAlumno_cobros2 = $_POST["idAlumno_cobros2"];
+    $validarpago->ajaxRechazarPago();
     
 }

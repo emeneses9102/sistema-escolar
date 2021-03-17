@@ -276,15 +276,16 @@
                 <h6>Comprobante:</h6>
                 <img src="" alt="" id="imagenDelPago1" class="img-fluid">
               </div>
-
               <input type="text" id="validarpagoname" name="validarpagoname" hidden>
               <div class="col-md-12">
                 <h6>Ingrese Monto</h6>
                 <input type="text" id="montovalidarpago" name="montovalidarpago" required>
               </div>
-              <div class="col-md-12 mt-2">
-              <button type="submit" id="validarpago" class="btn btn-primary" onclick="validarCobro();">Validar Pago 
-                </button> 
+              <div class="col-md-12 mt-2 d-flex justify-content-center">
+              <button type="submit" id="validarpago" class="btn btn-primary mr-2" onclick="validarCobro();">Validar Pago 
+                </button>
+              <button type="submit" id="validarpago2" class="btn btn-danger ml-2" onclick="validarCobro2();">Rechazar Pago 
+                </button>  
               </div>
           </div>
       </div>
