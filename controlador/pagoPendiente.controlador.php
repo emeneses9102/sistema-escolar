@@ -13,5 +13,10 @@ class ControladorPagoPendiente{
         $respuesta = ModeloPagoPendiente::mdlCobrosRxAlumno($tabla,$item,$valor);
         return $respuesta;
         }
+
+    static public function ctrMostrarDatosPagoPendiente($item,$valor){
+        $respuesta = ModeloPagoPendiente::mdlMostrarDatosPagoPendiente($item,$valor);
+        return $respuesta;
+    }
 }
 ?>

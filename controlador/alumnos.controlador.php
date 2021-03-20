@@ -373,5 +373,10 @@ class ControladorAlumnos{
          }
      }
 
+     static public function ctrMostrarDatoAlumno($valor){
+        $tabla="usuario";
+        $respuesta = ModeloAlumnos::mdlMostrarDatoAlumno($valor,$tabla);
+        return $respuesta;
+     }
 
 }

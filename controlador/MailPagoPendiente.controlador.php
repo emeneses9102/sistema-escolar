@@ -23,6 +23,10 @@ class ControladorMailPagoPendiente{
             $gradoseccion=$_POST['grado_seccion'];
         }
 
+        if(isset($_POST['detalle'])){
+            $detallecor=$_POST['detalle'];
+        }
+
         if(isset($_POST['notas'])){
             $notas=$_POST['notas'];
         }
@@ -51,6 +55,7 @@ class ControladorMailPagoPendiente{
 
         $mensaje .="Alumno : ".$alumnoa."\n";
         $mensaje .="Código alumno : ".$CodigoAlu."\n";
+        $mensaje .="Grado y Sección : ".$detallecor."\n";
         $mensaje .="Grado y Sección : ".$gradoseccion."\n";
         $mensaje .="Notas : ".$notas."\n";
 

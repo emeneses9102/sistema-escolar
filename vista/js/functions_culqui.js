@@ -26,6 +26,7 @@ var montito="";
 var idalumno1="";
 var montito1="";
 var dolar=3.69;
+var estado="";
 
 //Pagos pendientes
 function mostrarModal(idAlumnoxPago){
@@ -46,9 +47,22 @@ function mostrarModal(idAlumnoxPago){
             $("#detalle").val(data.detalle);
             $("#montoPagar").val(data.montoCobrar);
             $("#idImagen").val(data.idAlumno_cobros);
+            estado = data[10];
+            var elemento = document.getElementById("botonculqui");
+            var elemento1 = document.getElementById("botonpaypal");
+            var elemento2 = document.getElementById("titulodeposito");
+            if(estado == "3"){
+                elemento.className = " d-none";
+                elemento1.className = " d-none";
+                elemento2.className = "col-md-12";
+            }else{
+                elemento.className = "col-md mt-3 d-flex justify-content-center";
+                elemento1.className = "col-md mt-4 pt-4 d-flex justify-content-center";
+                elemento2.className = "d-none";
+            }
         /*
         $("#inputprueba2").val(idprueba);*/
-        
+       
         }
     }); /*
         var idprueba="";

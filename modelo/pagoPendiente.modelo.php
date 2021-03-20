@@ -30,7 +30,7 @@ class ModeloPagoPendiente{
          static public function mdlCobrosRxAlumno($tabla,$item,$valor){
              if($item != null)
             {
-                $stmt = Conexion::conectar()->prepare("SELECT c.codigo,c.detalle,ac.montoCobrar,c.fecha_vencimiento,c.monto   FROM cobros AS c 
+                $stmt = Conexion::conectar()->prepare("SELECT c.codigo,c.detalle,ac.fecha_pago,ac.montoCobrar,ac.tipo_pago,ac.monto_pagado FROM cobros AS c 
                 INNER JOIN alumno_cobros AS ac ON c.idCobros=ac.idCobro 
                 INNER JOIN alumno al ON ac.idAlumno=al.idAlumno 
                 INNER JOIN usuario us ON al.id_usuario=us.usuario_id WHERE us.$item =:$item AND ac.estado=2");
@@ -40,7 +40,7 @@ class ModeloPagoPendiente{
             }
             else
             {//usamos esta consulta para listar todos los cobros
-                $stmt = Conexion::conectar()->prepare("SELECT c.codigo,c.detalle,ac.montoCobrar,c.fecha_vencimiento FROM cobros AS c 
+                $stmt = Conexion::conectar()->prepare("SELECT c.codigo,c.detalle,ac.fecha_pago,ac.montoCobrar,ac.tipo_pago,ac.monto_pagado FROM cobros AS c 
                 INNER JOIN alumno_cobros AS ac ON c.idCobros=ac.idCobro 
                 INNER JOIN alumno al ON ac.idAlumno=al.idAlumno 
                 INNER JOIN usuario us ON al.id_usuario=us.usuario_id
@@ -50,7 +50,7 @@ class ModeloPagoPendiente{
             }
          }
          static public function mdlBuscarCobroAlumno($item,$valor,$tabla){
-            $stmt = Conexion::conectar()->prepare("SELECT *  FROM cobros AS c 
+            $stmt = Conexion::conectar()->prepare("SELECT * FROM cobros AS c 
             INNER JOIN alumno_cobros AS ac ON c.idCobros=ac.idCobro 
             INNER JOIN alumno al ON ac.idAlumno=al.idAlumno 
             INNER JOIN usuario us ON al.id_usuario=us.usuario_id WHERE ac.$item = $valor");
@@ -70,6 +70,19 @@ class ModeloPagoPendiente{
             }else{
                 return "error";
             }
+        }
+
+        static public function mdlMostrarDatosPagoPendiente($item,$valor){
+            $stmt = Conexion::conectar()->prepare("SELECT usu.nombres,usu.apellidos,alu.cod_matricula,gra.nombre_grado,sec.nombre_seccion,aluco.estado,cob.detalle FROM usuario AS usu
+            INNER JOIN alumno AS alu ON usu.usuario_id=alu.id_usuario
+            INNER JOIN alumno_cobros AS aluco ON alu.idAlumno=aluco.idAlumno
+            INNER JOIN cobros AS cob ON aluco.idCobro=cob.idCobros  
+            INNER JOIN matricula AS mat ON alu.idAlumno = mat.idAlumno 
+            INNER JOIN seccion_grados AS secgra ON mat.idSeccion_Grados = secgra.idSeccion_Grados
+            INNER JOIN grados AS gra ON secgra.idGrados = gra.idGrados 
+            INNER JOIN seccion AS sec ON secgra.idSeccion = sec.idSeccion WHERE usu.$item = $valor");
+            $stmt -> execute();
+            return $stmt->fetch();
         }
 }
 ?>

@@ -9,13 +9,11 @@ class ModeloListaDeuda{
             ON ac.idCobro = c.idCobros
             INNER JOIN alumno AS a
             ON ac.idAlumno = a.idAlumno
-            WHERE ac.estado = '3' OR ac.estado = '1' AND $item = $valor");
+            WHERE ac.estado!=2 AND $item = $valor");
             $stmt -> execute();
        
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-           
-            
-            
+   
         }
         else
         {//usamos esta consulta para listar todos los usuarios
@@ -71,7 +69,7 @@ class ModeloListaDeuda{
         ON ac.idCobro = c.idCobros
         INNER JOIN alumno AS a
         ON ac.idAlumno = a.idAlumno
-        WHERE $item = $valor AND ac.estado = 1 OR ac.estado = 3 ");
+        WHERE $item = $valor AND ac.estado!=2 ");
         $stmt -> execute();
    
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

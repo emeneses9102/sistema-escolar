@@ -101,8 +101,7 @@ class ModeloAlumnos{
                 return "error";
             }
         }
-        $respuesta->close();
-        $respuesta =null;
+        
     }
     }
 
@@ -135,9 +134,6 @@ class ModeloAlumnos{
                         return "repet-dni";
                     }
                 }
-
-
-                
 
                 $query = Conexion::conectar()->prepare ("UPDATE apoderado SET ocupacion_apoderado = ?, tipo_apoderado = ?, nombres_apoderado = ?, apellidos_apoderado = ?, dni_apoderado = ?, correo_apoderado = ?, telefono_apoderado = ?, direccion_apoderado = ? WHERE id_apoderado = ?");
 
@@ -216,5 +212,22 @@ class ModeloAlumnos{
         }
         $respuesta->close();
         $respuesta =null;
+    }
+    static public function mdlMostrarDatoAlumno($valor,$tabla){
+        $stmt = Conexion::conectar()->prepare('SELECT * FROM usuario AS u
+        INNER JOIN alumno AS a 
+        ON a.id_usuario = u.usuario_id
+        INNER JOIN apoderado AS ap
+        ON a.id_apoderado = ap.id_apoderado
+        LEFT JOIN matricula AS m
+        ON a.idAlumno = m.idAlumno
+        INNER JOIN seccion_grados AS sg
+        ON m.idSeccion_Grados = sg.idSeccion_Grados
+        INNER JOIN grados AS g
+        ON sg.idGrados = g.idGrados
+        WHERE usuario_id = 34');
+        $stmt->execute([]);
+        //print_r($stmt->errorInfo());
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
