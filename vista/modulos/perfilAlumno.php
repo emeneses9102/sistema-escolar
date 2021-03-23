@@ -1,5 +1,5 @@
 <?php 
-    $valor = 34;
+    $valor = $_SESSION['usuario_id'];
     
     $result = ControladorAlumnos :: ctrMostrarDatoAlumno($valor);
     
@@ -95,9 +95,10 @@
             <div class="tab-pane fade" id="user-settings">
               <div class="tile user-settings">
                 <h4 class="line-head">Datos del Alumno</h4>
-                <form id="formUsuario2" name="formUsuario2" action="">
+                <form id="formUsuario2" name="formUsuario2" method="post" enctype="multipart/form-data" rol="form">
                   <input type="hidden" name="idusuario2" id="idusuario2" value="">
                   <div class="form-group row">
+                    <input type="text" class="form-control" name="idusuarioalumno" id="idusuarioalumno" value="<?php echo $_SESSION['usuario_id'];?>" hidden>
                     <div class="col-md-12"><label for="">Nombres y Apellidos:</label></div>
                     <div class="col-md-6">
                     <input type="text" class="form-control" name="nombre2" id="nombre2" placeholder="Nombres" value="<?php echo $result['nombres']?>">
@@ -139,7 +140,8 @@
                     </div>
                     <div class="col-md-6">
                         <label for="exampleInputFile">Cargar foto:</label>
-                        <input class="form-control-file" id="exampleInputFile" type="file" aria-describedby="fileHelp">
+                        <input class="form-control-file" id="exampleInputFile" type="file" aria-describedby="fileHelp" name="cargarfotoperfil" >
+                        <input class="form-control-file" id="" type="text" name="nombreAnterior" value="<?php echo $result['foto']?>" hidden> 
                         <small class="form-text text-muted" id="fileHelp">Cargue una fotografía para el alumno</small>
                     </div>
                   </div>
@@ -154,6 +156,7 @@
                     </div>
                     <div class="col-md-6">
                       <input type="password" class="form-control" name="clave2" id="clave2" placeholder="Contraseña">
+                      <input type="password" class="form-control" name="clave3" id="clave3" placeholder="Contraseña" value="<?php echo $result['clave']?>" hidden>
                     </div>  
                   </div>
                   
@@ -245,6 +248,11 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button type="submit" id="action" class="btn btn-primary" >Guardar</button>
                   </div>
+                  <?php
+  
+                  $editarAlumnoPerfil = new ControladorAlumnos();
+                  $editarAlumnoPerfil->ctrEditarAlumnosPerfil();
+                ?>
                 </form>
               </div>
             </div>

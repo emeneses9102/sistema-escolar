@@ -147,7 +147,7 @@ $('#listDeudores').on('click', '#editPago', function(e) {
                 "<td>"+item.fecha_pago+"</td>",
                 "<td>"+item.tipo_pago+"</td>",
                 "<td>"+item.monto_pagado+"</td>",
-                "<td><button type='button' class='btn btn-info btn-sm px-1 ' onclick='detallesPago("+item.idAlumno_cobros+")' title='Ver detalles'><i class='fas fa-lightbulb mx-1'></i></button></td>",
+                "<td><button type='button' class='btn btn-info btn-sm px-1' onclick='detallesPago("+item.idAlumno_cobros+")' title='Ver detalles'><i class='fas fa-lightbulb mx-1'></i></button><button type='button' class='btn btn-primary btn-sm px-1 ml-2' onclick='GenerarComprobante("+item.idAlumno_cobros+")' title='Generar comprobante'><i class='fas fa-receipt mx-1'></i></button></td>",
                 ]
                 ).draw(false);
                 
@@ -176,8 +176,19 @@ function detallesPago(i){
                     $('#fechaDelPago').text(item.fecha_pago);
                     $('#montoDelPago').text(item.monto_pagado);
                     $('#medioDelPago').text(item.tipo_pago);
+
+                    var cadena = item.comprobanteURL+"";
+                    var extension = ".pdf";
+                    var index = cadena.indexOf(extension);
+                    if(index >= 0) {
+	                    var elemento = document.getElementById("imagenDelPago");
+                        elemento.className += " d-none";
+                        $("#pdfDelPago").attr("src",item.comprobanteURL);
+                    }else{
+                    var elemento = document.getElementById("pdfDelPago");
+                    elemento.className = "d-none";
                     $("#imagenDelPago").attr("src",item.comprobanteURL);
-                    
+                    }
                 }
             }
             
@@ -185,6 +196,7 @@ function detallesPago(i){
         }
     });
 }
+
 function detallesPagoOjo(i){
     id_deuda = $("#id_deuda").val();
     $("#modalDetallePagoOjo").modal("show");
@@ -201,16 +213,26 @@ function detallesPagoOjo(i){
                     $('#fechaDelPago1').text(item.fecha_pago);
                     $('#montoDelPago1').text(item.monto_pagado);
                     $('#medioDelPago1').text(item.tipo_pago);
+                    var cadena = item.comprobanteURL+"";
+                    var extension = ".pdf";
+                    var index = cadena.indexOf(extension);
+                    if(index >= 0) {
+	                    var elemento = document.getElementById("imagenDelPago1");
+                        elemento.className += " d-none";
+                        $("#pdfDelPago1").attr("src",item.comprobanteURL);
+                    }else{
+                    var elemento = document.getElementById("pdfDelPago1");
+                    elemento.className = "d-none";
                     $("#imagenDelPago1").attr("src",item.comprobanteURL);
+                    }
                     $('#validarpagoname').val(item.idAlumno_cobros);
                     
                 }
             }
-            
-        
         }
     });
 }
+
 function EditarPago(idCobro_){
     var idCobro_ = idCobro_;
 
@@ -288,8 +310,10 @@ function validarCobro(){
                     showConfirmButton: true,
                     confirmButtonText: "Cerrar",
                 })
-                window.location = "listaDeuda";
-                
+                .then(() => {
+                    window.location = "listaDeuda"; 
+                });
+               
             }
             else{
                 swal.fire({
@@ -318,7 +342,9 @@ function validarCobro2(){
                     showConfirmButton: true,
                     confirmButtonText: "Cerrar",
                 })
-                window.location = "listaDeuda";
+                .then(() => {
+                    window.location = "listaDeuda"; 
+                });
                 
             }
             else{
@@ -332,4 +358,45 @@ function validarCobro2(){
             }
         }
     }); 
+}
+
+function GenerarComprobante(i){
+    var id_deuda = $("#id_deuda").val();
+    console.log(id_deuda+"");
+    $("#modalGenerarComprobante").modal("show");
+   $.ajax({
+        url	    : 'ajax/datosApoderado.ajax.php',
+        type    : 'POST',
+        data    : {id_deudaPagoDatos:id_deuda},
+        dataType:   "json",
+        success: function(data){
+            for(let item of data){
+                if(item.idAlumno_cobros == i){
+                    $('#idalumnocobroscomprobante').val(item.idAlumno_cobros);
+                    $('#nombresapoderado').val(item.nombres_apoderado+' '+item.apellidos_apoderado);
+                    $('#dniapoderado').val(item.dni_apoderado);
+                    $('#detallemensualidad').val(item.detalle);
+                    $('#montomensualidad').val(item.monto_pagado);
+                    $('#correoapoderado').val(item.correo);
+                    var cadena = item.comprobantegeneradoURL+"";
+                    var extension = ".pdf";
+                    var index = cadena.indexOf(extension);
+                    if(index >= 0) {
+	                    var elemento = document.getElementById("imagenDelComprobante");
+                        elemento.className += " d-none";
+                        $("#pdfDelComprobante").attr("src",item.comprobantegeneradoURL);
+                    }else{
+                    var elemento = document.getElementById("pdfDelComprobante");
+                    elemento.className = "d-none";
+                    $("#imagenDelComprobante").attr("src",item.comprobantegeneradoURL);
+                    }
+
+                    
+
+                }
+            }
+            
+        
+        }
+    });
 }

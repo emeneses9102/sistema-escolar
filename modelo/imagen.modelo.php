@@ -15,5 +15,17 @@ class ModelosubirImagen{
                 return "error";
             }
     }
+
+    static public function MdlSubirImagenComprobante($comprobante, $idAlumnocobros){
+        $stmt = Conexion::conectar()->prepare("UPDATE alumno_cobros SET comprobantegeneradoURL = ?  WHERE  idAlumno_cobros= ? ");
+        $respuesta = $stmt->execute([$comprobante, $idAlumnocobros]);
+
+        if($respuesta == true){
+                return "ok";
+            }
+            else{
+                return "error";
+            }
+    }
 }
 ?>

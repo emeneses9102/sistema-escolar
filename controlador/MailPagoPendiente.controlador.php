@@ -13,7 +13,7 @@ class ControladorMailPagoPendiente{
         
         $asunto="VOUCHER DE PAGO";
 
-        $mensaje = "LOS DATOS DEL ALUMNO SON:\n\n";
+        $mensaje = "LOS DATOS DEL ALUMNO SON:<br><br>";
 
         if(isset($_POST['codigo_alu'])){
             $CodigoAlu=$_POST['codigo_alu'];
@@ -47,17 +47,18 @@ class ControladorMailPagoPendiente{
         $fechaActual=date("Y-m-d");
         $tipago='Depósito';
     
+        $horaActual=date("H-i-s");
         
 
         if(isset($_POST['alumno'])){
         
         $alumnoa=$_POST['alumno'];
 
-        $mensaje .="Alumno : ".$alumnoa."\n";
-        $mensaje .="Código alumno : ".$CodigoAlu."\n";
-        $mensaje .="Grado y Sección : ".$detallecor."\n";
-        $mensaje .="Grado y Sección : ".$gradoseccion."\n";
-        $mensaje .="Notas : ".$notas."\n";
+        $mensaje .="Alumno : ".$alumnoa."<br>";
+        $mensaje .="Código alumno : ".$CodigoAlu."<br>";
+        $mensaje .="Detalle de pago : ".$detallecor."<br>";
+        $mensaje .="Grado y Sección : ".$gradoseccion."<br>";
+        $mensaje .="Notas : ".$notas."<br>";
 
         if(empty($nombre_archivo)){
             echo '<script>
@@ -106,14 +107,14 @@ class ControladorMailPagoPendiente{
             
             if (!file_exists($directorio)) {
                 mkdir($directorio, 0777, true);
-                echo "<script>alert('Se creó una carpeta para alojar los comprobantes');</script>";
+                echo "<script>console.log('Se creó una carpeta para alojar los comprobantes');</script>";
             }
        /*if(!file_exists($directorio)){
            mkdir($directorio, 0777) or die("No se puede crear el directorio de extracci&oacute;n");	
        }*/
 
        $dir=opendir($directorio); //Abrimos el directorio de destino
-       $target_path = $directorio.'/'.$dniCodigoPago.$fecha.'-'.$numeroramdon.'.'.$extension; //Indicamos la ruta de destino, así como el nombre del archivo
+       $target_path = $directorio.'/'.$dniCodigoPago.'_'.$fechaActual.'_'.$horaActual.'.'.$extension; //Indicamos la ruta de destino, así como el nombre del archivo
        
        if(move_uploaded_file($archivo1, $target_path)) {
 
@@ -166,13 +167,13 @@ class ControladorMailPagoPendiente{
         $message .= "--{$mime_boundary}--";
         $returnpath = "-f" . $from;
 
-        if(mail($to, $asunto, $message, $headers, $returnpath)){
-   
-
+        
         $respuesta = ModelosubirImagen::MdlSubirImagen($target_path, $fechaActual, $tipago, $codigoPago);
 
                 if ($respuesta == "ok"){
 
+        if(mail($to, $asunto, $message, $headers, $returnpath)){
+   
                     
             echo '<script>
             swal.fire({
@@ -191,6 +192,24 @@ class ControladorMailPagoPendiente{
             
                 }else{
                     echo '<script>
+                    swal.fire({
+                    type:"error",
+                                title : "error al enviar",
+                     showConfirmButton: true,
+                                confirmButtonText: "Cerrar",
+                                closeOnConfirm: false
+                            }).then((result)=>{
+                                if(result.value){
+                                    window.location = "pagosPendientes";
+                                }
+                            })
+            
+                            </script>';
+                }
+
+                    }else{
+            
+                        echo '<script>
                         swal.fire({
                             type:"error",
                             title : "error al guardar imagen en bd - '.$estado.' - '.$target_path.' - '.$fechaActual.' - '.$tipago.' - '.$codigoPago.'",
@@ -204,26 +223,8 @@ class ControladorMailPagoPendiente{
                         })
 
                         </script>';
-                }
-
-                  
-                    }else{
-            
                         
-                        echo '<script>
-                                swal.fire({
-                                type:"error",
-                                            title : "error al enviar",
-                                 showConfirmButton: true,
-                                            confirmButtonText: "Cerrar",
-                                            closeOnConfirm: false
-                                        }).then((result)=>{
-                                            if(result.value){
-                                                window.location = "pagosPendientes";
-                                            }
-                                        })
                         
-                                        </script>';
                     }
 
                                 
