@@ -237,6 +237,9 @@
                 <h6>Comprobante:</h6>
                 <img src="" alt="" id="imagenDelPago" class="img-fluid">
               </div>
+              <div class="col-md-12 mt-3 p-1">
+                <embed src="" id="pdfDelPago" class="" type="application/pdf" width="100%" height="600px"/>
+              </div>
           </div>
       </div>
       
@@ -249,7 +252,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="detallePago">Detalle del pago1</h5>
+        <h5 class="modal-title" id="detallePago">Detalle del pago</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>       
@@ -276,18 +279,84 @@
                 <h6>Comprobante:</h6>
                 <img src="" alt="" id="imagenDelPago1" class="img-fluid">
               </div>
+              <div class="col-md-12 mt-3 p-1">
+                <embed src="" id="pdfDelPago1" class="" type="application/pdf" width="100%" height="600px"/>
+              </div>
               <input type="text" id="validarpagoname" name="validarpagoname" hidden>
               <div class="col-md-12">
                 <h6>Ingrese Monto</h6>
                 <input type="text" id="montovalidarpago" name="montovalidarpago" required>
               </div>
               <div class="col-md-12 mt-2 d-flex justify-content-center">
-              <button type="submit" id="validarpago" class="btn btn-primary mr-2" onclick="validarCobro();">Validar Pago 
+                  <button type="submit" id="validarpago" class="btn btn-primary mr-2" onclick="validarCobro();">Validar Pago 
                 </button>
-              <button type="submit" id="validarpago2" class="btn btn-danger ml-2" onclick="validarCobro2();">Rechazar Pago 
-                </button>  
+                  <button type="submit" id="validarpago2" class="btn btn-danger ml-2" onclick="validarCobro2();">Rechazar Pago 
+                  </button>  
               </div>
           </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalGenerarComprobante" tabindex="-1" aria-labelledby="generarComprobante" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="generarComprobante">Generar Comprobante</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>       
+      </div>
+      <div class="modal-body">
+        <form id="MailGenerarComprobante" method="post" target='_self' enctype="multipart/form-data" class="needs-validation" novalidate rol="form">
+          <div class="row">
+              <div class="col-md-6 mt-2">
+              <input type="text" class="pl-1" id="idalumnocobroscomprobante" name="idalumnocobroscomprobante" readonly hidden>
+              <h6 >Nombres de apoderado:</h6>
+              <input type="text" class="pl-1" id="nombresapoderado" name="nombresapoderado" readonly>
+              </div>
+              <div class="col-md-6 mt-2">
+                <h6>DNI:</h6>
+                <input type="text" class="pl-1" id="dniapoderado" name="dniapoderado" readonly>
+              </div>
+              <div class="col-md-6 mt-2">
+                <h6>Detalle de mensualidad:</h6>
+                <input type="text" class="pl-1" id="detallemensualidad" name="detallemensualidad" readonly>
+              </div>
+              <div class="col-md-6 mb-3 mt-2">
+                <h6>Monto:</h6>
+                <input type="text" class="pl-1" id="montomensualidad" name="montomensualidad" readonly>
+              </div>
+              <div class="col-md-12 d-flex justify-content-center">
+                <a href="https://ww1.sunat.gob.pe/ol-ti-itfesimpopciones/FESimpSunat.htm" class="btn btn-primary" target="_black">Generar comprobante</a>
+              </div>
+              <div class="col-md-12">
+                <h6>Correo:</h6>
+                <input type="text" class="pl-1" id="correoapoderado" name="correoapoderado">
+              </div>
+              <div class="col-md-12 mt-3 d-flex flex-row">
+                <input type="text" for="archivocomprobante" name='archivocomprobante1'  id="archivocomprobante1" readonly>
+                <button class="btn btn-primary" type="button" onclick="abrir('archivocomprobante');"><i class="fas fa-upload"></i></button>
+                <input type="file" class="d-none" onchange="contar1('archivocomprobante','archivocomprobante1');" name='archivocomprobante'  id="archivocomprobante">
+              </div>
+              <div class="col-md-12 mt-3">
+                <h6>Comprobante:</h6>
+                <img src="" alt="" id="imagenDelComprobante" class="img-fluid">
+              </div>
+              <div class="col-md-12 mt-3 p-1">
+                <embed src="" id="pdfDelComprobante" class="" type="application/pdf" width="100%" height="600px"/>
+              </div>
+              <div class="col-md-12 d-flex justify-content-center">
+               <button type="submit" class="btn btn-primary mt-2">Enviar comprobante</button>
+              </div>
+          </div>
+          <?php
+          $enviarMailComprobante = new ControladorMailGenerarComprobante();
+          $enviarMailComprobante->ctrEnviarMailComprobante();
+          ?>
+        </form>
       </div>
       
     </div>
