@@ -183,7 +183,7 @@ class ControladorMailGenerarComprobante{
                     echo '<script>
                         swal.fire({
                             type:"error",
-                            title : "error al guardar imagen en bd - '.$estado.' - '.$target_path.' - '.$fechaActual.' - '.$tipago.' - '.$codigoPago.'",
+                            title : "error al guardar imagen en bd",
                             showConfirmButton: true,
                             confirmButtonText: "Cerrar",
                             closeOnConfirm: false
