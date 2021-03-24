@@ -225,9 +225,43 @@ class ModeloAlumnos{
         ON m.idSeccion_Grados = sg.idSeccion_Grados
         INNER JOIN grados AS g
         ON sg.idGrados = g.idGrados
-        WHERE usuario_id = 34');
-        $stmt->execute([]);
+        WHERE usuario_id = ?');
+        $stmt->execute([$valor]);
         //print_r($stmt->errorInfo());
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    static public function mdlEditarDatosAlumnoPerfil($tabla,$datos,$datos_apoderado){
+        $stmt = Conexion::conectar()->prepare ("UPDATE $tabla SET nombres = ?, apellidos = ?, direccion = ?, telefono_fijo = ?, celular = ?, dni = ?,fecha_nacimiento= ? ,nacionalidad = ?, usuario = ?, clave = ?, rol = ?, estado = ?, foto = ? WHERE usuario_id = ?");
+        $respuesta = $stmt->execute([$datos['nombre'],$datos['apellidos'],$datos['direccion'],$datos['telefono'],$datos['celular'],$datos['dni'],$datos['fecha_nacimiento'],$datos['nacionalidad'],$datos['usuario'],$datos['clave'],$datos['listRol'],$datos['listEstado'],$datos['foto'],$datos['idusuario']]);
+        
+        if($datos_apoderado != 'empty'){
+        $consultaAp = Conexion::conectar()->prepare('SELECT * FROM apoderado AS apo INNER JOIN alumno AS alu ON apo.id_apoderado = alu.id_apoderado INNER JOIN usuario AS usu ON alu.id_usuario=usu.usuario_id WHERE usu.usuario_id = ?');
+        $consultaAp->execute([$datos['idusuario']]);
+        $ConsultaApod= $consultaAp->fetch(PDO::FETCH_OBJ);
+
+        if($ConsultaApod->dni_apoderado !=$datos_apoderado['dni-ap'] ){
+            $consultaAP2 = Conexion::conectar()->prepare('SELECT * FROM apoderado WHERE dni_apoderado = ?');
+            $consultaAP2->execute([$datos_apoderado['dni-ap']]);
+            
+            if($consultaAP2->rowCount()>0){
+                return "repet-dni";
+            }
+        }
+
+        $query = Conexion::conectar()->prepare ("UPDATE apoderado SET ocupacion_apoderado = ?, tipo_apoderado = ?, nombres_apoderado = ?, apellidos_apoderado = ?, dni_apoderado = ?, correo_apoderado = ?, telefono_apoderado = ?, direccion_apoderado = ? WHERE id_apoderado = ?");
+        $respuesta2= $query->execute([$datos_apoderado['ocupacion-ap'],$datos_apoderado['tipo-ap'],$datos_apoderado['nombre-ap'],$datos_apoderado['apellidos-ap'],$datos_apoderado['dni-ap'],$datos_apoderado['correo-ap'],$datos_apoderado['telefono-ap'],$datos_apoderado['direccion-ap'],$ConsultaApod->id_apoderado]);
+    
+    if($respuesta == true && $respuesta2 == true){
+        return "ok";
+    }else{
+        return "error";
+    }
+}
+if($respuesta == true){
+    return "ok";
+}else{
+    return "error";
+}
     }
 }

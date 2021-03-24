@@ -415,3 +415,8 @@ function resetearFormPago(){
 $("#MailPagoPendiente")[0].reset();
 }
 
+function contar1(elem, idGlosa) {
+    var glosa = document.getElementById(idGlosa);
+    var glosa2 = document.getElementById(elem).files[0].name;
+    glosa.value=glosa2+"";
+  }

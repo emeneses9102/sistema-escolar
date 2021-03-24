@@ -17,6 +17,7 @@ require_once 'controlador/pagoPendiente.controlador.php';
 require_once 'controlador/apoderado.controlador.php';
 require_once 'controlador/MailPagoPendiente.controlador.php';
 require_once 'controlador/registrarPago.controlador.php';
+require_once 'controlador/MailGenerarComprobante.controlador.php';
 
 require_once 'modelo/alumnos.modelo.php';
 require_once 'modelo/profesores.modelo.php';
