@@ -72,7 +72,8 @@ class ModeloPagoPendiente{
             }
         }
 
-        static public function mdlMostrarDatosPagoPendiente($item,$valor){
+        static public function mdlMostrarDatosPagoPendiente($valor){
+
             $stmt = Conexion::conectar()->prepare("SELECT usu.nombres,usu.apellidos,alu.cod_matricula,gra.nombre_grado,sec.nombre_seccion,aluco.estado,cob.detalle FROM usuario AS usu
             INNER JOIN alumno AS alu ON usu.usuario_id=alu.id_usuario
             INNER JOIN alumno_cobros AS aluco ON alu.idAlumno=aluco.idAlumno
@@ -80,8 +81,8 @@ class ModeloPagoPendiente{
             INNER JOIN matricula AS mat ON alu.idAlumno = mat.idAlumno 
             INNER JOIN seccion_grados AS secgra ON mat.idSeccion_Grados = secgra.idSeccion_Grados
             INNER JOIN grados AS gra ON secgra.idGrados = gra.idGrados 
-            INNER JOIN seccion AS sec ON secgra.idSeccion = sec.idSeccion WHERE usu.$item = $valor");
-            $stmt -> execute();
+            INNER JOIN seccion AS sec ON secgra.idSeccion = sec.idSeccion WHERE aluco.idAlumno_cobros = ? ");
+            $stmt -> execute([$valor]);
             return $stmt->fetch();
         }
 }

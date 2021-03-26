@@ -20,6 +20,11 @@ class ajaxPagoPendientes{
         echo $respuesta;
     
     }
+    public function ajaxMostrarDatosPagoPendiente(){
+        $valor = $this->id_PagoAlumnoCobros;
+        $respuesta = ModeloPagoPendiente::mdlMostrarDatosPagoPendiente($valor);
+        echo json_encode($respuesta);
+    }
 }
 if(isset($_POST["idAlumnoxPago"]))
 {
@@ -35,4 +40,10 @@ if(isset($_POST["idPago_alumno"]))
     $listar->tipoPago_alumno = $_POST["tipoPago_alumno"];
     $listar->montoPago_alumno = $_POST["montoPago_alumno"];
     $listar->ajaxRealizarPago();
+}
+if(isset($_POST["id_PagoAlumnoCobros"]))
+{
+    $listar = new ajaxPagoPendientes();
+    $listar->id_PagoAlumnoCobros = $_POST["id_PagoAlumnoCobros"];
+    $listar->ajaxMostrarDatosPagoPendiente();
 }

@@ -124,7 +124,7 @@
         <input type="text" id="montoPagar" hidden value="">
         <div class="col-md mt-3 d-flex justify-content-center">
           <div class="row">
-            <button class="btn btn-lg button_pagos col-12 text-muted" data-toggle="modal" data-target="#modalEnvioCuenta" onclick="abc()" ><i style="font-size:40px;"class="fas fa-university"></i></button>
+            <button class="btn btn-lg button_pagos col-12 text-muted" data-toggle="modal" data-target="#modalEnvioCuenta" onclick="mostrarDatosApoderado()" ><i style="font-size:40px;"class="fas fa-university"></i></button>
             <p class="text-center col-12 h6">Pago por depósito</p>
           </div>
         </div>
@@ -163,27 +163,24 @@
         <div class="container px-md-4 mx-md-5">
         <h5>Cuentas Interbancarias: </h5>
         <h5 class="text-center">7878-7878-7878-78</h5>
-        <?php $item = "usuario_id";
-              $valor = $_SESSION['usuario_id'];
-              $mostrarDatosAlumnoPago = ControladorPagoPendiente::ctrMostrarDatosPagoPendiente($item,$valor);?>
           <div class="form-group">
             <label class="control-label" for="">Alumno</label>
-            <input type="text" class="form-control" name="alumno" value="<?php echo $mostrarDatosAlumnoPago["nombres"]." ".$mostrarDatosAlumnoPago["apellidos"]?> " required readonly>
+            <input type="text" class="form-control" id="alumnocobro_nombreapellido" name="alumno" value="" required readonly>
           </div>
           <div class="form-group">
             <label class="control-label" for="">Código de alumno</label>
-            <input type="text"class="form-control" name="codigo_alu"  value="<?php echo $mostrarDatosAlumnoPago["cod_matricula"]?>" required readonly>
+            <input type="text"class="form-control" id="alumnocobro_codmatricula" name="codigo_alu"  value="" required readonly>
           </div>
           <div class="form-group">
             <label class="control-label" for="">Detalle</label></br>
-            <input type="text" class="form-control" name="detalle" value="<?php echo $mostrarDatosAlumnoPago["detalle"]?>" readonly>
+            <input type="text" class="form-control" id="alumnocobro_detalle" name="detalle" value="" readonly>
           </div>
           <div class="form-group">
             <label class="control-label" for="">Grado y sección</label>
-            <input type="text" class="form-control" name="grado_seccion" value="<?php echo $mostrarDatosAlumnoPago["nombre_grado"]." - ".$mostrarDatosAlumnoPago["nombre_seccion"]?>" readonly>
+            <input type="text" class="form-control" id="alumnocobro_gradoseccion" name="grado_seccion" value="" readonly>
           </div>
             <input type="text" class="form-control" id="idImagen" name="codigoPago" hidden>
-            <input type="text" class="form-control" id="dniCodigoPago" name="dniCodigoPago" value="<?php echo $_SESSION['dni']?>" hidden>
+            <input type="text" class="form-control" id="dniCodigoPago" name="dniCodigoPago" value="" hidden>
           
 
           <div class="form-group">

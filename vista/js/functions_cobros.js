@@ -88,6 +88,14 @@ function agregarCobros(){
     var fecha_vencimiento = $("#fecha_vencimiento").val();
     var monto =$("#monto").val();
     var cob_niveles = cob_nivel.options[cob_nivel.selectedIndex].value;
+    if(cod_pago =="" || detalle_pago ==""){
+        return swal.fire({
+            icon:"error",
+            title : "El cobro no ha sido registrado",
+            showConfirmButton: true,
+            confirmButtonText: "Cerrar",
+        })
+    }
     $.ajax({
         url	    : 'ajax/cobros.ajax.php',
         type    : 'POST',
