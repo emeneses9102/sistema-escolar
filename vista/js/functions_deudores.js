@@ -419,3 +419,23 @@ function GenerarComprobante(i){
         }
     });
 }
+function mostrarDatosApoderado(){
+    var idPago = $("#idPago").val();
+    console.log(idPago+"hola");
+    $.ajax({
+        url	    : 'ajax/pagosPendientes.ajax.php',
+        type    : 'POST',
+        data    : {id_PagoAlumnoCobros:idPago},
+        dataType:   "json",
+        success: function(data){
+            console.log(data);
+            console.log("no funciona");
+                    $('#alumnocobro_nombreapellido').val(data.nombres+' '+data.apellidos);
+                    $('#alumnocobro_codmatricula').val(data.cod_matricula);
+                    $('#alumnocobro_detalle').val(data.detalle);
+                    $('#alumnocobro_gradoseccion').val(data.nombre_grado+' - '+data.nombre_seccion);
+                    $('#dniCodigoPago').val(data.dni);
+        }
+    });
+    console.log("maldicion");
+    }
