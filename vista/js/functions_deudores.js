@@ -183,10 +183,12 @@ function detallesPago(i){
                     if(index >= 0) {
 	                    var elemento = document.getElementById("imagenDelPago");
                         elemento.className += " d-none";
+                        $("#pdfDelPago").removeClass("d-none");
                         $("#pdfDelPago").attr("src",item.comprobanteURL);
                     }else{
                     var elemento = document.getElementById("pdfDelPago");
                     elemento.className = "d-none";
+                    $("#imagenDelPago").removeClass("d-none");
                     $("#imagenDelPago").attr("src",item.comprobanteURL);
                     }
                 }
@@ -214,17 +216,27 @@ function detallesPagoOjo(i){
                     $('#montoDelPago1').text(item.montoCobrar);
                     $('#medioDelPago1').text(item.tipo_pago);
                     var cadena = item.comprobanteURL+"";
+                    console.log(item.comprobanteURL+"");
+
                     var extension = ".pdf";
                     var index = cadena.indexOf(extension);
-                    if(index >= 0) {
-	                    var elemento = document.getElementById("imagenDelPago1");
+                    console.log(index+"");
+
+                    if(index != -1) {
+                        var elemento = document.getElementById("imagenDelPago1");
                         elemento.className += " d-none";
+                        $("#pdfDelPago1").removeClass("d-none");
                         $("#pdfDelPago1").attr("src",item.comprobanteURL);
+
                     }else{
-                    var elemento = document.getElementById("pdfDelPago1");
-                    elemento.className = "d-none";
-                    $("#imagenDelPago1").attr("src",item.comprobanteURL);
+
+                        var elemento = document.getElementById("pdfDelPago1");
+                        elemento.className = "d-none";
+                        $("#imagenDelPago1").removeClass("d-none");
+                        $("#imagenDelPago1").attr("src",item.comprobanteURL);
+                    
                     }
+
                     $('#validarpagoname').val(item.idAlumno_cobros);
                     
                 }
@@ -403,10 +415,12 @@ function GenerarComprobante(i){
                     if(index >= 0) {
 	                    var elemento = document.getElementById("imagenDelComprobante");
                         elemento.className += " d-none";
+                        $("#pdfDelComprobante").removeClass("d-none");
                         $("#pdfDelComprobante").attr("src",item.comprobantegeneradoURL);
                     }else{
                     var elemento = document.getElementById("pdfDelComprobante");
                     elemento.className = "d-none";
+                    $("#imagenDelComprobante").removeClass("d-none");
                     $("#imagenDelComprobante").attr("src",item.comprobantegeneradoURL);
                     }
 
