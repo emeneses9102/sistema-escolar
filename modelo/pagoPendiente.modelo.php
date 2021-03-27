@@ -74,7 +74,7 @@ class ModeloPagoPendiente{
 
         static public function mdlMostrarDatosPagoPendiente($valor){
 
-            $stmt = Conexion::conectar()->prepare("SELECT usu.nombres,usu.apellidos,alu.cod_matricula,gra.nombre_grado,sec.nombre_seccion,aluco.estado,cob.detalle FROM usuario AS usu
+            $stmt = Conexion::conectar()->prepare("SELECT usu.nombres,usu.apellidos,usu.dni,alu.cod_matricula,gra.nombre_grado,sec.nombre_seccion,aluco.estado,cob.detalle FROM usuario AS usu
             INNER JOIN alumno AS alu ON usu.usuario_id=alu.id_usuario
             INNER JOIN alumno_cobros AS aluco ON alu.idAlumno=aluco.idAlumno
             INNER JOIN cobros AS cob ON aluco.idCobro=cob.idCobros  
