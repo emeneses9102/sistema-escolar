@@ -6,7 +6,7 @@
     <!-- The javascript plugin to display page loading on top-->
     <script src="vista/js/plugins/pace.min.js"></script>
     <script src="vista/js/plugins/bootstrap-notify.min.js"></script>
-    
+    <script src="vista/js/plugins/chart.js"></script>
     <!-- Page specific javascripts-->
     <!-- Google analytics script-->
     <!-- Data table plugin-->
@@ -78,7 +78,7 @@
     <script src="vista/js/functions_matricula.js"></script>
     <script src="vista/js/functions_listaDeuda.js"></script>
     <script src="vista/js/functions_deudores.js"></script>
-    
+    <script src="vista/js/functions_reportes.js"></script>
     
   </body>
 </html>

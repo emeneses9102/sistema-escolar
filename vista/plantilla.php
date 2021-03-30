@@ -30,6 +30,7 @@ if(isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok")
 					$_GET['ruta'] == "pagosPendientes" ||
 					$_GET['ruta'] == "registrarPago" ||
 					$_GET['ruta'] == "listaDeuda" ||
+					$_GET['ruta'] == "reportes" ||
 					$_GET['ruta'] == "competencias"||
 					$_GET['ruta'] == "perfilAlumno"||
 					$_GET['ruta'] == "confInstitucion"){

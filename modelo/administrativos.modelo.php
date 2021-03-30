@@ -98,5 +98,15 @@ class ModeloAdm{
         $respuesta->close();
         $respuesta =null;
     }
+    
+    static public function mdlEditarDatosAdministradorPerfil($tabla,$datos){
+        $stmt = Conexion::conectar()->prepare ("UPDATE $tabla SET nombres = ?, apellidos = ?, direccion = ?, telefono_fijo = ?, celular = ?, dni = ?,fecha_nacimiento= ? ,nacionalidad = ?, usuario = ?, clave = ?, rol = ?, estado = ?, foto = ? WHERE usuario_id = ?");
+        $respuesta = $stmt->execute([$datos['nombre'],$datos['apellidos'],$datos['direccion'],$datos['telefono'],$datos['celular'],$datos['dni'],$datos['fecha_nacimiento'],$datos['nacionalidad'],$datos['usuario'],$datos['clave'],$datos['listRol'],$datos['listEstado'],$datos['foto'],$datos['idusuario']]);   
+if($respuesta == true){
+    return "ok";
+}else{
+    return "error";
+}
+    }
 
 }

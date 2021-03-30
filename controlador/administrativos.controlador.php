@@ -288,4 +288,156 @@ class ControladorAdm{
          }
      }
 
+
+     static public function ctrEditarAdministradorPerfil(){
+
+        if(isset($_FILES['cargarfotoperfil'])){
+            $archivo = $_FILES['cargarfotoperfil']; 
+            $nombre_archivo = $archivo['name'];
+            $archivo1=$archivo['tmp_name'];
+            $tipo = $archivo['type'];
+        }
+        if(isset($_POST['idusuarioalumno'])){
+            if(!($tipo == "image/jpg" || $tipo == "image/jpeg" || $tipo == "image/png" || $tipo == "")){
+                echo '<script>
+                swal.fire({
+                    type:"error",
+                    title : "Cargar en formato png, jpeg o jpg",
+                    showConfirmButton: true,
+                    confirmButtonText: "Cerrar",
+                    closeOnConfirm: false
+                }).then((result)=>{
+                    if(result.value){
+                        window.location = "administrativo";
+                    }
+                })
+                </script>';
+                //echo '<script>alert("error");</script>';
+             }else{
+            if(preg_match('/^[a-zA-Z0-9\sñÑáéíóúÁÉÍÓÚ]+$/',$_POST['nombre2'])){
+                    
+                    $ruta=$_POST['nombreAnterior'];
+                    
+                    if(!(empty($nombre_archivo))){
+                       
+                    $directorio = "vista/images/usuarios/".$_POST["usuario2"];
+                    if (!file_exists($directorio)) {
+                        mkdir($directorio, 0777, true);
+                        echo "<script>console.log('Se creó una carpeta para alojar los comprobantes');</script>";
+                    }
+                    if(!empty($_POST['nombreAnterior'])){
+                        echo '<script>alert('.$_POST['nombreAnterior'].')</script>';
+                        unlink($_POST['nombreAnterior']);
+                     }else{
+                         mkdir($directorio, 0755);
+                     }
+                     $porciones = explode("/",$tipo);
+                     $extension=$porciones[1];
+                     
+                     
+                        $aleatorio = mt_rand(100,999);
+                        $ruta = $directorio."/".$aleatorio.".".$extension;
+                        move_uploaded_file($archivo1, $ruta);
+                     }
+
+
+                     if(isset($_POST['clave2']) && !empty($_POST['clave2'])){
+                        if(preg_match('/^[a-zA-Z0-9]+$/',$_POST['clave2'])){
+                            $encriptar=password_hash($_POST['clave2'],PASSWORD_DEFAULT);
+                        }else{
+                        echo '<script>
+                            swal.fire({
+                                type:"error",
+                                title : "La contraseña no puede ir vacía o llevar caracteres especiales",
+                                showConfirmButton: true,
+                                confirmButtonText: "Cerrar",
+                                closeOnConfirm: false
+                            }).then((result)=>{
+                                if(result.value){
+                                    window.location = "administrativo";
+                                }
+                            })
+
+                            </script>';
+                    }
+                    }else{
+                        $encriptar = $_POST['clave3'];
+                    }
+                    if($_POST['date2'] == 0){
+                        $_POST['date2']= NULL;
+                    }
+
+                     $datos = array("nombre" => $_POST['nombre2'],
+                                "idusuario" => $_POST['idusuarioalumno'],
+                                "apellidos" => $_POST['apellidos2'],
+                                "direccion" => $_POST['direccion2'],
+                                "telefono" => $_POST['telefono2'],
+                                "celular" => $_POST['celular2'],
+                                "dni" => $_POST['dni2'],
+                                "usuario" => $_POST['usuario2'],
+                                "clave" => $encriptar,
+                                "listRol" => $_POST['listRol2'],
+                                "listEstado" => $_POST['listEstado2'],
+                                "nacionalidad" => $_POST['nacionalidad2'],
+                                "fecha_nacimiento" => $_POST['date2'],
+                                "foto"=>$ruta);
+
+                    $tabla = "usuario";
+                    $respuesta = ModeloAdm :: mdlEditarDatosAdministradorPerfil($tabla,$datos);
+                    var_dump($respuesta);
+
+                    if($respuesta == "ok"){
+                        echo '<script>
+                        swal.fire({
+                            type:"success",
+                            title : "El usuario ha sido editado correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false
+                        }).then((result)=>{
+                            if(result.value){
+                                window.location = "administrativo";
+                            }
+                        })
+        
+                        </script>';
+                    }else if($respuesta == "repet-dni"){
+                            echo '<script>
+                                swal.fire({
+                                    type:"error",
+                                    title : "El apoderado ya se encuentra registrado",
+                                    showConfirmButton: true,
+                                    confirmButtonText: "Cerrar",
+                                    closeOnConfirm: false
+                                }).then((result)=>{
+                                    if(result.value){
+                                        window.location = "administrativo";
+                                    }
+                                })
+                
+                                </script>';
+                        }
+                        else{
+                            
+                                echo '<script>
+                                swal.fire({
+                                    type:"error",
+                                    title : "El usuario no se actualizó",
+                                    showConfirmButton: true,
+                                    confirmButtonText: "Cerrar",
+                                    closeOnConfirm: false
+                                }).then((result)=>{
+                                    if(result.value){
+                                        window.location = "administrativo";
+                                    }
+                                })
+                
+                                </script>';
+                            
+                            
+                        }
+                    }
+        }}
+     }
+
 }
