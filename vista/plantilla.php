@@ -33,6 +33,7 @@ if(isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok")
 					$_GET['ruta'] == "reportes" ||
 					$_GET['ruta'] == "competencias"||
 					$_GET['ruta'] == "perfilAlumno"||
+					$_GET['ruta'] == "administrativo"||
 					$_GET['ruta'] == "confInstitucion"){
 					include_once "vista/modulos/".$_GET['ruta'].".php";
 				}
