@@ -105,7 +105,7 @@
                     <div class="col-md-6">
                         <label for="exampleInputFile">Cargar foto:</label>
                         <input class="form-control-file" id="exampleInputFile" type="file" aria-describedby="fileHelp" name="cargarfotoperfil" >
-                        <input class="form-control-file" id="nombreAnterior" type="text" name="nombreAnterior" value="<?php echo $result['foto']?>"> 
+                        <input class="form-control-file" id="nombreAnterior" type="text" name="nombreAnterior" value="<?php echo $result['foto']?>" hidden> 
                         <small class="form-text text-muted" id="fileHelp">Cargue una fotografía para el alumno</small>
                     </div>
                   </div>

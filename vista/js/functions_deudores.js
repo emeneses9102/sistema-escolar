@@ -109,8 +109,9 @@ $('#listDeudores').on('click', '#editPago', function(e) {
         success: function(data){
             var tabla = $("#tablaDeudores").DataTable();
             tabla.clear().draw();
+            var estado = "";
             for(let item of data){
-                
+                estado = (item.comprobanteURL != null)?"<span class='badge badge-success'>Recibido</span>":"<span class='badge badge-warning'>Sin comprobante</span>";
                 
                 tabla.row.add(
                     [
@@ -119,6 +120,7 @@ $('#listDeudores').on('click', '#editPago', function(e) {
                 "<td>"+item.fecha_vencimiento+"</td>",
                 "<td>"+item.monto+"</td>",
                 "<td style='width: 100px;' ><span id='lblMontoCobrar"+item.idAlumno_cobros+"'>"+item.montoCobrar+"</span><input id='txtMontoCobrar"+item.idAlumno_cobros+"' value="+item.montoCobrar+" class='form-control-sm text-right d-none' id='monto"+item.idAlumno_cobros+"'></td>",
+                "<td>"+estado+"</td>",
                 "<td><button id='change"+item.idAlumno_cobros+"' type='button' class='btn btn-warning btn-sm px-1 mr-2' onclick='change("+item.idAlumno_cobros+")' title='Editar Pago'><i class='fas fa-pencil-alt'></i></button><button type='button' id='btnMontoCobrar"+item.idAlumno_cobros+"' class='btn btn-warning btn-sm px-1 mr-2 d-none' onclick='EditarPago("+item.idAlumno_cobros+")' title='Guardar Pago'><i class='fas fa-save'></i></button><button type='button' class='btn btn-danger btn-sm px-1 mr-2' onclick='exonerarCobro("+item.idAlumno_cobros+")' title='Exonerar Pago'><i class='fas fa-trash'></i></button><button type='button' class='btn btn-info btn-sm px-1 ' onclick='detallesPagoOjo("+item.idAlumno_cobros+")' title='Ver detalles'><i class='fas fa-eye'></i></button></td>",
                 ]
                 ).draw(false);

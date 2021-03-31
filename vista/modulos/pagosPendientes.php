@@ -46,7 +46,7 @@
                                         <td>'.$value['monto'].'</td>
                                         <td>s/. 7.00</td>
                                         <td>'.$value['montoCobrar'].'</td>
-                                        <td><button type="button"   class="btn btn-primary btn-sm px-1 btnPago" onclick="mostrarModal('.$value['idAlumno_cobros'].')"data-toggle="modal" data-target="#pagoModal"><i class="fas fa-shopping-cart pr-1"></i> Cancelar</button><div class="" style="display:inline-block; vertical-align: middle;">'.$alerta.'</div></td>
+                                        <td><button type="button"   class="btn btn-primary btn-sm px-1 btnPago" onclick="mostrarModal('.$value['idAlumno_cobros'].')"data-toggle="modal" data-target="#pagoModal"><i class="fas fa-shopping-cart pr-1"></i>Pagar</button><div class="" style="display:inline-block; vertical-align: middle;">'.$alerta.'</div></td>
                                         </tr>';
                                 }
                             ?>

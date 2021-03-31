@@ -161,6 +161,7 @@
                                 <th>Fecha Venc.</th>
                                 <th>Monto</th>
                                 <th >Monto a cobrar</th>
+                                <th >Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
