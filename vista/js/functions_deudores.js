@@ -187,9 +187,13 @@ function detallesPago(i){
                         elemento.className += " d-none";
                         $("#pdfDelPago").removeClass("d-none");
                         $("#pdfDelPago").attr("src",item.comprobanteURL);
+                        $("#pdfCompleto2").removeClass("d-none");
+                        document.getElementById('pdfCompleto2').setAttribute('href', item.comprobantegeneradoURL+'');
                     }else{
                     var elemento = document.getElementById("pdfDelPago");
+                    var elemento2 = document.getElementById("pdfCompleto2");
                     elemento.className = "d-none";
+                    elemento2.className = "d-none";
                     $("#imagenDelPago").removeClass("d-none");
                     $("#imagenDelPago").attr("src",item.comprobanteURL);
                     }
@@ -229,11 +233,15 @@ function detallesPagoOjo(i){
                         elemento.className += " d-none";
                         $("#pdfDelPago1").removeClass("d-none");
                         $("#pdfDelPago1").attr("src",item.comprobanteURL);
+                        $("#pdfCompleto").removeClass("d-none");
+                        document.getElementById('pdfCompleto').setAttribute('href', item.comprobantegeneradoURL+'');
 
                     }else{
 
                         var elemento = document.getElementById("pdfDelPago1");
+                        var elemento2 = document.getElementById("pdfCompleto");
                         elemento.className = "d-none";
+                        elemento2.className = "d-none";
                         $("#imagenDelPago1").removeClass("d-none");
                         $("#imagenDelPago1").attr("src",item.comprobanteURL);
                     
@@ -419,9 +427,13 @@ function GenerarComprobante(i){
                         elemento.className += " d-none";
                         $("#pdfDelComprobante").removeClass("d-none");
                         $("#pdfDelComprobante").attr("src",item.comprobantegeneradoURL);
+                        $("#pdfCompleto3").removeClass("d-none");
+                        document.getElementById('pdfCompleto3').setAttribute('href', item.comprobantegeneradoURL+'');
                     }else{
                     var elemento = document.getElementById("pdfDelComprobante");
+                    var elemento2 = document.getElementById("pdfCompleto3");
                     elemento.className = "d-none";
+                    elemento2.className = "d-none";
                     $("#imagenDelComprobante").removeClass("d-none");
                     $("#imagenDelComprobante").attr("src",item.comprobantegeneradoURL);
                     }

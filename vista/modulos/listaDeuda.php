@@ -241,6 +241,9 @@
               <div class="col-md-12 mt-3 p-1">
                 <embed src="" id="pdfDelPago" class="" type="application/pdf" width="100%" height="600px"/>
               </div>
+              <div class="col-md-12 d-flex justify-content-center">
+                <a class="btn btn-primary mt-2" id="pdfCompleto2" href="" target="_blank" >Vista completa</a>
+              </div>
           </div>
       </div>
       
@@ -282,6 +285,9 @@
               </div>
               <div class="col-md-12 mt-3 p-1">
                 <embed src="" id="pdfDelPago1" class="" type="application/pdf" width="100%" height="600px"/>
+              </div>
+              <div class="col-md-12 d-flex justify-content-center">
+                <a class="btn btn-primary mt-2" id="pdfCompleto" href="" target="_blank" >Vista completa</a>
               </div>
               <input type="text" id="validarpagoname" name="validarpagoname" hidden>
               <div class="col-md-12">
@@ -348,6 +354,9 @@
               </div>
               <div class="col-md-12 mt-3 p-1">
                 <embed src="" id="pdfDelComprobante" class="" type="application/pdf" width="100%" height="600px"/>
+              </div>
+              <div class="col-md-12 d-flex justify-content-center">
+                <a class="btn btn-primary mt-2" id="pdfCompleto3" href="" target="_blank" >Vista completa</a>
               </div>
               <div class="col-md-12 d-flex justify-content-center">
                <button type="submit" class="btn btn-primary mt-2">Enviar comprobante</button>

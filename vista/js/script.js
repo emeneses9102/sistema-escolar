@@ -420,3 +420,23 @@ function contar1(elem, idGlosa) {
     var glosa2 = document.getElementById(elem).files[0].name;
     glosa.value=glosa2+"";
   }
+
+ /* function MostrarImagenAdm(){
+    document.getElementById('nom_img').value=nom_imagen;
+    var img = document.getElementById("nombreAnterior").value;
+    $("#user-img").attr("src",img);
+  }*/
+
+$( document ).ready(function() {
+    var img = document.getElementById("nombreAnterior").value;
+    $("#user-img").attr("src",img);
+    $(".app-sidebar__user-avatar").attr("src",img);
+});
+
+
+
+$( document ).ready(function() {
+    var img = document.getElementById("nombreAnterior2").value;
+    $("#user-img2").attr("src",img);
+    $(".app-sidebar__user-avatar").attr("src",img);
+});

@@ -8,7 +8,7 @@
 <div class="row user">
         <div class="col-md-12">
           <div class="profile">
-            <div class="info"><img class="user-img" src="<?php echo (!empty($_SESSION['foto'])) ? $_SESSION['foto'] : "vista/images/user_default.png" ?>">
+            <div class="info"><img class="user-img" id="user-img2" src="<?php echo (!empty($_SESSION['foto'])) ? $_SESSION['foto'] : "vista/images/user_default.png" ?>">
               <h4><?php echo $_SESSION['nombre'] . " " . $_SESSION['apellidos'] ?></h4>
               <p><?php echo $result['nombre_grado']?></p>
             </div>
@@ -141,7 +141,7 @@
                     <div class="col-md-6">
                         <label for="exampleInputFile">Cargar foto:</label>
                         <input class="form-control-file" id="exampleInputFile" type="file" aria-describedby="fileHelp" name="cargarfotoperfil" >
-                        <input class="form-control-file" id="" type="text" name="nombreAnterior" value="<?php echo $result['foto']?>" hidden> 
+                        <input class="form-control-file" id="nombreAnterior2" type="text" name="nombreAnterior" value="<?php echo $result['foto']?>" hidden> 
                         <small class="form-text text-muted" id="fileHelp">Cargue una fotografía para el alumno</small>
                     </div>
                   </div>

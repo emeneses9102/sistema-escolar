@@ -39,4 +39,4 @@ require_once 'modelo/registrarPago.modelo.php';
 require_once 'modelo/imagen.modelo.php';
 $plantilla = new ControladorPlantilla();
 $plantilla->ctrPlantilla();
-//cambios 13
+//cambios 14
