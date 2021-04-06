@@ -18,6 +18,7 @@ require_once 'controlador/apoderado.controlador.php';
 require_once 'controlador/MailPagoPendiente.controlador.php';
 require_once 'controlador/registrarPago.controlador.php';
 require_once 'controlador/MailGenerarComprobante.controlador.php';
+require_once 'controlador/reporte.controlador.php';
 
 require_once 'modelo/alumnos.modelo.php';
 require_once 'modelo/profesores.modelo.php';
@@ -37,6 +38,7 @@ require_once 'modelo/pagoPendiente.modelo.php';
 require_once 'modelo/apoderado.modelo.php';
 require_once 'modelo/registrarPago.modelo.php';
 require_once 'modelo/imagen.modelo.php';
+require_once 'modelo/reporte.modelo.php';
 $plantilla = new ControladorPlantilla();
 $plantilla->ctrPlantilla();
-//cambios 14
+//cambios 15

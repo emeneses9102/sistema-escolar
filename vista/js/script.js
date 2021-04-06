@@ -440,3 +440,51 @@ $( document ).ready(function() {
     $("#user-img2").attr("src",img);
     $(".app-sidebar__user-avatar").attr("src",img);
 });
+
+
+
+$("#nivelreporte").change(function (e) { 
+    var idNivel = nivelreporte.options[nivelreporte.selectedIndex].value;
+    var grados = $("#gradoreporte");
+    $("#nivelreporte").removeClass("is-invalid");
+    $.ajax({
+        url	    : 'ajax/mGradosySecciones.ajax.php',
+        type    : 'POST',
+        data    : {idNivel : idNivel},
+        dataType: 'json',
+        success: function(data){
+            // Limpiamos el select
+            grados.find('option').remove();
+            grados.append('<option value=""></option>');
+            for(let item of data){
+                grados.append('<option value="' + item.idGrados + '">' + item.nombre_grado + '</option>');
+            }
+            $("#gradoreporte").focus();
+        }
+    })
+});
+
+
+$("#gradoreporte").change(function (e) { 
+    $("#gradoreporte").removeClass("is-invalid");
+    var id_Grado = gradoreporte.options[gradoreporte.selectedIndex].value;
+    var tipo="mostrar";
+    var seccion = $("#seccionreporte");
+    $.ajax({
+        url	    : 'ajax/mGradosySecciones.ajax.php',
+        type    : 'POST',
+        data    : {id_Grado : id_Grado,
+                    tipo:tipo},
+        dataType: 'json',
+        success: function(data){
+           // Limpiamos el select
+           seccion.find('option').remove();
+           seccion.append('<option value=""></option>');
+           for(let item of data){
+            seccion.append('<option value="' + item.idSeccion_Grados + '">' + item.nombre_seccion + '</option>');
+           }
+           $("#seccionreporte").focus();
+        }
+    })
+});
+
