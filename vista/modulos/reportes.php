@@ -46,19 +46,18 @@
           </div>
         </div>
         <div class="col-md-6">
-          <div class="tile">
+          <div class="tile"  id="cuadro1">
             <h3 class="tile-title">Bar Chart</h3>
             <div class="embed-responsive embed-responsive-16by9">
               <canvas class="embed-responsive-item" id="barChartDemo"></canvas>
             </div>
           </div>
 
-          <div class="tile">
-            <h3 class="tile-title">Bar Chart1</h3>
-            <div class="embed-responsive embed-responsive-16by9">
-              <canvas class="embed-responsive-item" id="barChartDemo1"></canvas>
-            </div>
-          </div>
+          <input type="text" id="muestra1" value="" hidden>
+          <input type="text" id="muestra2" value="" hidden>
+          <input type="text" id="SelecionadoNivel" value="" hidden>
+          <input type="text" id="SelecionadoGrado" value="" hidden>
+
 
         </div>
       </div>

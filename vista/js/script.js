@@ -446,6 +446,7 @@ $( document ).ready(function() {
 $("#nivelreporte").change(function (e) { 
     var idNivel = nivelreporte.options[nivelreporte.selectedIndex].value;
     var grados = $("#gradoreporte");
+    var seccion = $("#seccionreporte");
     $("#nivelreporte").removeClass("is-invalid");
     $.ajax({
         url	    : 'ajax/mGradosySecciones.ajax.php',
@@ -453,6 +454,7 @@ $("#nivelreporte").change(function (e) {
         data    : {idNivel : idNivel},
         dataType: 'json',
         success: function(data){
+            seccion.find('option').remove();
             // Limpiamos el select
             grados.find('option').remove();
             grados.append('<option value=""></option>');
@@ -481,7 +483,7 @@ $("#gradoreporte").change(function (e) {
            seccion.find('option').remove();
            seccion.append('<option value=""></option>');
            for(let item of data){
-            seccion.append('<option value="' + item.idSeccion_Grados + '">' + item.nombre_seccion + '</option>');
+            seccion.append('<option value="' + item.idSeccion + '">' + item.nombre_seccion + '</option>');
            }
            $("#seccionreporte").focus();
         }
