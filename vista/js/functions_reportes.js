@@ -33,6 +33,8 @@ function porcentajesPagados (cantidadTotal,cantidadTotalPagados){
 
 $( document ).ready(function() {
 
+   
+    
  
         idnivel = 0;
         idgrado = 0;
@@ -125,6 +127,57 @@ if(window.grafica){
 
 window.grafica = new Chart(ctxb).Bar(data);
 
+var ctxl = $("#lineChartDemo").get(0).getContext("2d");
+
+if(window.grafica1){
+    window.grafica1.clear();
+    window.grafica1.destroy();
+}
+
+window.grafica1 = new Chart(ctxl).Line(data);
+
+var pdata = [
+    {
+        value: cantidadTotalCobrosEnero,
+        color:"#F7464A",
+        highlight: "#FF5A5E",
+        label: "Enero"
+    },
+    {
+        value: cantidadTotalCobrosFebrero,
+        color: "#46BFBD",
+        highlight: "#5AD3D1",
+        label: "Febrero"
+    },
+    {
+        value: cantidadTotalCobrosMarzo,
+        color: "#FDB45C",
+        highlight: "#FFC870",
+        label: "Marzo"
+    },
+    {
+        value: cantidadTotalCobrosAbril,
+        color: "#838D92",
+        highlight: "#919EA4",
+        label: "Abril"
+    },
+    {
+        value: cantidadTotalCobrosMayo,
+        color: "#259F19",
+        highlight: "#4CB342",
+        label: "Mayo"
+    }
+]
+
+var ctxp = $("#pieChartDemo").get(0).getContext("2d");
+
+if(window.grafica2){
+    window.grafica2.clear();
+    window.grafica2.destroy();
+}
+
+window.grafica2 = new Chart(ctxp).Pie(pdata);
+
 $('#nivelreporte').on('change', function(){
     var value = $(this).val();
 
@@ -213,6 +266,57 @@ $('#nivelreporte').on('change', function(){
 
         window.grafica = new Chart(ctxb1).Bar(data1);
     
+        var ctxl1 = $("#lineChartDemo").get(0).getContext("2d");
+
+        if(window.grafica1){
+            window.grafica1.clear();
+            window.grafica1.destroy();
+        }
+
+        window.grafica1 = new Chart(ctxl1).Line(data1);
+
+        var pdata1 = [
+            {
+                value: cantidadTotalCobrosEnero,
+                color:"#F7464A",
+                highlight: "#FF5A5E",
+                label: "Enero"
+            },
+            {
+                value: cantidadTotalCobrosFebrero,
+                color: "#46BFBD",
+                highlight: "#5AD3D1",
+                label: "Febrero"
+            },
+            {
+                value: cantidadTotalCobrosMarzo,
+                color: "#FDB45C",
+                highlight: "#FFC870",
+                label: "Marzo"
+            },
+            {
+                value: cantidadTotalCobrosAbril,
+                color: "#838D92",
+                highlight: "#919EA4",
+                label: "Abril"
+            },
+            {
+                value: cantidadTotalCobrosMayo,
+                color: "#259F19",
+                highlight: "#4CB342",
+                label: "Mayo"
+            }
+        ]
+        
+        var ctxp1 = $("#pieChartDemo").get(0).getContext("2d");
+        
+        if(window.grafica2){
+            window.grafica2.clear();
+            window.grafica2.destroy();
+        }
+        
+        window.grafica2 = new Chart(ctxp1).Pie(pdata1);
+
 });
 
 $('#gradoreporte').on('change', function(){
@@ -313,6 +417,57 @@ $('#gradoreporte').on('change', function(){
 
         window.grafica = new Chart(ctxb2).Bar(data2);
     
+        var ctxl2 = $("#lineChartDemo").get(0).getContext("2d");
+
+        if(window.grafica1){
+            window.grafica1.clear();
+            window.grafica1.destroy();
+        }
+
+        window.grafica1 = new Chart(ctxl2).Line(data2);
+
+        var pdata2 = [
+            {
+                value: cantidadTotalCobrosEnero,
+                color:"#F7464A",
+                highlight: "#FF5A5E",
+                label: "Enero"
+            },
+            {
+                value: cantidadTotalCobrosFebrero,
+                color: "#46BFBD",
+                highlight: "#5AD3D1",
+                label: "Febrero"
+            },
+            {
+                value: cantidadTotalCobrosMarzo,
+                color: "#FDB45C",
+                highlight: "#FFC870",
+                label: "Marzo"
+            },
+            {
+                value: cantidadTotalCobrosAbril,
+                color: "#838D92",
+                highlight: "#919EA4",
+                label: "Abril"
+            },
+            {
+                value: cantidadTotalCobrosMayo,
+                color: "#259F19",
+                highlight: "#4CB342",
+                label: "Mayo"
+            }
+        ]
+        
+        var ctxp2 = $("#pieChartDemo").get(0).getContext("2d");
+        
+        if(window.grafica2){
+            window.grafica2.clear();
+            window.grafica2.destroy();
+        }
+        
+        window.grafica2 = new Chart(ctxp2).Pie(pdata2);
+
 });
 
 $('#seccionreporte').on('change', function(){
@@ -419,14 +574,141 @@ $('#seccionreporte').on('change', function(){
         }
 
         window.grafica = new Chart(ctxb3).Bar(data3);
+        
+        var ctxl3 = $("#lineChartDemo").get(0).getContext("2d");
+
+        if(window.grafica1){
+            window.grafica1.clear();
+            window.grafica1.destroy();
+        }
+
+        window.grafica1 = new Chart(ctxl3).Line(data3);
+
+        var pdata3 = [
+            {
+                value: cantidadTotalCobrosEnero,
+                color:"#F7464A",
+                highlight: "#FF5A5E",
+                label: "Enero"
+            },
+            {
+                value: cantidadTotalCobrosFebrero,
+                color: "#46BFBD",
+                highlight: "#5AD3D1",
+                label: "Febrero"
+            },
+            {
+                value: cantidadTotalCobrosMarzo,
+                color: "#FDB45C",
+                highlight: "#FFC870",
+                label: "Marzo"
+            },
+            {
+                value: cantidadTotalCobrosAbril,
+                color: "#838D92",
+                highlight: "#919EA4",
+                label: "Abril"
+            },
+            {
+                value: cantidadTotalCobrosMayo,
+                color: "#259F19",
+                highlight: "#4CB342",
+                label: "Mayo"
+            }
+        ]
+
+        var ctxp3 = $("#pieChartDemo").get(0).getContext("2d");
+        
+        if(window.grafica2){
+            window.grafica2.clear();
+            window.grafica2.destroy();
+        }
+        
+        window.grafica2 = new Chart(ctxp3).Pie(pdata3);
+});
+});
+
+
+var fila = document.querySelector('.SelectorGrafico1');
+
+var fila2 = document.querySelector('.SelectorGrafico');
+
+var fila1 = document.querySelector('.graficograf');
+
+var medidatotal = fila1.offsetHeight + 20;
+
+document.getElementById("SelectorGrafico").style.height = medidatotal+"px";
+
+function radiosGraficos(elemento) {
+
+    if(elemento.value=="barras") {
+        fila2.scrollTop = 0;
+        document.getElementById("SelectorGrafico").style.height = medidatotal+"px";
+            console.log(fila2.scrollTop+'se hace bien');
+
+    }else if(elemento.value=="lineas"){
+
+        fila2.scrollTop = fila1.offsetHeight+20;
+        document.getElementById("SelectorGrafico").style.height = medidatotal+"px";
+            console.log( fila2.scrollTop+'se hace bien');
+
+        }else{
+            fila2.scrollTop = (fila1.offsetHeight*2)+50;
+            document.getElementById("SelectorGrafico").style.height = medidatotal+"px";
+            console.log( fila2.scrollTop+'se hace bien');
+}
+
+    }
+
+$('input[type="radio"][name=chknivel]').on('change', function(e){
+
+        if (this.checked) {
+        
+
+            var idNivel = $(e.currentTarget).val();
+            var grados = $("#gradoreporte");
+            
+            var seccion = $("#seccionreporte");
+            $("#nivelreporte").removeClass("is-invalid");
+            $.ajax({
+                url	    : 'ajax/mGradosySecciones.ajax.php',
+                type    : 'POST',
+                data    : {idNivel : idNivel},
+                dataType: 'json',
+                success: function(data){
+                    $("#gradoReport").empty();
+                    for(let item of data){
+                        
+                        $("#gradoReport").append('<li><label class="treeview-item pt-2 arbol-item " ><input type="radio" name="chkgrado" id="' + item.idGrados + '"  value="' + item.idGrados + '" class="buscador-check mr-2"> ' + item.nombre_grado + '</label> </li>');
+                    }
+                   
+                }
+            })
+            
+        } 
+ 
+});
+$('#gradoReport').change(function(){
+    selected_value = $("input[name='chkgrado']:checked").val();
     
+         var id_Grado = selected_value;
+         var tipo="mostrar";
+         $("#nivelreporte").removeClass("is-invalid");
+         $.ajax({
+            url	    : 'ajax/mGradosySecciones.ajax.php',
+            type    : 'POST',
+            data    : {id_Grado : id_Grado,
+                        tipo:tipo},
+            dataType: 'json',
+             success: function(data){
+                 $("#seccionReport").empty();
+                 for(let item of data){
+                     
+                     $("#seccionReport").append('<li><label class="treeview-item pt-2 arbol-item " ><input type="radio" name="chkseccion" id="' + item.idSeccion + '"  value="' + item.idSeccion +'" class="buscador-check mr-2"> ' + item.nombre_seccion + '</label> </li>');
+                 }
+                
+             }
+         })
+            
 });
 
-//  NUEVOS GRAFICOS
-        var ctxl = $("#lineChartDemo").get(0).getContext("2d");
-        var lineChart = new Chart(ctxl).Line(data);
-
-        var ctxp = $("#pieChartDemo").get(0).getContext("2d");
-        var pieChart = new Chart(ctxp).Pie(pdata);
-
-});

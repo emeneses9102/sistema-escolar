@@ -49,12 +49,12 @@ if(empty($_SESSION['active']))
             <li><a class="dropdown-item" href="<?php
             if($_SESSION['rol'] == 4){
                 echo "perfilAlumno";
-            }else if($_SESSION['rol'] == 2){
+            }else if($_SESSION['rol'] != 4){
                 echo "administrativo";
             }
             else{
                 echo "page-user.html";
-            } ?>"><i class="fa fa-user fa-lg"></i> Perfil</a></li>
+            }?>"><i class="fa fa-user fa-lg"></i> Perfil</a></li>
             <li><a class="dropdown-item" href="salir"><i class="fa fa-sign-out fa-lg"></i> Cerrar sesión</a></li>
           </ul>
         </li>

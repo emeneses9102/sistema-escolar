@@ -109,3 +109,34 @@ input {
     background-image:none;
 
 }
+
+#SelectorGrafico{
+    overflow:hidden;
+}
+/*Estilos filtro Reporte*/
+.buscador-item{
+    background-color: white !important;
+    color: black;
+    font-size: 17px;
+}
+.buscador-item i{
+    color: rgb(58, 58, 58);
+    font-size: 20px;
+   margin-left: auto;
+    
+}
+.buscador-label{
+    color: black;
+}
+.buscador-check{
+    width: 10%;
+    height: 30px;
+}
+.arbol-menu{
+    background: white;
+}
+.arbol-item{
+    background-color: white;
+    color: black;
+    font-size: 14px;
+}
