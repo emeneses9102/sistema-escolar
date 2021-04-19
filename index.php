@@ -43,4 +43,4 @@ require_once 'modelo/reporte.modelo.php';
 
 $plantilla = new ControladorPlantilla();
 $plantilla->ctrPlantilla();
-//cambios 17
+//cambios 18
