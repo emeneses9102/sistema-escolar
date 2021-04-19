@@ -20,7 +20,7 @@ function porcentajesPagados (cantidadTotal,cantidadTotalPagados){
     return PorcentajeTotalCobrosPagados1;
     }
     }
-    function porcentajesNoPagados (cantidadTotal,cantidadTotalPagados){
+function porcentajesNoPagados (cantidadTotal,cantidadTotalPagados){
     if(cantidadTotal == 0){
      return 0;
     }else{
@@ -32,10 +32,6 @@ function porcentajesPagados (cantidadTotal,cantidadTotalPagados){
     }
 
 $( document ).ready(function() {
-
-   
-    
- 
         idnivel = 0;
         idgrado = 0;
         idseccion = 0;
@@ -637,6 +633,8 @@ var fila1 = document.querySelector('.graficograf');
 
 var medidatotal = fila1.offsetHeight + 20;
 
+
+
 document.getElementById("SelectorGrafico").style.height = medidatotal+"px";
 
 function radiosGraficos(elemento) {
@@ -659,6 +657,8 @@ function radiosGraficos(elemento) {
 }
 
     }
+
+
 
 $('input[type="radio"][name=chknivel]').on('change', function(e){
 

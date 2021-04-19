@@ -79,6 +79,6 @@
     <script src="vista/js/functions_listaDeuda.js"></script>
     <script src="vista/js/functions_deudores.js"></script>
     <script src="vista/js/functions_reportes.js"></script>
-    
+    <script src="vista/js/functions_reportes2.js"></script>
   </body>
 </html>

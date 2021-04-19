@@ -13,7 +13,7 @@
   </ul>
 </div>
 <div class="row" id="listAlumno">
-  <div class="col-md-2">
+  <div class="col-lg-3">
     <div class="tile">
       <div class="tile-body">
         <ul class="app-menu">    
@@ -42,11 +42,11 @@
             </ul>
           </li>
           <li class="treeview">
-            <a class="app-menu__item buscador-item" href="javascript:void(0)" data-toggle="treeview"><span class=" buscador-label">Gráficos</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <a class="app-menu__item buscador-item" href="" data-toggle="treeview"><span class=" buscador-label">Gráficos</span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu ml-2 arbol-menu">
-            <li><label class="treeview-item pt-2 arbol-item "><input type="radio" name="chknivel" value="" id="" class="buscador-check mr-2" >De Barra</label> </li>
-            <li><label class="treeview-item pt-2 arbol-item "><input type="radio" name="chknivel" value="" id="" class="buscador-check mr-2" >De Líneas</label> </li>
-            <li><label class="treeview-item pt-2 arbol-item "><input type="radio" name="chknivel" value="" id="" class="buscador-check mr-2" >Circular</label> </li>
+            <li><label class="treeview-item pt-2 arbol-item "><input type="radio" name="chkgrafico" value="barras" id="" class="buscador-check mr-2" onclick="radiosGraficos(this);" checked>De Barra</label> </li>
+            <li><label class="treeview-item pt-2 arbol-item "><input type="radio" name="chkgrafico" value="lineas" id="" class="buscador-check mr-2" onclick="radiosGraficos(this);">De Líneas</label> </li>
+            <li><label class="treeview-item pt-2 arbol-item "><input type="radio" name="chkgrafico" value="circular" id="" class="buscador-check mr-2" onclick="radiosGraficos(this);">Circular</label> </li>
             </ul>
           </li>
           <li class="treeview">
@@ -54,11 +54,11 @@
             <ul class="treeview-menu ml-2 arbol-menu">
               <div>
                 <label for="" class="label-control">Desde</label>
-                <input type="date" name="" id="" class="form-control">
+                <input type="date" name="iniciofecha" id="iniciofecha" class="form-control">
               </div>
               <div>
                 <label for="" class="label-control">Hasta</label>
-                <input type="date" name="" id="" class="form-control">
+                <input type="date" name="finfecha" id="finfecha" class="form-control">
               </div>
 
             </ul>
@@ -68,73 +68,18 @@
     </div>
   </div>
  
-  <div class="col-md-10">
+  <div class="col-lg-9">
     <div class="tile">
       <h2 class="mb-4">Gráficas de pagos</h2>
       <div class="tile-body">
-        
-        <div class="row">
-          <div class="col-md-4">
-            <div class="col-md-12 form-group">
-            
-              <label for="nivel">Nivel:</label>
-              <select id="nivelreporte" class="form-control" type="select" name="nivelreporte" required>
-                <option value="0"></option>
-                <?php foreach ($mostrarNiveles as $nivel) { ?>
-                  <option value="<?php echo $nivel['idNiveles'] ?>"><?php echo $nivel['nombre_nivel'] ?></option>
-                <?php
-                }
-                ?>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="col-md-12 form-group">
-                <label for="grado">Grado:</label>
-                <select id="gradoreporte" class="form-control" type="text" name="gradoreporte" required>
-                </select>
-            </div>
-          </div>
-          <div class="col-md-4">
-              <div class="col-md-12 form-group">
-                  <label for="seccion">Sección:</label>
-                  <select id="seccionreporte" class="form-control" type="text" name="seccionreporte" required></select>
-              </div>
-          </div>
-        </div>
-        
-
-        <div class="row">
-                <div class="col-md-4">
-                    <div class="mb-3">
-                        <input type="radio"  id="barras" name="grafico" value="barras" class="w-25" checked onclick="radiosGraficos(this);">
-                        <label for="barras" class="m-1">Gráfico de Barras</label>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="mb-3">
-                        <input type="radio"  id="lineas" name="grafico" value="lineas" class="w-25" onclick="radiosGraficos(this);">
-                        <label for="lineas" class="m-1">Gráfico de Líneas</label> 
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="mb-3">
-                        <input type="radio" id="circular" name="grafico" value="circular" class="w-25" onclick="radiosGraficos(this);">
-                        <label for="circular" class="m-1">Gráfico Circular</label>
-                    </div>
-                </div>
-        </div>
-
-        
-
-     <div class="col-lg-6 extension"></div>
+     <div class="col-lg-10 extension"></div>
 
     <div class="SelectorGrafico" id="SelectorGrafico">
 
       <div class="SelectorGrafico1" id="SelectorGrafico1">
 
 
-      <div class="col-lg-6 graficograf" id="graficobarras">
+      <div class="col-lg-10 graficograf" id="graficobarras">
               <div class="tile"> 
                 <h3 class="tile-title">Bar Chart</h3>
                 <div class="embed-responsive embed-responsive-16by9">
@@ -145,7 +90,7 @@
 
          
 
-          <div class="col-lg-6 graficograf" id="graficolineal">
+          <div class="col-lg-10 graficograf" id="graficolineal">
             <div class="tile">
               <h3 class="tile-title">Line Chart</h3>
               <div class="embed-responsive embed-responsive-16by9">
@@ -156,7 +101,7 @@
       
 
  
-            <div class="col-lg-6 graficograf" id="graficocircular">
+            <div class="col-lg-10 graficograf" id="graficocircular">
               <div class="tile">
                 <h3 class="tile-title">Pie Chart</h3>
                 <div class="embed-responsive embed-responsive-16by9">
@@ -173,6 +118,9 @@
     <input type="text" id="muestra2" value="" hidden>
     <input type="text" id="SelecionadoNivel" value="" hidden>
     <input type="text" id="SelecionadoGrado" value="" hidden>
+    <input type="text" id="SelecionadoSeccion" value="" hidden>
+    <input type="text" id="muestrafechainicio" value="" hidden>
+    <input type="text" id="muestrafechafin" value="" hidden>
 
       </div>
     </div>

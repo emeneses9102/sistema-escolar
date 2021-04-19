@@ -61,6 +61,62 @@ class ajaxReporteCobros{
 
         $articulos[] = $respuesta['TotalCobros'];
 
+        $value1 = $ActualYear."-06-01";
+
+        $value2 = $ActualYear."-06-30";
+
+        $respuesta = ModeloReporteCobros::mdlCantidadTotalCobros($value1,$value2,$valor,$valorr,$valorrr);
+
+        $articulos[] = $respuesta['TotalCobros'];
+
+        $value1 = $ActualYear."-07-01";
+
+        $value2 = $ActualYear."-07-31";
+
+        $respuesta = ModeloReporteCobros::mdlCantidadTotalCobros($value1,$value2,$valor,$valorr,$valorrr);
+
+        $articulos[] = $respuesta['TotalCobros'];
+
+        $value1 = $ActualYear."-08-01";
+
+        $value2 = $ActualYear."-08-31";
+
+        $respuesta = ModeloReporteCobros::mdlCantidadTotalCobros($value1,$value2,$valor,$valorr,$valorrr);
+
+        $articulos[] = $respuesta['TotalCobros'];
+
+        $value1 = $ActualYear."-09-01";
+
+        $value2 = $ActualYear."-09-30";
+
+        $respuesta = ModeloReporteCobros::mdlCantidadTotalCobros($value1,$value2,$valor,$valorr,$valorrr);
+
+        $articulos[] = $respuesta['TotalCobros'];
+
+        $value1 = $ActualYear."-10-01";
+
+        $value2 = $ActualYear."-10-31";
+
+        $respuesta = ModeloReporteCobros::mdlCantidadTotalCobros($value1,$value2,$valor,$valorr,$valorrr);
+
+        $articulos[] = $respuesta['TotalCobros'];
+
+        $value1 = $ActualYear."-11-01";
+
+        $value2 = $ActualYear."-11-30";
+
+        $respuesta = ModeloReporteCobros::mdlCantidadTotalCobros($value1,$value2,$valor,$valorr,$valorrr);
+
+        $articulos[] = $respuesta['TotalCobros'];
+
+        $value1 = $ActualYear."-12-01";
+
+        $value2 = $ActualYear."-12-31";
+
+        $respuesta = ModeloReporteCobros::mdlCantidadTotalCobros($value1,$value2,$valor,$valorr,$valorrr);
+
+        $articulos[] = $respuesta['TotalCobros'];
+
         echo json_encode($articulos);
     }
 
@@ -124,7 +180,99 @@ class ajaxReporteCobros{
 
         $articulos[] = $respuesta['TotalCobrosPagados'];
 
+        $value1 = $ActualYear."-06-01";
+
+        $value2 = $ActualYear."-06-30";
+
+        $respuesta = ModeloReporteCobros::mdlCantidadTotalCobrosPagados($value1,$value2,$valor,$valorr,$valorrr);
+
+        $articulos[] = $respuesta['TotalCobrosPagados'];
+
+        $value1 = $ActualYear."-07-01";
+
+        $value2 = $ActualYear."-07-31";
+
+        $respuesta = ModeloReporteCobros::mdlCantidadTotalCobrosPagados($value1,$value2,$valor,$valorr,$valorrr);
+
+        $articulos[] = $respuesta['TotalCobrosPagados'];
+
+        $value1 = $ActualYear."-08-01";
+
+        $value2 = $ActualYear."-08-31";
+
+        $respuesta = ModeloReporteCobros::mdlCantidadTotalCobrosPagados($value1,$value2,$valor,$valorr,$valorrr);
+
+        $articulos[] = $respuesta['TotalCobrosPagados'];
+
+        $value1 = $ActualYear."-09-01";
+
+        $value2 = $ActualYear."-09-30";
+
+        $respuesta = ModeloReporteCobros::mdlCantidadTotalCobrosPagados($value1,$value2,$valor,$valorr,$valorrr);
+
+        $articulos[] = $respuesta['TotalCobrosPagados'];
+
+        $value1 = $ActualYear."-10-01";
+
+        $value2 = $ActualYear."-10-31";
+
+        $respuesta = ModeloReporteCobros::mdlCantidadTotalCobrosPagados($value1,$value2,$valor,$valorr,$valorrr);
+
+        $articulos[] = $respuesta['TotalCobrosPagados'];
+
+        $value1 = $ActualYear."-11-01";
+
+        $value2 = $ActualYear."-11-30";
+
+        $respuesta = ModeloReporteCobros::mdlCantidadTotalCobrosPagados($value1,$value2,$valor,$valorr,$valorrr);
+
+        $articulos[] = $respuesta['TotalCobrosPagados'];
+
+        $value1 = $ActualYear."-12-01";
+
+        $value2 = $ActualYear."-12-31";
+
+        $respuesta = ModeloReporteCobros::mdlCantidadTotalCobrosPagados($value1,$value2,$valor,$valorr,$valorrr);
+
+        $articulos[] = $respuesta['TotalCobrosPagados'];
+
         echo json_encode($articulos);
+    }
+
+    public function ajaxCantidadTotalCobrosgraficocircular(){
+
+        $valor = $this->id_nivel3;
+
+        $valor1 = $this->id_grado3;
+
+        $valor2 = $this->id_seccion3;
+
+        $valor3 = $this->iniciofecha;
+
+        $valor4 = $this->finfecha;
+
+        $respuesta = ModeloReporteCobros::mdlCantidadTotalCobrosgraficocircular($valor,$valor1,$valor2,$valor3,$valor4);
+
+        echo $respuesta['TotalCobros'];
+
+    }
+
+    public function ajaxCantidadTotalCobrosPagadosgraficocircular(){
+
+        $valor = $this->id_nivel4;
+
+        $valor1 = $this->id_grado4;
+
+        $valor2 = $this->id_seccion4;
+
+        $valor3 = $this->iniciofecha1;
+
+        $valor4 = $this->finfecha1;
+
+        $respuesta = ModeloReporteCobros::mdlCantidadTotalCobrosPagadosgraficocircular($valor,$valor1,$valor2,$valor3,$valor4);
+
+        echo $respuesta['TotalCobrosPagados'];
+
     }
 }
 
@@ -148,4 +296,27 @@ if(isset($_POST["id_nivel2"]) && isset($_POST["id_grado2"]) && isset($_POST["id_
     $contador->id_seccion2 = $_POST["id_seccion2"];
     $contador->ajaxCantidadTotalCobrosPagados();
 }
+
+if(isset($_POST["id_nivel3"]) && isset($_POST["id_grado3"]) && isset($_POST["id_seccion3"]) && isset($_POST["iniciofecha"]) && isset($_POST["finfecha"]))
+{  
+    $contador = new ajaxReporteCobros();
+    $contador->id_nivel3 = $_POST["id_nivel3"];
+    $contador->id_grado3 = $_POST["id_grado3"];
+    $contador->id_seccion3 = $_POST["id_seccion3"];
+    $contador->iniciofecha = $_POST["iniciofecha"];
+    $contador->finfecha = $_POST["finfecha"];
+    $contador->ajaxCantidadTotalCobrosgraficocircular();
+}
+
+if(isset($_POST["id_nivel4"]) && isset($_POST["id_grado4"]) && isset($_POST["id_seccion4"]) && isset($_POST["iniciofecha1"]) && isset($_POST["finfecha1"]))
+{  
+    $contador = new ajaxReporteCobros();
+    $contador->id_nivel4 = $_POST["id_nivel4"];
+    $contador->id_grado4 = $_POST["id_grado4"];
+    $contador->id_seccion4 = $_POST["id_seccion4"];
+    $contador->iniciofecha1 = $_POST["iniciofecha1"];
+    $contador->finfecha1 = $_POST["finfecha1"];
+    $contador->ajaxCantidadTotalCobrosPagadosgraficocircular();
+}
+
 ?>
