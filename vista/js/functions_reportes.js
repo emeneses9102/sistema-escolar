@@ -1,30 +1,19 @@
-var cantidadTotalCobrosEnero;
-var cantidadTotalCobrosFebrero;
-var cantidadTotalCobrosMarzo;
-var cantidadTotalCobrosAbril;
-var cantidadTotalCobrosMayo;
-var cantidadTotalCobrosJunio;
-var cantidadTotalCobrosJulio;
-var cantidadTotalCobrosAgosto;
-var cantidadTotalCobrosSetiembre;
-var cantidadTotalCobrosOctubre;
-var cantidadTotalCobroNoviembre;
-var cantidadTotalCobrosDiciembre;
+var cantidadTotalCobrosMes1;
+var cantidadTotalCobrosMes2;
+var cantidadTotalCobrosMes3;
 var cantidadTotalCobrosFinal;
 
-var cantidadTotalCobrosPagadosEnero;
-var cantidadTotalCobrosPagadosFebrero;
-var cantidadTotalCobrosPagadosMarzo;
-var cantidadTotalCobrosPagadosAbril;
-var cantidadTotalCobrosPagadosMayo;
-var cantidadTotalCobrosPagadosJunio;
-var cantidadTotalCobrosPagadosJulio;
-var cantidadTotalCobrosPagadosAgosto;
-var cantidadTotalCobrosPagadosSetiembre;
-var cantidadTotalCobrosPagadosOctubre;
-var cantidadTotalCobrosPagadosNoviembre;
-var cantidadTotalCobrosPagadosDiciembre;
+var cantidadTotalCobrosPagadosMes1;
+var cantidadTotalCobrosPagadosMes2;
+var cantidadTotalCobrosPagadosMes3;
 var cantidadTotalCobrosPagadosFinal;
+
+var nombreMes1;
+var nombreMes2;
+var nombreMes3;
+var graficoNivel;
+var graficoGrado;
+var graficoSeccion;
 
 function porcentajesPagados (cantidadTotal,cantidadTotalPagados){
     if(cantidadTotal == 0){
@@ -51,23 +40,18 @@ function porcentajesPagados (cantidadTotal,cantidadTotalPagados){
         $.ajax({
             url	    : 'ajax/reportes.ajax.php',
             type    : 'POST',
-            data    : {id_nivel:idnivel, id_grado:idgrado, id_seccion:idseccion},
+            data    : {id_nivel:idnivel, id_grado:idgrado, id_seccion:idseccion, iniciofecha:iniciofecha, finfecha:finfecha},
             dataType:   "json",
             async: false,
             success: function(data){
-                cantidadTotalCobrosEnero = data[0]+"";
-                cantidadTotalCobrosFebrero = data[1]+"";
-                $("#muestra1").val(data[1]+"");
-                cantidadTotalCobrosMarzo = data[2]+"";
-                cantidadTotalCobrosAbril = data[3]+"";
-                cantidadTotalCobrosMayo = data[4]+"";
-                cantidadTotalCobrosJunio = data[5]+"";
-                cantidadTotalCobrosJulio = data[6]+"";
-                cantidadTotalCobrosAgosto = data[7]+"";
-                cantidadTotalCobrosSetiembre = data[8]+"";
-                cantidadTotalCobrosOctubre = data[9]+"";
-                cantidadTotalCobroNoviembre = data[10]+"";
-                cantidadTotalCobrosDiciembre = data[11]+"";
+                cantidadTotalCobrosMes1 = data[0][1];
+                cantidadTotalCobrosMes2 = data[1][1];
+                $("#muestra1").val(data[0][1]+"");
+                cantidadTotalCobrosMes3 = data[2][1];        
+                nombreMes1 = data[0][0]+"";
+                nombreMes2 = data[1][0]+"";
+                nombreMes3 = data[2][0]+"";
+
                 console.log(data+"");
             }
         });
@@ -75,24 +59,14 @@ function porcentajesPagados (cantidadTotal,cantidadTotalPagados){
         $.ajax({
             url	    : 'ajax/reportes.ajax.php',
             type    : 'POST',
-            data    : {id_nivel2:idnivel, id_grado2:idgrado, id_seccion2:idseccion},
+            data    : {id_nivel2:idnivel, id_grado2:idgrado, id_seccion2:idseccion, iniciofecha:iniciofecha, finfecha:finfecha},
             dataType:   "json",
             async: false,
             success: function(data){
-                cantidadTotalCobrosPagadosEnero = data[0]+"";
-                cantidadTotalCobrosPagadosFebrero = data[1]+"";
-                $("#muestra2").val(data[1]+"");
-                console.log(data[1]+"hajs");
-                cantidadTotalCobrosPagadosMarzo = data[2]+"";
-                cantidadTotalCobrosPagadosAbril = data[3]+"";
-                cantidadTotalCobrosPagadosMayo = data[4]+"";
-                cantidadTotalCobrosPagadosJunio = data[5]+"";
-                cantidadTotalCobrosPagadosJulio = data[6]+"";
-                cantidadTotalCobrosPagadosAgosto = data[7]+"";
-                cantidadTotalCobrosPagadosSetiembre = data[8]+"";
-                cantidadTotalCobrosPagadosOctubre = data[9]+"";
-                cantidadTotalCobrosPagadosNoviembre = data[10]+"";
-                cantidadTotalCobrosPagadosDiciembre = data[11]+"";
+                cantidadTotalCobrosPagadosMes1 = data[0][1];
+                cantidadTotalCobrosPagadosMes2 = data[1][1];
+                $("#muestra2").val(data[0][1]+"");
+                cantidadTotalCobrosPagadosMes3 = data[2][1];        
                 console.log(data+"");
             }
         });
@@ -118,11 +92,9 @@ function porcentajesPagados (cantidadTotal,cantidadTotalPagados){
                 console.log(data+"Julio");
             }
         });
-
-        console.log(cantidadTotalCobrosFebrero +"-"+ cantidadTotalCobrosPagadosFebrero);
     
         var data3 = {
-            labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo","Junio","Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre"],
+            labels: [nombreMes1+"",nombreMes2+"",nombreMes3+""],
             datasets: [
                 {
                     label: "My First dataset",
@@ -132,18 +104,9 @@ function porcentajesPagados (cantidadTotal,cantidadTotalPagados){
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: [ porcentajesNoPagados(cantidadTotalCobrosEnero,cantidadTotalCobrosPagadosEnero), 
-                        porcentajesNoPagados(cantidadTotalCobrosFebrero,cantidadTotalCobrosPagadosFebrero), 
-                        porcentajesNoPagados(cantidadTotalCobrosMarzo,cantidadTotalCobrosPagadosMarzo), 
-                        porcentajesNoPagados(cantidadTotalCobrosAbril,cantidadTotalCobrosPagadosAbril), 
-                        porcentajesNoPagados(cantidadTotalCobrosMayo,cantidadTotalCobrosPagadosMayo),
-                        porcentajesNoPagados(cantidadTotalCobrosJunio,cantidadTotalCobrosPagadosJunio),
-                        porcentajesNoPagados(cantidadTotalCobrosJulio,cantidadTotalCobrosPagadosJulio),
-                        porcentajesNoPagados(cantidadTotalCobrosAgosto,cantidadTotalCobrosPagadosAgosto),
-                        porcentajesNoPagados(cantidadTotalCobrosSetiembre,cantidadTotalCobrosPagadosSetiembre),
-                        porcentajesNoPagados(cantidadTotalCobrosOctubre,cantidadTotalCobrosPagadosOctubre),
-                        porcentajesNoPagados(cantidadTotalCobroNoviembre,cantidadTotalCobrosPagadosNoviembre),
-                        porcentajesNoPagados(cantidadTotalCobrosDiciembre,cantidadTotalCobrosPagadosDiciembre)]
+                    data: [ porcentajesNoPagados(cantidadTotalCobrosMes1,cantidadTotalCobrosPagadosMes1), 
+                        porcentajesNoPagados(cantidadTotalCobrosMes2,cantidadTotalCobrosPagadosMes2), 
+                        porcentajesNoPagados(cantidadTotalCobrosMes3,cantidadTotalCobrosPagadosMes3)]
                 },
                 {
                     label: "My Second dataset",
@@ -153,18 +116,9 @@ function porcentajesPagados (cantidadTotal,cantidadTotalPagados){
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(151,187,205,1)",
-                    data: [porcentajesPagados(cantidadTotalCobrosEnero,cantidadTotalCobrosPagadosEnero), 
-                        porcentajesPagados(cantidadTotalCobrosFebrero,cantidadTotalCobrosPagadosFebrero), 
-                        porcentajesPagados(cantidadTotalCobrosMarzo,cantidadTotalCobrosPagadosMarzo), 
-                        porcentajesPagados(cantidadTotalCobrosAbril,cantidadTotalCobrosPagadosAbril), 
-                        porcentajesPagados(cantidadTotalCobrosMayo,cantidadTotalCobrosPagadosMayo),
-                        porcentajesPagados(cantidadTotalCobrosJunio,cantidadTotalCobrosPagadosJunio),
-                        porcentajesPagados(cantidadTotalCobrosJulio,cantidadTotalCobrosPagadosJulio),
-                        porcentajesPagados(cantidadTotalCobrosAgosto,cantidadTotalCobrosPagadosAgosto),
-                        porcentajesPagados(cantidadTotalCobrosSetiembre,cantidadTotalCobrosPagadosSetiembre),
-                        porcentajesPagados(cantidadTotalCobrosOctubre,cantidadTotalCobrosPagadosOctubre),
-                        porcentajesPagados(cantidadTotalCobroNoviembre,cantidadTotalCobrosPagadosNoviembre),
-                        porcentajesPagados(cantidadTotalCobrosDiciembre,cantidadTotalCobrosPagadosDiciembre)]
+                    data: [porcentajesPagados(cantidadTotalCobrosMes1,cantidadTotalCobrosPagadosMes1), 
+                        porcentajesPagados(cantidadTotalCobrosMes2,cantidadTotalCobrosPagadosMes2), 
+                        porcentajesPagados(cantidadTotalCobrosMes3,cantidadTotalCobrosPagadosMes3)]
                 }
             ]
         };
@@ -213,13 +167,136 @@ function porcentajesPagados (cantidadTotal,cantidadTotalPagados){
         window.grafica2 = new Chart(ctxp3).Pie(pdata3);
     }
 
+    function NomNivelGradoSeccion(idnivel,idgrado,idseccion){
+        $.ajax({
+            url	    : 'ajax/reportes.ajax.php',
+            type    : 'POST',
+            data    : {id_nivel6:idnivel, id_grado6:idgrado, id_seccion6:idseccion},
+            dataType:   "json",
+            async: false,
+            success: function(data){
+                for(let item of data){
+
+                graficoNivel = item.nombre_nivel;
+                graficoGrado = item.nombre_grado;
+                graficoSeccion = item.nombre_seccion;
+
+                }
+
+                if(graficoNivel == undefined){
+                    graficoNivel = " ";
+                }else{
+                    graficoNivel = " - "+graficoNivel;
+                }
+
+                if(graficoGrado == undefined){
+                    graficoGrado = " ";
+                }else{
+                    graficoGrado = " - "+graficoGrado;
+                }
+
+                if(graficoSeccion == undefined){
+                    graficoSeccion = " ";
+                }else{
+                    graficoSeccion = " - "+graficoSeccion;
+                }
+
+                document.getElementById('nombregrafico').innerHTML='Gráfico'+graficoNivel +'' + graficoGrado + ''+graficoSeccion;
+                document.getElementById('nombregrafico2').innerHTML='Gráfico'+graficoNivel +'' + graficoGrado + ''+graficoSeccion;
+                document.getElementById('nombregrafico3').innerHTML='Gráfico'+graficoNivel +'' + graficoGrado + ''+graficoSeccion;
+
+            }
+        });
+    }
+
+    function total(idnivel,idgrado,idseccion,iniciofecha,finfecha){
+        $.ajax({
+            url	    : 'ajax/reportes.ajax.php',
+            type    : 'POST',
+            data    : {id_nivel7:idnivel, id_grado7:idgrado, id_seccion7:idseccion, iniciofecha7:iniciofecha, finfecha7:finfecha},
+            async: false,
+            success: function(data){
+                console.log(data+"amor");
+                document.getElementById('ingresosoles').innerHTML=' '+data;
+            }
+        });
+    }
+
 $( document ).ready(function() {
+
         idnivel = 0;
         idgrado = 0;
         idseccion = 0;
-        iniciofecha = 0;
-        finfecha = 0;
+
+    var fecha = new Date();
+    var mes = fecha.getMonth()+1;
+
+    if(mes<10){
+        mes1="0"+mes;
+    }else{
+        mes1 = ""+mes;
+    }
+    var fechaActual = fecha.getFullYear()+"-"+mes1+"-"+fecha.getDate();
+    var anyo;
+    var mes2;
+    var mes3;
+    if(mes==1 || mes ==2){
+            mes2 = mes-2;
+
+            if(mes2==0){
+                mes3=12;
+                anyo = fecha.getFullYear()-1;
+                iniciofecha = anyo+"-"+mes3+"-01";
+            }else if(mes2==-1){
+                mes3=11;
+                anyo = fecha.getFullYear()-1;
+                iniciofecha = anyo+"-"+mes3+"-01";
+            }else{
+            mes2=mes-2;
+            if(mes2<10){
+                mes3="0"+mes2;
+            }else{
+                mes3 = ""+mes2;
+            }
+            anyo = fecha.getFullYear();
+            iniciofecha = anyo+"-"+mes3+"-01";
+        }
+    }else{
+        mes2=mes-2;
+            if(mes2<10){
+                mes3="0"+mes2;
+            }else{
+                mes3 = ""+mes2;
+            }
+            anyo = fecha.getFullYear();
+            iniciofecha = anyo+"-"+mes3+"-01";
+    }
+
+        finfecha = fechaActual;
+
         Llenargraficos(idnivel,idgrado,idseccion,iniciofecha,finfecha);
+
+        console.log(cantidadTotalCobrosMes1+"amor1");
+        console.log(cantidadTotalCobrosMes2+"amor2");
+        console.log(cantidadTotalCobrosMes3+"amor3");
+
+        var pagostotales = parseInt(cantidadTotalCobrosMes1) + parseInt(cantidadTotalCobrosMes2) + parseInt(cantidadTotalCobrosMes3);
+
+        console.log(pagostotales+"amor4");
+    
+        var pagosRealizados = parseInt(cantidadTotalCobrosPagadosMes1) + parseInt(cantidadTotalCobrosPagadosMes2) + parseInt(cantidadTotalCobrosPagadosMes3);
+
+        console.log(pagosNoRealizados+"amor5");
+    
+        var pagosNoRealizados = pagostotales - pagosRealizados;
+
+        console.log(pagosRealizados+"amor6");
+
+        document.getElementById('pagosrealizados').innerHTML=' '+pagosRealizados;
+        document.getElementById('pagosnorealizados').innerHTML=' '+pagosNoRealizados;
+
+        total(idnivel,idgrado,idseccion,iniciofecha,finfecha);
+
 });
 
 
@@ -262,8 +339,6 @@ $('input[type="radio"][name=chknivel]').on('change', function(e){
 
             $("#SelecionadoNivel").val(idNivel+"");
 
-            console.log(idNivel+" - yo");
-
             $("#nivelreporte").removeClass("is-invalid");
             $.ajax({
                 url	    : 'ajax/mGradosySecciones.ajax.php',
@@ -290,11 +365,53 @@ $('input[type="radio"][name=chknivel]').on('change', function(e){
             
             idgrado = 0;
             idseccion = 0;
+
+            var fecha = new Date();
+            var mes = fecha.getMonth()+1;
+        
+            if(mes<10){
+                mes1="0"+mes;
+            }else{
+                mes1 = ""+mes;
+            }
+            var fechaActual = fecha.getFullYear()+"-"+mes1+"-"+fecha.getDate();
+            var anyo;
+            var mes2;
+            var mes3;
            
             var fechainicio1 = $("#muestrafechainicio").val();
 
             if(fechainicio1 == ""){
-                iniciofecha = 0;
+                if(mes==1 || mes ==2){
+                    mes2 = mes-2;
+                    if(mes2==0){
+                        mes3=12;
+                        anyo = fecha.getFullYear()-1;
+                        iniciofecha = anyo+"-"+mes3+"-01";
+                    }else if(mes2==-1){
+                        mes3=11;
+                        anyo = fecha.getFullYear()-1;
+                        iniciofecha = anyo+"-"+mes3+"-01";
+                    }else{
+                    mes2=mes-2;
+                    if(mes2<10){
+                        mes3="0"+mes2;
+                    }else{
+                        mes3 = ""+mes2;
+                    }
+                    anyo = fecha.getFullYear();
+                    iniciofecha = anyo+"-"+mes3+"-01";
+                }
+            }else{
+                mes2=mes-2;
+                    if(mes2<10){
+                        mes3="0"+mes2;
+                    }else{
+                        mes3 = ""+mes2;
+                    }
+                    anyo = fecha.getFullYear();
+                    iniciofecha = anyo+"-"+mes3+"-01";
+            }
             }else{
                 iniciofecha = fechainicio1;
             }
@@ -302,21 +419,37 @@ $('input[type="radio"][name=chknivel]').on('change', function(e){
             var fechafin1 = $("#muestrafechafin").val();
         
             if(fechafin1 == ""){
-                finfecha = 0;
+                finfecha = fechaActual;
             }else{
                 finfecha = fechafin1;
             }
 
             Llenargraficos(idnivel2,idgrado,idseccion,iniciofecha,finfecha);
+            NomNivelGradoSeccion(idnivel2,idgrado,idseccion);
+
+        var pagostotales = parseInt(cantidadTotalCobrosMes1) + parseInt(cantidadTotalCobrosMes2) + parseInt(cantidadTotalCobrosMes3);
+    
+        var pagosRealizados = parseInt(cantidadTotalCobrosPagadosMes1) + parseInt(cantidadTotalCobrosPagadosMes2) + parseInt(cantidadTotalCobrosPagadosMes3);
+    
+        var pagosNoRealizados = pagostotales - pagosRealizados;
+
+        document.getElementById('pagosrealizados').innerHTML=' '+pagosRealizados;
+        document.getElementById('pagosnorealizados').innerHTML=' '+pagosNoRealizados;
+
+        total(idnivel2,idgrado,idseccion,iniciofecha,finfecha);
+
         } 
  
 });
+
 
 $('#gradoReport').change(function(){
     selected_value = $("input[name='chkgrado']:checked").val();
     
     var id_Grado = selected_value;
         
+    $("#SelecionadoGrado").val(id_Grado);
+
     var seleccionadonivel = $("#SelecionadoNivel").val();
 
     console.log(seleccionadonivel+"- valor de nivel");
@@ -337,10 +470,52 @@ $('#gradoReport').change(function(){
     idseccion = 0;
     
 
+    var fecha = new Date();
+            var mes = fecha.getMonth()+1;
+        
+            if(mes<10){
+                mes1="0"+mes;
+            }else{
+                mes1 = ""+mes;
+            }
+            var fechaActual = fecha.getFullYear()+"-"+mes1+"-"+fecha.getDate();
+            var anyo;
+            var mes2;
+            var mes3;
+
     var fechainicio1 = $("#muestrafechainicio").val();
 
     if(fechainicio1 == ""){
-        iniciofecha = 0;
+        if(mes==1 || mes ==2){
+            mes2 = mes-2;
+            if(mes2==0){
+                mes3=12;
+                anyo = fecha.getFullYear()-1;
+                iniciofecha = anyo+"-"+mes3+"-01";
+            }else if(mes2==-1){
+                mes3=11;
+                anyo = fecha.getFullYear()-1;
+                iniciofecha = anyo+"-"+mes3+"-01";
+            }else{
+            mes2=mes-2;
+            if(mes2<10){
+                mes3="0"+mes2;
+            }else{
+                mes3 = ""+mes2;
+            }
+            anyo = fecha.getFullYear();
+            iniciofecha = anyo+"-"+mes3+"-01";
+        }
+    }else{
+        mes2=mes-2;
+            if(mes2<10){
+                mes3="0"+mes2;
+            }else{
+                mes3 = ""+mes2;
+            }
+            anyo = fecha.getFullYear();
+            iniciofecha = anyo+"-"+mes3+"-01";
+    }
     }else{
         iniciofecha = fechainicio1;
     }
@@ -348,7 +523,7 @@ $('#gradoReport').change(function(){
     var fechafin1 = $("#muestrafechafin").val();
 
     if(fechafin1 == ""){
-        finfecha = 0;
+        finfecha = fechaActual;
     }else{
         finfecha = fechafin1;
     }
@@ -372,6 +547,18 @@ $('#gradoReport').change(function(){
          });
 
          Llenargraficos(idnivel,idgrado2,idseccion,iniciofecha,finfecha);
+         NomNivelGradoSeccion(idnivel,idgrado2,idseccion);
+
+         var pagostotales = parseInt(cantidadTotalCobrosMes1) + parseInt(cantidadTotalCobrosMes2) + parseInt(cantidadTotalCobrosMes3);
+    
+        var pagosRealizados = parseInt(cantidadTotalCobrosPagadosMes1) + parseInt(cantidadTotalCobrosPagadosMes2) + parseInt(cantidadTotalCobrosPagadosMes3);
+    
+        var pagosNoRealizados = pagostotales - pagosRealizados;
+
+        document.getElementById('pagosrealizados').innerHTML=' '+pagosRealizados;
+        document.getElementById('pagosnorealizados').innerHTML=' '+pagosNoRealizados;
+
+        total(idnivel,idgrado2,idseccion,iniciofecha,finfecha);
             
 });
 
@@ -408,10 +595,52 @@ $('#seccionReport').change(function(){
         idseccion2 = idseccion;
     }
 
+    var fecha = new Date();
+    var mes = fecha.getMonth()+1;
+
+    if(mes<10){
+        mes1="0"+mes;
+    }else{
+        mes1 = ""+mes;
+    }
+    var fechaActual = fecha.getFullYear()+"-"+mes1+"-"+fecha.getDate();
+    var anyo;
+    var mes2;
+    var mes3;
+
     var fechainicio1 = $("#muestrafechainicio").val();
 
     if(fechainicio1 == ""){
-        iniciofecha = 0;
+        if(mes==1 || mes ==2){
+            mes2 = mes-2;
+            if(mes2==0){
+                mes3=12;
+                anyo = fecha.getFullYear()-1;
+                iniciofecha = anyo+"-"+mes3+"-01";
+            }else if(mes2==-1){
+                mes3=11;
+                anyo = fecha.getFullYear()-1;
+                iniciofecha = anyo+"-"+mes3+"-01";
+            }else{
+            mes2=mes-2;
+            if(mes2<10){
+                mes3="0"+mes2;
+            }else{
+                mes3 = ""+mes2;
+            }
+            anyo = fecha.getFullYear();
+            iniciofecha = anyo+"-"+mes3+"-01";
+        }
+    }else{
+        mes2=mes-2;
+            if(mes2<10){
+                mes3="0"+mes2;
+            }else{
+                mes3 = ""+mes2;
+            }
+            anyo = fecha.getFullYear();
+            iniciofecha = anyo+"-"+mes3+"-01";
+    }
     }else{
         iniciofecha = fechainicio1;
     }
@@ -419,14 +648,43 @@ $('#seccionReport').change(function(){
     var fechafin1 = $("#muestrafechafin").val();
 
     if(fechafin1 == ""){
-        finfecha = 0;
+        finfecha = fechaActual;
     }else{
         finfecha = fechafin1;
     }
 
     Llenargraficos(idnivel,idgrado,idseccion2,iniciofecha,finfecha);
+    console.log(idgrado+"sad");
+    NomNivelGradoSeccion(idnivel,idgrado,idseccion2);
+
+    var pagostotales = parseInt(cantidadTotalCobrosMes1) + parseInt(cantidadTotalCobrosMes2) + parseInt(cantidadTotalCobrosMes3);
+    
+        var pagosRealizados = parseInt(cantidadTotalCobrosPagadosMes1) + parseInt(cantidadTotalCobrosPagadosMes2) + parseInt(cantidadTotalCobrosPagadosMes3);
+    
+        var pagosNoRealizados = pagostotales - pagosRealizados;
+
+        document.getElementById('pagosrealizados').innerHTML=' '+pagosRealizados;
+        document.getElementById('pagosnorealizados').innerHTML=' '+pagosNoRealizados;
+
+        total(idnivel,idgrado,idseccion2,iniciofecha,finfecha);
 
 });
+
+
+function diamesfin(mesOficial,cifras2){
+    var diafinfecha2;
+    if(mesOficial == 1 || mesOficial == 3 || mesOficial == 5 || mesOficial == 7 || mesOficial == 8 || mesOficial == 10 || mesOficial == 12){
+        return diafinfecha2=31;
+    }else if(mesOficial == 4 || mesOficial == 6 || mesOficial == 9 || mesOficial == 11){
+        return diafinfecha2=30;
+    }else{
+        if(cifras2 % 4 == 0){
+            return diafinfecha2=29;
+        }else{
+            return diafinfecha2=28;
+        }
+    }
+}
 
 $("#iniciofecha").change(function(){
 
@@ -454,33 +712,108 @@ $("#iniciofecha").change(function(){
         idseccion = idseccion1;
     }
 
-    var fechainicio = $("#iniciofecha").val();
-    
+    fechainicio = $("#iniciofecha").val();
+
     $("#muestrafechainicio").val(fechainicio);
 
-    var fecha = new Date();
-    var mes = fecha.getMonth()+1;
+    var mesOficial;
+    var fechanum;
+    var anyonum;
+    var consfecha;
+    var consfecha1;
+    var consanyo;
+    var fechaFinOficial;
+    var fechaSeparador = fechainicio.split("-");
+    
 
-    if(mes<10){
-        mes1="0"+mes;
+    var anyoSeparador = fechaSeparador[0];
+    var cifras;
+    var cifras2;
+    var texto1;
+    var diaOficialFinal;
+    var mesSeparador = fechaSeparador[1];
+
+    if(mesSeparador[0] == 0){
+        mesOficial=mesSeparador[1];
     }else{
-        mes1 = ""+mes;
+        mesOficial=mesSeparador;
     }
-    var fechaActual = fecha.getFullYear()+"-"+mes1+"-"+fecha.getDate();
 
-    var fechafin1 = $("#muestrafechafin").val();
-
-    if(fechafin1 == ""){
-        finfecha = fechaActual;
-        $("#finfecha").val(fechaActual);
-        $("#muestrafechafin").val(fechaActual);
+    
+    
+    if(mesOficial == 11 || mesOficial == 12){
+        fechanum = parseInt(mesOficial);
+        anyonum = parseInt(anyoSeparador);
+        consfecha = fechanum+2;
+        if(consfecha==13){
+            consfecha1 = 1;
+            consanyo = anyonum+1;
+            texto1 = consanyo.toString();
+            cifras = texto1[2]+texto1[3];
+            cifras2 = parseInt(cifras);
+            diaOficialFinal=diamesfin(consfecha1,consanyo);
+            fechaFinOficial = consanyo+"-0"+consfecha1+"-"+diaOficialFinal;
+        }else if(consfecha==14){
+            consfecha1 = 2;
+            consanyo = anyonum+1;
+            texto1 = consanyo.toString();
+            cifras = texto1[2]+texto1[3];
+            cifras2 = parseInt(cifras);
+            diaOficialFinal=diamesfin(consfecha1,consanyo);
+            fechaFinOficial = consanyo+"-0"+consfecha1+"-"+diaOficialFinal;
+        }else{
+            consanyo = anyonum;
+            consfecha = fechanum+2;
+            texto1 = consanyo.toString();
+            cifras = texto1[2]+texto1[3];
+            cifras2 = parseInt(cifras);
+            diaOficialFinal=diamesfin(consfecha,consanyo);
+            if(consfecha<10){
+                consfecha1="0"+consfecha;
+            }else{
+                consfecha1 = ""+consfecha;
+            }
+            fechaFinOficial = consanyo+"-"+consfecha1+"-"+diaOficialFinal;
+        }
     }else{
-        finfecha = fechafin1;
+        anyonum = parseInt(anyoSeparador);
+        fechanum = parseInt(mesOficial);
+        consanyo = anyonum;
+        consfecha = fechanum+2;
+        texto1 = consanyo.toString();
+        cifras = texto1[2]+texto1[3];
+        cifras2 = parseInt(cifras);
+        diaOficialFinal=diamesfin(consfecha,consanyo);
+        if(consfecha<10){
+            consfecha1="0"+consfecha;
+        }else{
+            consfecha1 = ""+consfecha;
+        }
+        fechaFinOficial = consanyo+"-"+consfecha1+"-"+diaOficialFinal;
+
     }
+        finfecha = fechaFinOficial;
+        $("#finfecha").val(fechaFinOficial);
+        $("#muestrafechafin").val(fechaFinOficial);
+
+        console.log(finfecha+"fecha fin");
+        console.log(fechainicio+"fecha inicio");
 
     Llenargraficos(idnivel,idgrado,idseccion,fechainicio,finfecha);
 
+    var pagostotales = parseInt(cantidadTotalCobrosMes1) + parseInt(cantidadTotalCobrosMes2) + parseInt(cantidadTotalCobrosMes3);
+    
+        var pagosRealizados = parseInt(cantidadTotalCobrosPagadosMes1) + parseInt(cantidadTotalCobrosPagadosMes2) + parseInt(cantidadTotalCobrosPagadosMes3);
+    
+        var pagosNoRealizados = pagostotales - pagosRealizados;
+
+        document.getElementById('pagosrealizados').innerHTML=' '+pagosRealizados;
+        document.getElementById('pagosnorealizados').innerHTML=' '+pagosNoRealizados;
+
+        total(idnivel,idgrado,idseccion,fechainicio,finfecha);
+
 });
+
 
 $("#finfecha").change(function(){
 
@@ -509,23 +842,84 @@ $("#finfecha").change(function(){
     }
     
 
-    var fechafin = $("#finfecha").val();
+    fechafin = $("#finfecha").val();
 
     $("#muestrafechafin").val(fechafin);
 
-    var fecInicio = new Date($("#finfecha").val());
+    var mesOficial;
+    var fechanum;
+    var anyonum;
+    var consfecha;
+    var consfecha1;
+    var consanyo;
+    var fecInicio;
+    var fechaSeparador = fechafin.split("-");
 
-    var fechainicio1 = $("#muestrafechainicio").val();
+    var anyoSeparador = fechaSeparador[0];
+    var mesSeparador = fechaSeparador[1];
 
-    if(fechainicio1 == ""){
+    if(mesSeparador[0] == 0){
+        mesOficial=mesSeparador[1];
+    }else{
+        mesOficial=mesSeparador;
+    }
+    
+    if(mesOficial == 1 || mesOficial == 2){
+        fechanum = parseInt(mesOficial);
+        anyonum = parseInt(anyoSeparador);
+        consfecha = fechanum-2;
+        if(consfecha==0){
+            consfecha1 = 12;
+            consanyo = anyonum-1;
+            fecInicio = consanyo+"-"+consfecha1+"-01";
+        }else if(consfecha==-1){
+            consfecha1 = 11;
+            consanyo = anyonum-1;
+            fecInicio = consanyo+"-"+consfecha1+"-01";
+        }else{
+            consanyo = anyonum;
+            consfecha = fechanum-2;
+            if(consfecha<10){
+                consfecha1="0"+consfecha;
+            }else{
+                consfecha1 = ""+consfecha;
+            }
+            fecInicio = consanyo+"-"+consfecha1+"-01";
+        }
+    }else{
+        fechanum = parseInt(mesOficial);
+        anyonum = parseInt(anyoSeparador);
+        consanyo = anyonum;
+        consfecha = fechanum-2;
+        if(consfecha<10){
+            consfecha1="0"+consfecha;
+        }else{
+            consfecha1 = ""+consfecha;
+        }
+        fecInicio = consanyo+"-"+consfecha1+"-01";
+    }
+
+
+    
         iniciofecha = fecInicio;
         $("#iniciofecha").val(fecInicio);
         $("#muestrafechainicio").val(fecInicio);
-    }else{
-        iniciofecha = fechainicio1;
-    }
+   
+        console.log(iniciofecha+"fecha fin2");
+        console.log(fechafin+"fecha inicio2");
 
     Llenargraficos(idnivel,idgrado,idseccion,iniciofecha,fechafin);
+
+    var pagostotales = parseInt(cantidadTotalCobrosMes1) + parseInt(cantidadTotalCobrosMes2) + parseInt(cantidadTotalCobrosMes3);
+    
+    var pagosRealizados = parseInt(cantidadTotalCobrosPagadosMes1) + parseInt(cantidadTotalCobrosPagadosMes2) + parseInt(cantidadTotalCobrosPagadosMes3);
+
+    var pagosNoRealizados = pagostotales - pagosRealizados;
+
+    document.getElementById('pagosrealizados').innerHTML=' '+pagosRealizados;
+    document.getElementById('pagosnorealizados').innerHTML=' '+pagosNoRealizados;
+
+    total(idnivel,idgrado,idseccion,iniciofecha,fechafin);
 
 });
 
