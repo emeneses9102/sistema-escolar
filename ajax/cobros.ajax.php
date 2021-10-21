@@ -36,10 +36,10 @@ class AjaxCobros{
 
 }
 
-if(isset($_POST["cod_pago"]))
+if(isset($_POST["detalle_pago"]))
 {
     $listar = new AjaxCobros();
-    $listar->cod_pago = $_POST["cod_pago"];
+    $listar->detalle_pago = $_POST["detalle_pago"];
     $listar->ajaxRegistrarCobros();
 }
 if(isset($_POST["mostrar"]))

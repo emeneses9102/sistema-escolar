@@ -7,7 +7,7 @@ class ControladorDirectivo{
         if(isset($_POST['usuario'])){
             
             if(preg_match('/^[a-zA-Z0-9\sñÑáéíóúÁÉÍÓÚ]+$/',$_POST['nombre']) &&
-            preg_match('/^[a-zA-Z0-9]+$/',$_POST['usuario']) && 
+            preg_match('/^[a-zA-Z0-9_]+$/',$_POST['usuario']) && 
             preg_match('/^[a-zA-Z0-9]+$/',$_POST['clave'])){
                 $ruta="";
                 //Validar imagen de usuario
@@ -153,7 +153,7 @@ class ControladorDirectivo{
      //Editar usuario
      static public function ctrEditarDirectivo(){
          if(isset($_POST['idusuario'])){
-            if(preg_match('/^[a-zA-Z0-9\sñÑáéíóúÁÉÍÓÚ]+$/',$_POST['editNombre'])){
+            if(preg_match('/^[a-zA-Z0-9_\sñÑáéíóúÁÉÍÓÚ]+$/',$_POST['editNombre'])){
                 $ruta=$_POST['editFotoActual'];
                 //Validar imagen de usuario
                 if(isset($_FILES["editNuevaFoto"]["tmp_name"]) && $_FILES['editNuevaFoto']['name'] != null){

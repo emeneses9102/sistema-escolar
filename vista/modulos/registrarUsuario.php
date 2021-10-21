@@ -135,7 +135,7 @@
               </div>
             </div>
             <div class="col-md-4">
-              <label for="">Documento de identidad:</label>
+              <label for="">DNI:</label>
               <div class="input-group">
               <input type="text" class="form-control" name="dni-ap" id="dni-ap" placeholder="Documento" value="">
               </div>

@@ -12,6 +12,7 @@
         <div class="container-button ml-auto">
             <button class="btn btn-success mr-2" onclick="mostrarformAlu()"><i class="fa fa-user-circle" aria-hidden="true"></i>Nuevo Alumno</button>
             <button class="btn btn-info "  data-toggle="modal" data-target="#mBuscarAlumno"><i class="fa fa-search" aria-hidden="true" ></i> Buscar Alumno</button>
+            <button class="btn btn-warning "  data-toggle="modal" data-target="#mGrupos"><i class="fa fa-search" aria-hidden="true" ></i> Matrícula Grupos</button>
         </div>
     </div>
     <div class="col-md-12 tile ">
@@ -238,7 +239,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <label for="">Documento de identidad:</label>
+          <label for="">DNI:</label>
           <div class="input-group">
             <input type="text" class="form-control" name="dni-ap" id="dni-ap" placeholder="Documento" value=""required>
           </div>
@@ -295,9 +296,9 @@
             <?php
               $item = null;
               $valor = null;
-              $usuarios = ControladorAlumnos::ctrMostrarAlumno($item,$valor);
+              $usuarios = ControladorAlumnos::ctrMostrarAlumnoList($item,$valor);
               foreach($usuarios as $value){
-                  if($value['estado']!=1){
+                  if($value['estado']!=1 || $value['idSeccion_Grados']!= ""){
                     continue;
                   }else{
                     
@@ -385,6 +386,105 @@
           </table>
         </div>
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Grupos -->
+<div class="modal fade" id="mGrupos" tabindex="-1" aria-labelledby="GruposLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="GrupoaLabel">Matrícula Grupal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--------->
+      <div class="modal-body">
+        <div class="card border-primary mb-3">
+          <div class="card-body">
+            <small class="form-label">* Seleccione la sección a matricular</small>
+            <div class=" row">
+              <div class="col-md-4 form-group">
+                <?php
+                $item = null;
+                $valor = null;
+                $mostrarNiveles = ControladorNiveles::ctrMostrarNiveles($item, $valor);
+                //var_dump($mostrarNiveles);
+                ?>
+                <label for="nivelG" class="font-weight-bold">Nivel:</label>
+                <select id="nivelG" class="form-control" type="select" name="nivelG" required>
+                    <option value=""></option>
+                    <?php foreach ($mostrarNiveles as $nivel) {     ?>
+                        <option value="<?php echo $nivel['idNiveles'] ?>"><?php echo $nivel['nombre_nivel'] ?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="gradoG" class="font-weight-bold">Grado:</label>
+                <select id="gradoG" class="form-control gradoG" type="text" name="gradoG" required>
+                </select>
+              </div>
+              <div class="col-md-4 form-group">
+                  <label for="seccionG" class="font-weight-bold">Sección:</label>
+                  <select id="seccionG" class="form-control" type="text" name="seccionG" required></select>
+              </div>
+            </div>
+            <div class="form-inline">
+              <button class="btn btn-info ml-auto" id="btnMatricula">Registrar</button>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered  m-auto" id="matriculaGrupos">
+            <thead class="text-center">
+              <tr>
+                <th class="px-4"><input type="checkbox" name="select_all" value="1" id="example-select-all"></th>
+                
+                <th>Código</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Usuario</th>
+                <th>Cohorte</th>
+                
+              </tr>
+            </thead>
+            <tbody class="text-center">
+            <?php
+              $item = null;
+              $valor = null;
+              $usuarios = ControladorAlumnos::ctrMostrarAlumnoList($item,$valor);
+              foreach($usuarios as $value){
+                  if($value['estado']!=1 || $value['idSeccion_Grados']!= "" || $value['rol']!= 4){
+                    continue;
+                  }else{
+                    
+                    $apoderado = ($value['nombres_apoderado'] == "")?"-":$value['nombres_apoderado']." ".$value['apellidos_apoderado'];
+                    echo'<tr>
+                          <td><input type="checkbox" name="id[]" value="'.$value["cod_matricula"].'"></td> 
+                          <td>'.$value["cod_matricula"].'</td>
+                          <td>'.$value["nombres"].'</td>
+                          <td>'.$value['apellidos'].'</td>
+                          <td>'.$value['usuario'].'</td>
+                          <td>'.$value['cohorte'].'</td>  
+                        </tr>
+                    ';
+                  }
+               
+              }
+            ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!--------->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         

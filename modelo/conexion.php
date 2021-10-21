@@ -4,7 +4,7 @@ class Conexion{
 
     static public function conectar(){
 
-        $host = '72.167.224.187';
+        $host = '92.204.135.2';
         $user ='labperu_school_system';
         $db = 'labperu_school_system';
         $pass = 'sistema_escolar_2021';
@@ -15,6 +15,3 @@ class Conexion{
         return $pdo;
     }
 }
-//mensaje
-//dos
-//tres

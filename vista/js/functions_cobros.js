@@ -2,12 +2,13 @@
 $('#tablaCobros').DataTable();
 
 document.addEventListener('DOMContentLoaded',function(){
-    tableusuarios = $('#tablaCobros').DataTable({
+    tablaCobros = $('#tablaCobros').DataTable({
         "aProcessing": true,
         "aServerSide": true,
-        "searching": false,
+        "searching": true,
         "info":false,
-        "ordering": false,
+        "lengthMenu": [ [20, 50, 100, -1], [20, 50, 100, "All"] ],
+        "pageLength": 20,
         "language": {
             "sProcessing":     "Procesando...",
             "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -46,7 +47,7 @@ document.addEventListener('DOMContentLoaded',function(){
         "responsive": true,
         "bDestroy":true,
         "iDisplayLength":10,
-        "order": [[0,"asc"]]
+        "order": [[ 2, "asc" ]],
     });
     /*var formUsuario = document.querySelector('#formUsuario');
     formUsuario.onsubmit = function(e){
@@ -83,12 +84,12 @@ $("#btnAgregarCobro").click(function (e) {
 });
 
 function agregarCobros(){
-    var cod_pago = $("#cod_pago").val();
+    
     var detalle_pago = $("#detalle_pago").val();
     var fecha_vencimiento = $("#fecha_vencimiento").val();
     var monto =$("#monto").val();
     var cob_niveles = cob_nivel.options[cob_nivel.selectedIndex].value;
-    if(cod_pago =="" || detalle_pago ==""){
+    if(detalle_pago ==""){
         return swal.fire({
             icon:"error",
             title : "El cobro no ha sido registrado",
@@ -96,11 +97,16 @@ function agregarCobros(){
             confirmButtonText: "Cerrar",
         })
     }
+    if(detalle_pago.length < 5){
+        $("#detalle_pago").addClass("is-invalid");
+        $("#error_DP").html("<small>El detalle debe tener mas de 5 caracteres</small>");
+        return;
+    }
+
     $.ajax({
         url	    : 'ajax/cobros.ajax.php',
         type    : 'POST',
-        data    : {cod_pago : cod_pago,
-                    detalle_pago:detalle_pago,
+        data    : {detalle_pago:detalle_pago,
                     fecha_vencimiento : fecha_vencimiento,
                     monto:monto,
                     cob_niveles:cob_niveles},
@@ -123,6 +129,8 @@ function agregarCobros(){
                 })
             }
             $("#frmCobros")[0].reset();
+            $("#detalle_pago").removeClass("is-invalid");
+            $("#error_DP").empty();
             mostrarCobros();
         }
     });
@@ -141,8 +149,6 @@ function mostrarCobros(){
             var tabla = $("#tablaCobros").DataTable();
             tabla.clear().draw();
             for(let item of data){
-                
-                
                 tabla.row.add(
                     [
                 "<td>"+item.codigo+"</td>",

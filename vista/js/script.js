@@ -113,6 +113,8 @@ $("#grado").change(function (e) {
     })
 });
 
+
+
 $(".mgrado").change(function (e) { 
     $(".mgrado").removeClass("is-invalid");
     var id_Grado = grado.options[grado.selectedIndex].value;
@@ -142,6 +144,51 @@ $("#seccion").change(function (e) {
     
 });
 
+
+//************** JS PARA MATRICULAS ******//
+$("#nivelG").change(function (e) { 
+    var idNivel = nivelG.options[nivelG.selectedIndex].value;
+    var grados = $("#gradoG");
+    $("#nivel").removeClass("is-invalid");
+    $.ajax({
+        url	    : 'ajax/mGradosySecciones.ajax.php',
+        type    : 'POST',
+        data    : {idNivel : idNivel},
+        dataType: 'json',
+        success: function(data){
+            // Limpiamos el select
+            grados.find('option').remove();
+            grados.append('<option value=""></option>');
+            for(let item of data){
+                grados.append('<option value="' + item.idGrados + '">' + item.nombre_grado + '</option>');
+            }
+            $("#gradoG").focus();
+        }
+    })
+});
+$(".gradoG").change(function (e) { 
+    $(".gradoG").removeClass("is-invalid");
+    var id_Grado = gradoG.options[gradoG.selectedIndex].value;
+    var tipo="mostrar";
+    var seccion = $("#seccionG");
+    
+    $.ajax({
+        url	    : 'ajax/mGradosySecciones.ajax.php',
+        type    : 'POST',
+        data    : {id_Grado : id_Grado,
+                    tipo:tipo},
+        dataType: 'json',
+        success: function(data){
+           // Limpiamos el select
+           seccion.find('option').remove();
+           seccion.append('<option value=""></option>');
+           for(let item of data){
+            seccion.append('<option value="' + item.idSeccion_Grados + '">' + item.nombre_seccion + '</option>');
+           }
+           $("#gradoG").focus();
+        }
+    })
+});
 
 
 
@@ -428,7 +475,14 @@ function contar1(elem, idGlosa) {
   }*/
 
 $( document ).ready(function() {
-    var img = document.getElementById("nombreAnterior").value;
+    let str
+    var img = document.getElementById("nombreAnterior");
+    if (img != null) {
+        str = img.value;
+    }
+    else {
+        str = null;
+    }
     $("#user-img").attr("src",img);
     $(".app-sidebar__user-avatar").attr("src",img);
 });
@@ -436,10 +490,25 @@ $( document ).ready(function() {
 
 
 $( document ).ready(function() {
-    var img = document.getElementById("nombreAnterior2").value;
+    let str
+    var img = document.getElementById("nombreAnterior2");
+    if (img != null) {
+        str = img.value;
+    }
+    else {
+        str = null;
+    }
     $("#user-img2").attr("src",img);
     $(".app-sidebar__user-avatar").attr("src",img);
 });
 
 
 
+
+new ClipboardJS('#copiar', {
+    container: document.getElementById('modalNumeroCuentas') //The ID of the modal box where the html is located
+});
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })

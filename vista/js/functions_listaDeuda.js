@@ -230,3 +230,102 @@ function buscarxApellido(){
         }); 
     }
 }
+
+$("#cmbApoderado").change(function (e) { 
+    var idApoderado = cmbApoderado.options[cmbApoderado.selectedIndex].value;
+    if(idApoderado !=""){
+        $.ajax({
+            url	    : 'ajax/datosApoderado.ajax.php',
+            type    : 'POST',
+            data    : {idApoderado : idApoderado},
+            dataType: 'json',
+            success: function(data){
+            $('#nombresapoderado').val(data.nombres_apoderado+' '+data.apellidos_apoderado);
+            $('#dniapoderado').val(data.dni_apoderado);
+            $('#correoapoderado').val(data.correo_apoderado);
+            }
+        })
+    }
+});
+
+$("#MailGenerarComprobante").on('submit', function (e) { 
+    e.preventDefault();
+    let id_DeudorR= $("#id_deuda").val();
+    let correoAp= $("#correoapoderado").val();
+    var formData = new FormData($("#MailGenerarComprobante").get(0));
+    $.ajax({
+        type: 'POST',
+        url: 'ajax/listaDeuda.ajax.php',
+        data: formData,
+        contentType: false,
+        processData:false,
+        success: function (respuesta) {
+            if(respuesta == "ok"){
+                if(correoAp == ''){
+                    swal.fire({
+                        icon: "success",
+                        title: "Comprobante Registrado",
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar"
+                    })
+                }else{
+                    swal.fire({
+                        icon: "success",
+                        title: "Comprobante enviado",
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar"
+                    })
+                }
+                
+                $("#MailGenerarComprobante")[0].reset();
+                $('#modalGenerarComprobante').modal('hide')
+                $.ajax({
+                    url	    : 'ajax/listaDeuda.ajax.php',
+                    type    : 'POST',
+                    data    : {id_deudaPago:id_DeudorR},
+                    dataType:   "json",
+                    success: function(data){
+                        var tabla = $("#tablaDeudoresPagados").DataTable();
+                        tabla.clear().draw();
+                        for(let item of data){
+                            enviado = (item.enviado == 1) ? "<span class='badge badge-success'>Enviado</span>": "<span class='badge badge-warning'>Sin enviar</span>"
+                            
+                            tabla.row.add(
+                                [
+                            "<td>"+item.codigo+"</td>",
+                            "<td>"+item.detalle+"</td>",           
+                            "<td>"+item.fecha_pago+"</td>",
+                            "<td>"+item.tipo_pago+"</td>",
+                            "<td>"+item.banco+"</td>",
+                            "<td>"+item.monto_pagado+"</td>",
+                            "<td><button type='button' class='btn btn-info btn-sm px-1' onclick='detallesPago("+item.idAlumno_cobros+")' title='Ver detalles'><i class='fas fa-search-plus mx-1'></i></button><button type='button' class='btn btn-primary btn-sm px-1 ml-2' onclick='GenerarComprobante("+item.idAlumno_cobros+")' title='Generar comprobante'><i class='fas fa-file-invoice-dollar mx-1'></i></button></td>",
+                            "<td>"+enviado+"</td>",
+                            ]
+                            ).draw(false);
+                            
+                        }
+                        
+                    
+                    }
+                });
+                
+            }else if(respuesta == "Error"){
+                swal.fire({
+                    icon: "Error",
+                    title: "Error al enviar el comprobante",
+                    showConfirmButton: true,
+                    confirmButtonText: "Cerrar",
+                    closeOnConfirm: false
+                })
+            }else if(respuesta == "ErrorBD"){
+                swal.fire({
+                    icon: "Error",
+                    title: "Error guardar la imagen en la BD",
+                    showConfirmButton: true,
+                    confirmButtonText: "Cerrar",
+                    closeOnConfirm: false
+                })
+            }
+        }
+    })
+});

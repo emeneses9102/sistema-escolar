@@ -2,9 +2,24 @@
 require_once "conexion.php";
 class ModeloCobros{
     static public function mdlRegistrarCobro($tabla,$datos){
-        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(codigo,monto,cob_nivel,detalle,fecha_vencimiento) VALUES (?,?,?,?,?)");
-        $respuesta = $stmt->execute([$datos['cod_pago'],$datos['monto'],$datos['cob_niveles'],$datos['detalle_pago'],$datos['fecha_vencimiento'] ]);
+        $query= Conexion::conectar()->prepare("SELECT codPago FROM configuracion");
+        $query->execute();
+        $rpta= $query->fetch(PDO::FETCH_OBJ);
+        $año = substr(date('Y'), -2);
+        $tamaño =5;
+        $codnuevo = substr(str_repeat(0, $tamaño).$rpta->codPago, - $tamaño);
+        $codigo ="PG{$año}{$codnuevo}";
+        $codigo = strval($codigo);
+        $nCodigo=$rpta->codPago+1;
        
+        
+        $query2= Conexion::conectar()->prepare("UPDATE configuracion SET codPago = $nCodigo");
+        $query2->execute();
+
+        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(codigo,monto,cob_nivel,detalle,fecha_vencimiento) VALUES (?,?,?,?,?)");
+        $respuesta = $stmt->execute([$codigo,$datos['monto'],$datos['cob_niveles'],$datos['detalle_pago'],$datos['fecha_vencimiento'] ]);
+        //print_r($stmt->errorInfo());
+        
     
         //Actualizamos alumno_cobros
         $stmt2 = Conexion :: conectar()->prepare("SELECT * FROM alumno_cobros AS ac
@@ -20,13 +35,15 @@ class ModeloCobros{
          WHERE n.idNiveles=?
       GROUP BY ac.idAlumno
       ");
-      $stmt2->execute([$datos['cob_niveles']]);    
+      $stmt2->execute([$datos['cob_niveles']]); 
+      //print_r($stmt2->errorInfo());   
       if($stmt2->rowCount()>0){
           
         $respuesta2 = $stmt2->fetchALL(PDO::FETCH_OBJ);
-        $select = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE codigo =?");
-        $select ->execute([$datos['cod_pago']]);
+        $select = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE codigo = '$codigo'");
+        $select ->execute();
         $selectRpta = $select->fetch(PDO::FETCH_OBJ);
+        //print_r($select->errorInfo());
         foreach($respuesta2 as $value){
             $insert = Conexion::conectar()->prepare("INSERT INTO alumno_cobros(idAlumno,idCobro,montoCobrar) VALUES (?,?,?)");
             $insert->execute([$value->idAlumno, $selectRpta->idCobros, $datos['monto']]);   

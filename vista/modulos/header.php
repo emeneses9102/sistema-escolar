@@ -14,7 +14,7 @@ if(empty($_SESSION['active']))
 <html lang="en">
   <head>
     <meta name="description" content="sistema escolar">
-    <title><?php echo ($respuesta == "vacio")? "SISTEMA ESCOLAR":$respuesta[1]?></title>
+    <title><?php echo ($respuesta == "vacio")? "SISTEMA ESCOLAR":$respuesta["nombre_pagina"]?></title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,10 +31,11 @@ if(empty($_SESSION['active']))
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css"/>
     
+    
   </head>
   <body class="app sidebar-mini">
     <!-- Navbar-->
-    <header class="app-header"><a class="app-header__logo" href="inicio"><?php echo ($respuesta == "vacio")? "Vali":$respuesta[2]?></a>
+    <header class="app-header"><a class="app-header__logo" href="inicio"><?php echo ($respuesta == "vacio")? "Vali":$respuesta["nombre_logo"]?></a>
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
       <!-- Navbar Right Menu-->
       <ul class="app-nav">

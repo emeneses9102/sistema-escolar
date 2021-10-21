@@ -5,7 +5,7 @@ class ControladorAlumnos{
     static public function ctrIngresoAlumno(){
         if(isset($_POST['ingUsuario'])){
             if(preg_match('/^[a-zA-Z0-9]+$/',$_POST['ingUsuario']) && 
-            preg_match('/^[a-zA-Z0-9]+$/',$_POST['ingPass'])){
+            preg_match('/^[a-zA-Z0-9_]+$/',$_POST['ingPass'])){
 
                 $tabla = "usuarios";
                 $encriptar=$_POST['ingPass'];
@@ -46,7 +46,7 @@ class ControladorAlumnos{
             
             if(preg_match('/^[a-zA-Z0-9\sñÑáéíóúÁÉÍÓÚ]+$/',$_POST['nombre']) &&
             preg_match('/^[a-zA-Z0-9\sñÑáéíóúÁÉÍÓÚ]+$/',$_POST['apellidos'])&&
-            preg_match('/^[a-zA-Z0-9]+$/',$_POST['usuario']) && 
+            preg_match('/^[a-zA-Z0-9_]+$/',$_POST['usuario']) && 
             preg_match('/^[a-zA-Z0-9]+$/',$_POST['clave'])){
                 $ruta="";
                 //Validar imagen de usuario
@@ -97,7 +97,7 @@ class ControladorAlumnos{
                                 "dni" => $_POST['dni'],
                                 "usuario" => $_POST['usuario'],
                                 "clave" => $encriptar,
-                                "listRol" => $_POST['listRol'],
+                                "cohorte" => $_POST['cohorte'],
                                 "listEstado" => $_POST['listEstado'],
                                 "correo" => $_POST['correo'],
                                 "nacionalidad" => $_POST['nacionalidad'],
@@ -118,11 +118,42 @@ class ControladorAlumnos{
                                             
                                            
 
-                }else{
+                }
+                if(isset($_POST['nombre-ap2']) && !empty($_POST['nombre-ap2'])){
+
+                    $datos_apoderado2 = array("nombre-ap2" => $_POST['nombre-ap2'],
+                                            "apellidos-ap2" => $_POST['apellidos-ap2'],
+                                            "direccion-ap2" => $_POST['direccion-ap2'],
+                                            "telefono-ap2" => $_POST['telefono-ap2'],
+                                            "correo-ap2"=> $_POST['correo-ap2'],
+                                            "tipo-ap2"=> $_POST['tipo-ap2'],
+                                            "dni-ap2" => $_POST['dni-ap2'],
+                                            "ocupacion-ap2" => $_POST['ocupacion-ap2']);
+                                            
+                                           
+
+                }
+                if(isset($_POST['nombre-ap3']) && !empty($_POST['nombre-ap3'])){
+
+                    $datos_apoderado3 = array("nombre-ap3" => $_POST['nombre-ap3'],
+                                            "apellidos-ap3" => $_POST['apellidos-ap3'],
+                                            "direccion-ap3" => $_POST['direccion-ap3'],
+                                            "telefono-ap3" => $_POST['telefono-ap3'],
+                                            "correo-ap3"=> $_POST['correo-ap3'],
+                                            "tipo-ap3"=> $_POST['tipo-ap3'],
+                                            "dni-ap3" => $_POST['dni-ap3'],
+                                            "ocupacion-ap3" => $_POST['ocupacion-ap3']);
+                                            
+                                           
+
+                }
+                else{
                     $datos_apoderado = 'empty';
+                    $datos_apoderado2 = 'empty';
+                    $datos_apoderado3 = 'empty';
                 }
 
-                $respuesta = ModeloAlumnos :: mdlIngresarAlumnos($tabla,$datos,$datos_apoderado);
+                $respuesta = ModeloAlumnos :: mdlIngresarAlumnos($tabla,$datos,$datos_apoderado,$datos_apoderado2,$datos_apoderado3);
                 //var_dump($respuesta);
                 
 
@@ -206,10 +237,19 @@ class ControladorAlumnos{
         return $respuesta;
      }
 
+     //Mostrar usuario
+     static public function ctrMostrarAlumnoList($item,$valor){
+        $tabla = "usuario";
+
+        $respuesta = ModeloAlumnos::MdlMostrarAlumnosList($tabla, $item, $valor);
+        //var_dump($respuesta);
+        return $respuesta;
+     }
+
      //Editar usuario
      static public function ctrEditarAlumnos(){
          if(isset($_POST['idusuario'])){
-            if(preg_match('/^[a-zA-Z0-9\sñÑáéíóúÁÉÍÓÚ]+$/',$_POST['editNombre'])){
+            if(preg_match('/^[a-zA-Z0-9_\sñÑáéíóúÁÉÍÓÚ]+$/',$_POST['editNombre'])){
                 $ruta=$_POST['editFotoActual'];
                 //Validar imagen de usuario
                 if(isset($_FILES["editNuevaFoto"]["tmp_name"]) && $_FILES['editNuevaFoto']['name'] != null){
@@ -287,7 +327,7 @@ class ControladorAlumnos{
                                 "dni" => $_POST['editDni'],
                                 "usuario" => $_POST['editUsuario'],
                                 "clave" => $encriptar,
-                                "listRol" => $_POST['editListRol'],
+                                "cohorte" => $_POST['editCohorte'],
                                 "listEstado" => $_POST['editListEstado'],
                                 "correo" => $_POST['editCorreo'],
                                 "nacionalidad" => $_POST['editNacionalidad'],
@@ -310,9 +350,40 @@ class ControladorAlumnos{
                 }else{
                     $datos_apoderado = 'empty';
                 }
+                if(isset($_POST['editNombre-ap2']) && !empty($_POST['editNombre-ap2'])){
+                    $datos_apoderado2 = array("nombre-ap2" => $_POST['editNombre-ap2'],
+                                            "apellidos-ap2" => $_POST['editApellidos-ap2'],
+                                            "direccion-ap2" => $_POST['editDireccion-ap2'],
+                                            "telefono-ap2" => $_POST['editTelefono-ap2'],
+                                            "correo-ap2"=> $_POST['editCorreo-ap2'],
+                                            "tipo-ap2"=> $_POST['editTipo-ap2'],
+                                            "dni-ap2" => $_POST['editDni-ap2'],
+                                            "ocupacion-ap2" => $_POST['editOcupacion-ap2']);
+                                            
+                                           
 
-                $respuesta = ModeloAlumnos :: mdlEditarAlumnos($tabla,$datos,$datos_apoderado);
-                var_dump($respuesta);
+                }else{
+                    $datos_apoderado2 = 'empty';
+                }
+                if(isset($_POST['editNombre-ap3']) && !empty($_POST['editNombre-ap3'])){
+                    $datos_apoderado3 = array("nombre-ap3" => $_POST['editNombre-ap3'],
+                                            "apellidos-ap3" => $_POST['editApellidos-ap3'],
+                                            "direccion-ap3" => $_POST['editDireccion-ap3'],
+                                            "telefono-ap3" => $_POST['editTelefono-ap3'],
+                                            "correo-ap3"=> $_POST['editCorreo-ap3'],
+                                            "tipo-ap3"=> $_POST['editTipo-ap3'],
+                                            "dni-ap3" => $_POST['editDni-ap3'],
+                                            "ocupacion-ap3" => $_POST['editOcupacion-ap3']);
+                                            
+                                           
+
+                }
+                else{
+                    $datos_apoderado3 = 'empty';
+                }
+
+                $respuesta = ModeloAlumnos :: mdlEditarAlumnos($tabla,$datos,$datos_apoderado,$datos_apoderado2,$datos_apoderado3);
+                //var_dump($respuesta);
                 if($respuesta == "ok"){
                     echo '<script>
                     swal.fire({
@@ -378,6 +449,199 @@ class ControladorAlumnos{
         return $respuesta;
      }
 
+     static public function ctrEditarAlumnosP(){
+        if(isset($_POST['idusuario'])){
+           if(preg_match('/^[a-zA-Z0-9_\sñÑáéíóúÁÉÍÓÚ]+$/',$_POST['editNombre'])){
+               $ruta=$_POST['editFotoActual'];
+               //Validar imagen de usuario
+               if(isset($_FILES["editNuevaFoto"]["tmp_name"]) && $_FILES['editNuevaFoto']['name'] != null){
+                   list($ancho,$alto) = getimagesize($_FILES["editNuevaFoto"]["tmp_name"]);
+                   $nuevoAncho = 500;
+                   $nuevoAlto = 500;
+                   
+                   //creamos el directorio
+                   $directorio = "vista/images/usuarios/".$_POST["editUsuario"];
+                   //validamos si existe alguna imagen guardada en la ruta
+
+                   if(!empty($_POST['editFotoActual'])){
+                      echo '<script>alert('.$_POST['editFotoActual'].')</script>';
+                       unlink($_POST['editFotoActual']);
+                   }else{
+                       mkdir($directorio, 0755);
+                   }
+
+                   if($_FILES["editNuevaFoto"]["type"] == "image/jpeg"){
+                       //Guardamos la imagen
+                       $aleatorio = mt_rand(100,999);
+                       $ruta = "vista/images/usuarios/".$_POST["editUsuario"]."/".$aleatorio.".jpg";
+                       $origen = imagecreatefromjpeg($_FILES["editNuevaFoto"]["tmp_name"]);
+
+                       $destino = imagecreatetruecolor($nuevoAncho,$nuevoAlto);
+
+                       imagecopyresized($destino, $origen,0,0,0,0,$nuevoAncho,$nuevoAlto,$ancho,$alto);
+                       imagejpeg($destino,$ruta);
+                   }
+                   if($_FILES["editNuevaFoto"]["type"] == "image/png"){
+                       //Guardamos la imagen
+                       $aleatorio = mt_rand(100,999);
+                       $ruta = "vista/images/usuarios/".$_POST["editUsuario"]."/".$aleatorio.".png";
+                       $origen = imagecreatefrompng($_FILES["editNuevaFoto"]["tmp_name"]);
+
+                       $destino = imagecreatetruecolor($nuevoAncho,$nuevoAlto);
+
+                       imagecopyresized($destino, $origen,0,0,0,0,$nuevoAncho,$nuevoAlto,$ancho,$alto);
+                       imagepng($destino,$ruta);
+                   }
+               }
+               $tabla="usuario";
+               if(isset($_POST['editClave']) && !empty($_POST['editClave'])){
+                   if(preg_match('/^[a-zA-Z0-9]+$/',$_POST['editClave'])){
+                       $encriptar=password_hash($_POST['editClave'],PASSWORD_DEFAULT);
+                   }else{
+                       echo '<script>
+                           swal.fire({
+                               type:"error",
+                               title : "La contraseña no puede ir vacía o llevar caracteres especiales",
+                               showConfirmButton: true,
+                               confirmButtonText: "Cerrar",
+                               closeOnConfirm: false
+                           }).then((result)=>{
+                               if(result.value){
+                                   window.location = "alumnos";
+                               }
+                           })
+
+                           </script>';
+                   }
+                   
+               }else{
+                   $encriptar = $_POST['editClaveActual'];
+               }
+               if($_POST['editDate'] == 0){
+                   $_POST['editDate']= NULL;
+                }
+               $datos = array("nombre" => $_POST['editNombre'],
+                               "idusuario" => $_POST['idusuario'],
+                               "apellidos" => $_POST['editApellidos'],
+                               "direccion" => $_POST['editDireccion'],
+                               "telefono" => $_POST['editTelefono'],
+                               "celular" => $_POST['editCelular'],
+                               "dni" => $_POST['editDni'],
+                               "usuario" => $_POST['editUsuario'],
+                               "clave" => $encriptar,
+                               "correo" => $_POST['editCorreo'],
+                               "nacionalidad" => $_POST['editNacionalidad'],
+                               "fecha_nacimiento" => $_POST['editDate'],
+                               "foto"=>$ruta);
+               
+              
+               if(isset($_POST['editNombre-ap']) && !empty($_POST['editNombre-ap'])){
+                   $datos_apoderado = array("nombre-ap" => $_POST['editNombre-ap'],
+                                           "apellidos-ap" => $_POST['editApellidos-ap'],
+                                           "direccion-ap" => $_POST['editDireccion-ap'],
+                                           "telefono-ap" => $_POST['editTelefono-ap'],
+                                           "correo-ap"=> $_POST['editCorreo-ap'],
+                                           "tipo-ap"=> $_POST['editTipo-ap'],
+                                           "dni-ap" => $_POST['editDni-ap'],
+                                           "ocupacion-ap" => $_POST['editOcupacion-ap']);
+                                           
+                                          
+
+               }else{
+                $datos_apoderado = 'empty';
+               }
+               if(isset($_POST['editNombre-ap2']) && !empty($_POST['editNombre-ap2'])){
+                   $datos_apoderado2 = array("nombre-ap2" => $_POST['editNombre-ap2'],
+                                           "apellidos-ap2" => $_POST['editApellidos-ap2'],
+                                           "direccion-ap2" => $_POST['editDireccion-ap2'],
+                                           "telefono-ap2" => $_POST['editTelefono-ap2'],
+                                           "correo-ap2"=> $_POST['editCorreo-ap2'],
+                                           "tipo-ap2"=> $_POST['editTipo-ap2'],
+                                           "dni-ap2" => $_POST['editDni-ap2'],
+                                           "ocupacion-ap2" => $_POST['editOcupacion-ap2']);
+                                           
+                                          
+
+               }else{
+                $datos_apoderado2 = 'empty';
+               }
+               if(isset($_POST['editNombre-ap3']) && !empty($_POST['editNombre-ap3'])){
+                   $datos_apoderado3 = array("nombre-ap3" => $_POST['editNombre-ap3'],
+                                           "apellidos-ap3" => $_POST['editApellidos-ap3'],
+                                           "direccion-ap3" => $_POST['editDireccion-ap3'],
+                                           "telefono-ap3" => $_POST['editTelefono-ap3'],
+                                           "correo-ap3"=> $_POST['editCorreo-ap3'],
+                                           "tipo-ap3"=> $_POST['editTipo-ap3'],
+                                           "dni-ap3" => $_POST['editDni-ap3'],
+                                           "ocupacion-ap3" => $_POST['editOcupacion-ap3']);
+                                           
+                                          
+
+               }
+               else{
+                   $datos_apoderado3 = 'empty';
+               }
+               var_dump($datos_apoderado);
+               $respuesta = ModeloAlumnos :: mdlEditarAlumnosP($tabla,$datos,$datos_apoderado,$datos_apoderado2,$datos_apoderado3);
+               
+               if($respuesta == "ok"){
+                   echo '<script>
+                   swal.fire({
+                       type:"success",
+                       title : "El usuario ha sido editado correctamente",
+                       showConfirmButton: true,
+                       confirmButtonText: "Cerrar",
+                       closeOnConfirm: false
+                   }).then((result)=>{
+                       if(result.value){
+                           window.location = "perfilAlumno";
+                       }
+                   })
+   
+                   </script>';
+                   if($_SESSION['usuario'] ==$_POST['editUsuario'] ){
+                       $_SESSION['foto'] =$ruta;
+                   }
+                   
+               }else if($respuesta == "repet-dni"){
+                   echo '<script>
+                       swal.fire({
+                           type:"error",
+                           title : "El apoderado ya se encuentra registrado",
+                           showConfirmButton: true,
+                           confirmButtonText: "Cerrar",
+                           closeOnConfirm: false
+                       }).then((result)=>{
+                           if(result.value){
+                               window.location = "perfilAlumno";
+                           }
+                       })
+       
+                       </script>';
+               }
+               else{
+                   
+                       echo '<script>
+                       swal.fire({
+                           type:"error",
+                           title : "El usuario no se actualizó",
+                           showConfirmButton: true,
+                           confirmButtonText: "Cerrar",
+                           closeOnConfirm: false
+                       }).then((result)=>{
+                           if(result.value){
+                               window.location = "perfilAlumno";
+                           }
+                       })
+       
+                       </script>';
+                   
+                   
+               }
+
+           }
+        }
+    }
 
      static public function ctrEditarAlumnosPerfil(){
 
@@ -484,12 +748,41 @@ class ControladorAlumnos{
                                                             
                                                            
                 
-                            }else{
+                            }
+                            if(isset($_POST['editNombre-ap2']) && !empty($_POST['editNombre-ap2'])){
+                                $datos_apoderado2 = array("nombre-ap2" => $_POST['editNombre-ap2'],
+                                                        "apellidos-ap2" => $_POST['editApellidos-ap2'],
+                                                        "direccion-ap2" => $_POST['editDireccion-ap2'],
+                                                        "telefono-ap2" => $_POST['editTelefono-ap2'],
+                                                        "correo-ap2"=> $_POST['editCorreo-ap2'],
+                                                        "tipo-ap2"=> $_POST['editTipo-ap2'],
+                                                        "dni-ap2" => $_POST['editDni-ap2'],
+                                                        "ocupacion-ap2" => $_POST['editOcupacion-ap2']);
+                                                        
+                                                       
+            
+                            }
+                            if(isset($_POST['editNombre-ap3']) && !empty($_POST['editNombre-ap3'])){
+                                $datos_apoderado3 = array("nombre-ap3" => $_POST['editNombre-ap3'],
+                                                        "apellidos-ap3" => $_POST['editApellidos-ap3'],
+                                                        "direccion-ap3" => $_POST['editDireccion-ap3'],
+                                                        "telefono-ap3" => $_POST['editTelefono-ap3'],
+                                                        "correo-ap3"=> $_POST['editCorreo-ap3'],
+                                                        "tipo-ap3"=> $_POST['editTipo-ap3'],
+                                                        "dni-ap3" => $_POST['editDni-ap3'],
+                                                        "ocupacion-ap3" => $_POST['editOcupacion-ap3']);
+                                                        
+                                                       
+            
+                            }
+                            else{
                                     $datos_apoderado = 'empty';
+                                    $datos_apoderado2 = 'empty';
+                                    $datos_apoderado3 = 'empty';
                             }
 
                     $tabla = "usuario";
-                    $respuesta = ModeloAlumnos :: mdlEditarDatosAlumnoPerfil($tabla,$datos,$datos_apoderado);
+                    $respuesta = ModeloAlumnos :: mdlEditarDatosAlumnoPerfil($tabla,$datos,$datos_apoderado, $datos_apoderado2,$datos_apoderado3);
                     var_dump($respuesta);
 
                     if($respuesta == "ok"){
@@ -545,4 +838,6 @@ class ControladorAlumnos{
                     }
         }}
      }
+
+     
 }

@@ -19,7 +19,7 @@
                                 <label for="" class="h6">Código de pago:</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="cod_pago" name="cod_pago" required>
+                                <input type="text" class="form-control" id="cod_pago" name="cod_pago" disabled>
                             </div>
                         </div>
                         <div class="form-group row ">
@@ -28,6 +28,7 @@
                             </div>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" id="detalle_pago" name="detalle_pago" >
+                                <div id="error_DP"></div>
                             </div>
                         </div>
                         <div class="form-group row ">
@@ -66,7 +67,7 @@
                             </div>
                         </div>
                         <div class="form-inline " id="botones">
-                            <button class="btn btn-primary ml-auto" id="btnAgregarCobro"><i class="fas fa-save   mr-1 "></i> Registrrar</button>
+                            <button class="btn btn-primary ml-auto" id="btnAgregarCobro"><i class="fas fa-save   mr-1 "></i> Registrar</button>
                         </div>
                     </form>
                 </div>

@@ -2,6 +2,8 @@
 
 require_once "../controlador/listaDeuda.controlador.php";
 require_once "../modelo/listaDeuda.modelo.php";
+require_once "../controlador/MailGenerarComprobante.controlador.php";
+require_once "../modelo/imagen.modelo.php";
 class ajaxListaDeuda{
    
 
@@ -10,6 +12,14 @@ class ajaxListaDeuda{
         $tabla = "alumno_cobros";
         $item="id_usuario";
         $respuesta = ModeloListaDeuda::mdlMostrarDeudores($tabla,$item,$valor);
+        //var_dump($respuesta);
+        echo json_encode($respuesta);
+    }
+    public function ajaxMostrarDatos(){
+        $valor = $this->id_datos;
+        $tabla = "alumno";
+        $item="id_usuario";
+        $respuesta = ModeloListaDeuda::mdlMostrarDatos($tabla,$item,$valor);
         //var_dump($respuesta);
         echo json_encode($respuesta);
     }
@@ -98,6 +108,13 @@ class ajaxListaDeuda{
         //var_dump($respuesta);
         echo json_encode($respuesta);
     }
+
+    public function ajaxEnivarComprobante(){
+       
+        $respuesta = ControladorMailGenerarComprobante::ctrEnviarMailComprobante();
+        //var_dump($respuesta);
+        echo $respuesta;
+    }
 }
 
 if(isset($_POST["id_deuda"]))
@@ -106,6 +123,13 @@ if(isset($_POST["id_deuda"]))
     $editar = new ajaxListaDeuda();
     $editar->id_deuda = $_POST["id_deuda"];
     $editar->ajaxListarDeudaUsuario();
+}
+if(isset($_POST["id_datos"]))
+{
+    
+    $editar = new ajaxListaDeuda();
+    $editar->id_datos = $_POST["id_datos"];
+    $editar->ajaxMostrarDatos();
 }
 if(isset($_POST["id_deudaPago"]))
 {
@@ -179,4 +203,12 @@ if(isset ($_POST["idAlumno_cobros2"]))
     $validarpago->idAlumno_cobros2 = $_POST["idAlumno_cobros2"];
     $validarpago->ajaxRechazarPago();
     
+}
+
+if(isset($_POST["idalumnocobroscomprobante"]))
+{
+    
+    $enviar = new ajaxListaDeuda();
+    
+    $enviar->ajaxEnivarComprobante();
 }

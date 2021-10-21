@@ -13,6 +13,7 @@ class ControladorInstitucion{
                             "email_institucion" =>$_POST['email_institucion'],
                             "telefono_institucion" => $_POST['telefono_institucion'],
                             "rector_institucion" =>$_POST['rector_institucion'],
+                            "clave_seguridad" =>$_POST['clave_seguridad'],
                             "id_institucion" =>$_POST['id_institucion']);
 
             $respuesta = ModeloInstitucion :: mdlGuardarInstitucion($tabla,$datos);
@@ -121,5 +122,41 @@ class ControladorInstitucion{
     $respuesta = ModeloInstitucion::MdlMostrarPagina($tabla);
     
     return $respuesta;
+   }
+
+   static public function ctrMostrarDatos_cuentas(){
+    $tabla = "cuentas";
+
+    $respuesta = ModeloInstitucion::MdlMostrarCuentas($tabla);
+    
+    return $respuesta;
+   }
+
+   static public function ctrMostrarBancos_cuentas(){
+    $tabla = "cuentas";
+
+    $respuesta = ModeloInstitucion::MdlMostrarBancos($tabla);
+    
+    return $respuesta;
+   }
+
+
+   static public function ctrRegistrarCuenta(){
+    if(isset($_POST['cuenta'])){
+        if(preg_match('/^[-a-zA-Z0-9\sñÑáéíóúÁÉÍÓÚ-]+$/',$_POST['cuenta'])){
+            $tabla="cuentas";
+            //$dato = $_POST['cuenta'];
+
+            $datos = array("cuenta" => $_POST['cuenta'],
+            "titular_cuenta" => $_POST['titular_cuenta'],
+            "cci_cuenta" => $_POST['cci_cuenta'],
+            "banco_cuenta" => $_POST['banco_cuenta'],
+            "cuenta_antigua" => $_POST['cuenta_antigua']);
+
+            $respuesta = ModeloInstitucion :: mdlRegistrarcuenta($tabla,$datos);
+            return $respuesta;
+           }
+   
+       }
    }
 }

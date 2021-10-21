@@ -5,8 +5,9 @@ include_once dirname(__FILE__).'/Requests/library/Requests.php';
 Requests::register_autoloader();
 include_once dirname(__FILE__).'/culqi-php/lib/culqi.php';
 
+
 // Configurar tu API Key y autenticación
-$SECRET_KEY = "sk_test_jCASaWOjVIo8epqz";
+$SECRET_KEY = $_POST['llaveCulqui'];
 $culqi = new Culqi\Culqi(array('api_key' => $SECRET_KEY));
 
 

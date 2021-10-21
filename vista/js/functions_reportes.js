@@ -14,7 +14,7 @@ var nombreMes3;
 var graficoNivel;
 var graficoGrado;
 var graficoSeccion;
-
+var ctxb3 = $("#barChartDemo").get(0).getContext("2d");
 function porcentajesPagados (cantidadTotal,cantidadTotalPagados){
     if(cantidadTotal == 0){
             return 0;
@@ -52,7 +52,7 @@ function porcentajesPagados (cantidadTotal,cantidadTotalPagados){
                 nombreMes2 = data[1][0]+"";
                 nombreMes3 = data[2][0]+"";
 
-                console.log(data+"");
+                //console.log(data+"");
             }
         });
     
@@ -67,7 +67,7 @@ function porcentajesPagados (cantidadTotal,cantidadTotalPagados){
                 cantidadTotalCobrosPagadosMes2 = data[1][1];
                 $("#muestra2").val(data[0][1]+"");
                 cantidadTotalCobrosPagadosMes3 = data[2][1];        
-                console.log(data+"");
+                //console.log(data+"");
             }
         });
 
@@ -78,7 +78,7 @@ function porcentajesPagados (cantidadTotal,cantidadTotalPagados){
             async: false,
             success: function(data){
                 cantidadTotalCobrosFinal = data;
-                console.log(data+"Julio1");
+                //console.log(data+"Julio1");
             }
         });
 
@@ -89,7 +89,7 @@ function porcentajesPagados (cantidadTotal,cantidadTotalPagados){
             async: false,
             success: function(data){
                 cantidadTotalCobrosPagadosFinal = data;
-                console.log(data+"Julio");
+                //console.log(data+"Julio");
             }
         });
     
@@ -124,7 +124,7 @@ function porcentajesPagados (cantidadTotal,cantidadTotalPagados){
         };
     
     
-        var ctxb3 = $("#barChartDemo").get(0).getContext("2d");
+        
         
         if(window.grafica){
             window.grafica.clear();

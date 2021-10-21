@@ -1,25 +1,29 @@
 <?php
+
 class ControladorUsuarios{
 
     /* Método para ingresar  */
     static public function ctrIngresoUsuario(){
-        if(isset($_POST['ingUsuario'])){
-            if(preg_match('/^[a-zA-Z0-9]+$/',$_POST['ingUsuario']) && 
-            preg_match('/^[a-zA-Z0-9]+$/',$_POST['ingPass'])){
+        require_once "../modelo/usuarios.modelo.php";
+        session_start();
+        if(isset($_POST['username'])){
+            if(preg_match('/^[a-zA-Z0-9_]+$/',$_POST['username']) && 
+            preg_match('/^[a-zA-Z0-9]+$/',$_POST['password'])){
 
                 $tabla = "usuario";
-                $encriptar=$_POST['ingPass'];
+                $encriptar=$_POST['password'];
                 $item = "usuario";
-                $valor = $_POST['ingUsuario'];
+                $valor = $_POST['username'];
           
                 $respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
                 
                 //var_dump($respuesta);
                 if($respuesta == 0){
-                    echo '<div class="alert alert-danger">Error al ingresar, vuelva a intentarlo</div>';
+                    echo "<script>window.location = '../login-error';</script>";
+                    //header('Location: ../login-error');
                 }else{
-                    if($respuesta['usuario'] == $_POST['ingUsuario'] && password_verify($encriptar, $respuesta['clave']) && $respuesta['estado'] == 1){
-
+                   if($respuesta['usuario'] == $_POST['username'] && password_verify($encriptar, $respuesta['clave']) && $respuesta['estado'] == 1){
+                        
                         $_SESSION['iniciarSesion'] = 'ok';
                         $_SESSION['usuario_id']= $respuesta['usuario_id'];
                         $_SESSION['nombre']= $respuesta['nombres'];
@@ -29,13 +33,23 @@ class ControladorUsuarios{
                         $_SESSION['rol']=$respuesta['rol'];
                         $_SESSION['nombre_rol']=$respuesta['nombre_rol'];
                         $_SESSION['foto']= $respuesta['foto'];
-                         echo "<script>window.location = 'inicio';</script>";
-                        //header('Location: inicio');
-                    }else{
-                        if($respuesta['estado'] == 2 ){
-                            echo '<div class="text-danger mt-2">*Usuario inactivo</div>';
+                        if($_SESSION['rol'] ==4){
+                            echo "<script>window.location = '../pagosPendientes';</script>";
+                        }
+                        if($_SESSION['rol'] ==3){
+                            echo "<script>window.location = '../inicio';</script>";
                         }else{
-                            echo '<div class="text-danger mt-2">*Usuario o contraseña incorrecta</div>';
+                            echo "<script>window.location = '../alumnos';</script>";
+                        }
+                         
+                        //header('Location: inicio');
+                    }else{ 
+                        if($respuesta['estado'] == 2 ){
+                            echo "<script>window.location = '../login-inactivo';</script>";
+                            //header('Location: ../login-inactivo');
+                        }else{
+                            echo "<script>window.location = '../login';</script>";
+                            //header('Location: ../login');
                         }
                         
                     }
@@ -50,7 +64,7 @@ class ControladorUsuarios{
         if(isset($_POST['usuario'])){
             
             if(preg_match('/^[a-zA-Z0-9\sñÑáéíóúÁÉÍÓÚ]+$/',$_POST['nombre']) &&
-            preg_match('/^[a-zA-Z0-9]+$/',$_POST['usuario']) && 
+            preg_match('/^[a-zA-Z0-9_]+$/',$_POST['usuario']) && 
             preg_match('/^[a-zA-Z0-9]+$/',$_POST['clave'])){
                 $ruta="";
                 //Validar imagen de usuario
@@ -212,7 +226,7 @@ class ControladorUsuarios{
      //Editar usuario
      static public function ctrEditarUsuario(){
          if(isset($_POST['idusuario'])){
-            if(preg_match('/^[a-zA-Z0-9\sñÑáéíóúÁÉÍÓÚ]+$/',$_POST['editNombre'])){
+            if(preg_match('/^[a-zA-Z0-9_\sñÑáéíóúÁÉÍÓÚ]+$/',$_POST['editNombre'])){
                 $ruta=$_POST['editFotoActual'];
                 //Validar imagen de usuario
                 if(isset($_FILES["editNuevaFoto"]["tmp_name"]) && $_FILES['editNuevaFoto']['name'] != null){
@@ -361,4 +375,10 @@ class ControladorUsuarios{
          }
      }
 
+}
+
+if(isset($_POST['username']) && isset($_POST['password'])){
+    $instancia = new ControladorUsuarios();
+    return $instancia->ctrIngresoUsuario();
+    
 }

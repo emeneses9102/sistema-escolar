@@ -1,6 +1,6 @@
 
 $('#BuscaApoderado').DataTable();
-
+$('#BuscaApoderado2').DataTable();
 var tableusuarios;
 
 document.addEventListener('DOMContentLoaded',function(){
@@ -97,5 +97,30 @@ $('#BuscaApoderado').on('click', '#Bus_Aporado', function(e) {
 
     $("#formAlumno").append('<input value="'+id+'" class="buscID_Apoderado" hidden>');
     $("#BuscarApoderado").modal('hide');
+         
+});
+
+$('#BuscaApoderado2').on('click', '#Bus_Aporado2', function(e) {
+	let id=$(this).attr("name");
+    var valores = new Array();
+    i=0;
+    $(".buscID_Apoderado2").remove();
+    $(this).parents("tr").find("td").each(function(){
+       valores[i] =$(this).html();
+        i++;
+    });
+    $("#dni-ap2").val(valores[1]);
+    $("#nombre-ap2").val(valores[2]);
+    $("#apellidos-ap2").val(valores[3]);
+    $("#tipo-ap2").val(valores[4]);
+    $("#telefono-ap2").val(valores[5]);
+    $("#telefono-ap2").val(valores[6]);
+    $("#correo-ap2").val(valores[7]);
+    $("#ocupacion-ap2").val(valores[8]);
+
+
+
+    $("#formAlumno").append('<input value="'+id+'" class="buscID_Apoderado2" hidden>');
+    $("#BuscarApoderado2").modal('hide');
          
 });

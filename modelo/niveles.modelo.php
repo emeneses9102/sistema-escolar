@@ -19,7 +19,7 @@ class ModeloNiveles{
     }
 
     static public function mdlMostrarNiveles($tabla, $valor){
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE estado !=0 ORDER BY num_orden asc");
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE estado_nivel !=0 ORDER BY num_orden asc");
         //$stmt -> bindParam(":".$item,$valor , PDO::PARAM_STR);
     
         $stmt -> execute();
@@ -51,7 +51,7 @@ class ModeloNiveles{
     }
 
     static public function mdlDescativarNivel($dato,$tabla){
-         $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET estado = 0 WHERE idNiveles = ?");
+         $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET estado_nivel = 0 WHERE idNiveles = ?");
          $respuesta2 = $stmt -> execute([$dato]);
         
          if($respuesta2 == true){

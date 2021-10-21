@@ -1,6 +1,4 @@
 
-
-
 $('#tablealumnos').DataTable();
 
 var tableusuarios;
@@ -9,6 +7,9 @@ document.addEventListener('DOMContentLoaded',function(){
     tableusuarios = $('#tablealumnos').DataTable({
         "aProcessing": true,
         "aServerSide": true,
+        "searching": true,
+        "lengthMenu": [ [20, 50, 100, -1], [20, 50, 100, "All"] ],
+        "pageLength": 20,
         "language": {
             "sProcessing":     "Procesando...",
             "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -28,7 +29,7 @@ document.addEventListener('DOMContentLoaded',function(){
                 "sNext":     "Siguiente",
                 "sPrevious": "Anterior"
             }
-        },dom: 'Bfrtip',
+        },dom: 'B<clear>frtip',
         buttons: [
             'copy', 'excel', 'pdf'
         ],
@@ -186,7 +187,7 @@ function editarAlumno(id){
                 //$("#clave").val(data.clave);
                 //Guardamos la clave
                 $("#editClaveActual").val(data.clave);
-                $("#editListRol").val(data.rol);
+                $("#editCohorte").val(data.cohorte);
                 $("#editListEstado").val(data.estado);
                 //datos del apoderado
                 $("#editNombre-ap").val(data.nombres_apoderado);
@@ -197,6 +198,24 @@ function editarAlumno(id){
                 $("#editTipo-ap").val(data.tipo_apoderado);
                 $("#editDni-ap").val(data.dni_apoderado);
                 $("#editOcupacion-ap").val(data.ocupacion_apoderado);
+                //datos del apoderado2
+                $("#editNombre-ap2").val(data.nombres_apoderado2);
+                $("#editApellidos-ap2").val(data.apellidos_apoderado2);
+                $("#editDireccion-ap2").val(data.direccion_apoderado2);
+                $("#editTelefono-ap2").val(data.telefono_apoderado2);
+                $("#editCorreo-ap2").val(data.correo_apoderado2);
+                $("#editTipo-ap2").val(data.tipo_apoderado2);
+                $("#editDni-ap2").val(data.dni_apoderado2);
+                $("#editOcupacion-ap2").val(data.ocupacion_apoderado2);
+                //datos del apoderado3
+                $("#editNombre-ap3").val(data.nombres_apoderado3);
+                $("#editApellidos-ap3").val(data.apellidos_apoderado3);
+                $("#editDireccion-ap3").val(data.direccion_apoderado3);
+                $("#editTelefono-ap3").val(data.telefono_apoderado3);
+                $("#editCorreo-ap3").val(data.correo_apoderado3);
+                $("#editTipo-ap3").val(data.tipo_apoderado3);
+                $("#editDni-ap3").val(data.dni_apoderado3);
+                $("#editOcupacion-ap3").val(data.ocupacion_apoderado3);
                 
             },
             fail: function(data){
@@ -208,41 +227,61 @@ function editarAlumno(id){
 
 }
 
-function desactivarAlumno(id){
-    var idusuario = id;
-    var desactivar = 'descativar';
-    
+function modalEliminar(id){
+    $("#deleteID").val(id)
+    $("#modalClave").modal("show")
+}
 
-    Swal.fire({
-        title: 'Realmente desea desactivar el usuario?',
-        showDenyButton: true,
-        
-        confirmButtonText: `Sí, descativar`,
-        denyButtonText: `No, Cancelar`,
-      }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-            
-            $.ajax({
-                url		: 'ajax/alumnos.ajax.php',
-                type	: 'POST',
-                data: {idusuario : idusuario,
-                desactivar : desactivar},
-
-                success: function (data) {
-                        $('#'+'estado_'+idusuario).html('<span class="badge badge-danger">Inactivo</span>');
-                },
-                fail: function(data){
-                    swal('Atención',data.msg,'error');
+$("#btnDeleteID").click(function (e) { 
+    e.preventDefault();
+    var idusuario = $("#deleteID").val()
+    var claveSeguridad = $("#claveSeguridad").val()
+    var eliminar = 'eliminar'
+        $.ajax({
+            url		: 'ajax/alumnos.ajax.php',
+            type	: 'POST',
+            data: {idusuario : idusuario,
+                eliminar : eliminar,
+                claveSeguridad:claveSeguridad},
+            success: function (data) {
+                if(data == "pass"){
+                    Swal.fire(
+                        'Error',
+                        'Contraseña Incorrecta',
+                        'error'
+                      )
+                      $("#claveSeguridad").val("")
+                } else if(data == "error"){
+                    Swal.fire(
+                        'Error',
+                        'El alumno ya se encuentra inscrito a los cursos',
+                        'error'
+                      )
+                      $("#claveSeguridad").val("")
+                }else{
+                    Swal.fire(
+                        'Exito',
+                        'Usuario Eliminado',
+                        'success'
+                      )
+                      window.location = "alumnos";
                 }
-            });
+                
+            },
+            fail: function(data){
+                Swal.fire(
+                    'Error',
+                    'Ocurrió un error2',
+                    'error'
+                  )
+            }
+        });
+       
+   
+});
 
-        } else if (result.isDenied) {
-          Swal.fire('No se guardaron los cambios', '', 'info')
-        }
-      })
-
-    
+function desactivarAlumno(id){
+  
 }
 
 function mostrarPerfil(id){
@@ -282,3 +321,17 @@ $('.nuevaFoto').change(function(){
 
 })
 
+
+function importarAlumnos(){
+    
+}
+
+function estadoAlumno(e){
+    $.ajax({
+        type: "POST",
+        url: "ajax/alumnos.ajax.php",
+        data: {estadoAlumno:e},
+        success: function (rpta) {
+        }
+      });
+}

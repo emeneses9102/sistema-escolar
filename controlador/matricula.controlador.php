@@ -1,6 +1,6 @@
 <?php
 
-class ControladorMAtricula{
+class ControladorMatricula{
     static public function ctrRegistrarMatricula(){
         $tabla ="matricula";
 

@@ -3,9 +3,8 @@
 class ControladorCobros{
     static public function ctrRegistrarCobro(){
         $tabla = "cobros";
-        if(isset($_POST['cod_pago'])){
-            $datos = array("cod_pago" => $_POST['cod_pago'],
-                            "detalle_pago" => $_POST['detalle_pago'],
+        if(isset($_POST['detalle_pago'])){
+            $datos = array("detalle_pago" => $_POST['detalle_pago'],
                             "fecha_vencimiento" => $_POST['fecha_vencimiento'],
                             "monto" => $_POST['monto'],
                             "cob_niveles" => $_POST['cob_niveles']);

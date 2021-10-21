@@ -21,10 +21,10 @@
         <div class="table-responsive">
           <table class="table table-hover table-bordered  m-auto" id="tableprofesores">
             <thead>
-              <tr>
+              <tr class="text-center">
                 <th>Acciones</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
+                <th>Profesor</th>
+                
                 <th>Celular</th>
                 <th>DNI</th>
                 <th>Usuario</th>
@@ -43,8 +43,7 @@
                 echo '<tr>
                       <th><button class="btn btn-primary btn-sm mt-1" title="Editar" onclick="editarProfesor(' . $value["usuario_id"] . ')"><i class="fas fa-user-edit"></i></button>
                       <button class="btn btn-danger btn-sm mt-1 ml-1" title="Eliminar"  onclick="desactivarProfesor(' . $value["usuario_id"] . ')"><i class="fas fa-user-times"></i></button></th>
-                      <th>' . $value['nombres'] . '</th>
-                      <th>' . $value['apellidos'] . '</th>
+                      <th>' . $value['apellidos'] . ', '.$value['nombres'] .'</th>
                       <th>' . $value['celular'] . '</th>
                       <th>' . $value['dni'] . '</th>
                       <th>' . $value['usuario'] . '</th>

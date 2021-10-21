@@ -2,21 +2,52 @@
 var detalle= "";
 var montoPagar="";
 var idPago_alumno="";
+var llaveCulqui ="";
+var llavepublica ="";
+var tituloCulqui=""
+var comision_paypal=""
+var comision_culqi=""
+var porcentajePaypal="";
+var pagoPaypal="";
+
+$.ajax({
+    type: "POST",
+    url: "ajax/institucion.ajax.php",
+    data: {culqui:"culqui"},
+    dataType: "json",
+    success: function (datos) {
+        comision_paypal =datos.comision_paypal/100
+    }
+});
+
 
   $('#btn-culqi').on('click', function(e) {
     idPago_alumno = $('#idPago').val();
     detalle = $('#detalle').val();
     montoPagar = $('#montoPagar').val()*100;
     
+    $.ajax({
+        type: "POST",
+        url: "ajax/institucion.ajax.php",
+        data: {culqui:"culqui"},
+        dataType: "json",
+        success: function (datos) {
+            llaveCulqui = datos.llave_culqui
+            llavePublica = datos.llave_publica
+            tituloCulqui =datos.titulo_culqui
+            
+            comision_culqi =datos.comision_culqi*0.01
+        }
+    });
     
-
+    porcentajeCulqi=montoPagar*comision_culqi
     //configurar los valores
-    Culqi.publicKey = 'sk_test_jCASaWOjVIo8epqz';
+    Culqi.publicKey = llavePublica;
     Culqi.settings({
-        title: 'Culqi Store',
+        title: tituloCulqui,
         currency: 'PEN',
         description: detalle,
-        amount: montoPagar
+        amount: montoPagar+porcentajeCulqi
     });
     Culqi.open();
     e.preventDefault();
@@ -31,7 +62,6 @@ var estado="";
 //Pagos pendientes
 function mostrarModal(idAlumnoxPago){
     $("#idPago").val(idAlumnoxPago);
-   
     $.ajax({
         url	    : 'ajax/pagosPendientes.ajax.php',
         type    : 'POST',
@@ -39,11 +69,13 @@ function mostrarModal(idAlumnoxPago){
         dataType:   "json",
         success: function(data){
             montito2=data.montoCobrar;
-            montito=montito2/dolar;
+            pagoPaypal = parseFloat(montito2)+(montito2*comision_paypal)
+            //console.log("f"+pagoPaypal+"f")
+            montito=pagoPaypal/dolar;
             idalumno1=data.idAlumno_cobros;
-            console.log(montito+'hola');
+            //console.log(montito+'hola');
             montito1=montito.toFixed(2);
-            console.log("hola"+montito+"-"+montito1);
+            //console.log("hola"+montito+"-"+montito1);
             $("#detalle").val(data.detalle);
             $("#montoPagar").val(data.montoCobrar);
             $("#idImagen").val(data.idAlumno_cobros);
@@ -92,9 +124,10 @@ function culqi() {
            type:'POST',
            data: {
                detalle:detalle,
-               montoPagar:montoPagar,
+               montoPagar:montoPagar+porcentajeCulqi,
                token:token,
-               email:email
+               email:email,
+               llaveCulqui:llaveCulqui,
            },
        }).done(function (resp){
             var tipoPago_alumno = "Culqui";
@@ -141,7 +174,7 @@ function culqi() {
 
   /////////////////////
 paypal.Buttons({
-    env:'sandbox',//production para que funcione en pago real
+    env:'production',//production para que funcione en pago real sandbox
       style: {
           layout: 'horizontal'
       },

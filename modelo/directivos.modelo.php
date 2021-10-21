@@ -98,5 +98,6 @@ class ModeloDirectivo{
         $respuesta->close();
         $respuesta =null;
     }
+    
 
 }

@@ -1,8 +1,13 @@
 <!-- Essential javascripts for application to work-->
+<?php 
+    $mostrarDatos_pag = new ControladorInstitucion();
+    $respuesta=$mostrarDatos_pag->ctrMostrarDatos_Pag();
+?>
 <script src="vista/js/jquery-3.3.1.min.js"></script>
     <script src="vista/js/popper.min.js"></script>
     <script src="vista/js/bootstrap.min.js"></script>
     <script src="vista/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
     <!-- The javascript plugin to display page loading on top-->
     <script src="vista/js/plugins/pace.min.js"></script>
     <script src="vista/js/plugins/bootstrap-notify.min.js"></script>
@@ -12,7 +17,7 @@
     <!-- Data table plugin-->
    
 <!-- INTEGRACION CULQI-->
-  <script src="https://www.paypal.com/sdk/js?client-id=AfFTd20YT9pdzMOXq4JAeUj310OSiYwQDF3V0-JDjKVAQ_K0Z5YC-ADXZ-SiaDEHrI5ex589PtlOD9ue"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=<?php echo ($respuesta == "vacio")? "":$respuesta["url_paypal"]?>"></script>
 <!--<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>-->
 
     <!--<script>
@@ -61,6 +66,8 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
 <script src="https://checkout.culqi.com/js/v3"></script>
 
+
+</script>
 </body>
 <script src="vista/js/function_paypal.js"></script>
     <script src="vista/js/functions_apoderado.js"></script>
@@ -80,5 +87,20 @@
     <script src="vista/js/functions_deudores.js"></script>
     <script src="vista/js/functions_reportes.js"></script>
     <script src="vista/js/functions_reportes2.js"></script>
+    <script src="vista/js/functions_competencias.js"></script>
+    <script src="vista/js/functions_configuracion.js"></script>
+    <script src="vista/js/functions_listaCursos.js"></script>
+    <script src="vista/js/functions_periodos.js"></script>
+    <script>
+            document.addEventListener("DOMContentLoaded", function(){
+                // Invocamos cada 5 segundos ;)
+                const milisegundos = 5 *1000;
+                setInterval(function(){
+                    // No esperamos la respuesta de la petición porque no nos importa
+                    fetch("vista/plantilla.php");
+                },milisegundos);
+            });
+            CKEDITOR.replace( 'editor' );
+        </script>
   </body>
 </html>
