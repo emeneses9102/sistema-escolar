@@ -1,7 +1,13 @@
  <!-- Sidebar menu-->
  <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
  <aside class="app-sidebar">
-   <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="<?php echo (!empty($_SESSION['foto'])) ? $_SESSION['foto'] : "vista/images/user_default.png" ?>" alt="User Image" style="max-height: 70px;">
+   <div class="app-sidebar__user">
+     <img 
+      class="app-sidebar__user-avatar" 
+      src="vista/images/user_default.png" 
+      alt="User Image" 
+      style="max-height: 70px;"
+      >
      <div>
        <?php
         $apellido = explode(" ", $_SESSION['apellidos']);

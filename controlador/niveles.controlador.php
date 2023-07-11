@@ -9,7 +9,7 @@ class ControladorNiveles{
             $datos = array("nombreNivel" => $_POST['nombreNivel'],
                     "descripcion" => $_POST['descripcionNivel'],
                     "nivel_color" => $_POST['nivel_color']);
-            $respuesta = ModeloNiveles :: mdlCrearNivel($tabla,$datos,);  
+            $respuesta = ModeloNiveles :: mdlCrearNivel($tabla,$datos);  
             //var_dump($respuesta);
            
             if($respuesta == "ok"){

@@ -91,6 +91,7 @@
     <script src="vista/js/functions_configuracion.js"></script>
     <script src="vista/js/functions_listaCursos.js"></script>
     <script src="vista/js/functions_periodos.js"></script>
+    <script src="vista/js/functions_cursosProfesor.js"></script>
     <script>
             document.addEventListener("DOMContentLoaded", function(){
                 // Invocamos cada 5 segundos ;)

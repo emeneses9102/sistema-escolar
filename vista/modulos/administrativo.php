@@ -9,7 +9,9 @@
 <div class="row user">
         <div class="col-md-12">
           <div class="profile">
-            <div class="info"><img class="user-img" id="user-img" src="<?php echo (!empty($_SESSION['foto'])) ? $_SESSION['foto'] : "vista/images/user_default.png" ?>">
+            <div class="info"><img src=""  id="user-img">
+              
+              <img src="<?php echo(!empty($_SESSION['foto'])) ? $_SESSION['foto'] : 'vista/images/user_default.png'?>" alt="" class="user-img" id="user-img">
               <h4><?php echo $_SESSION['nombre'] . " " . $_SESSION['apellidos'] ?></h4>
             </div>
             <div class="cover-image"></div>
@@ -18,7 +20,7 @@
         <div class="col-md-3">
           <div class="tile p-0">
             <ul class="nav flex-column nav-tabs user-tabs">
-              <li class="nav-item"><a class="nav-link active" href="#user-timeline" data-toggle="tab">Información importante</a></li>
+              <li class="nav-item"><a class="nav-link active" href="#user-timeline" data-toggle="tab">Información importante </a></li>
               <li class="nav-item"><a class="nav-link" href="#user-settings" data-toggle="tab">Configuración</a></li>
             </ul>
           </div>
